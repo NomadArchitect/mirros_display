@@ -1,0 +1,103 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "type": "dataTable",
+      "attributes": {
+        "title": "Wetter",
+        "data": {
+          "rows": [
+            ["18:00", "24° C", "wolkig"],
+            ["18:30", "23° C", "klar"],
+            ["19:00", "22° C", "klar"]
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "dataTable",
+      "attributes": {
+        "title": "Demnächst",
+        "data": {
+          "rows": [
+            ["26.03", "Beginn der Sommerzeit", "icon:24-hours.svg"],
+            ["6:30pm", "23° C", "iconClass:fa fa-cloud"],
+            ["7pm", "22° C", "clear"]
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "list",
+      "attributes": {
+        "title": "My list",
+        "subtitle": "mirrOS-Module",
+        "data": {
+          "items": [
+            {
+              "iconClass": "fa fa-check-square-o",
+              "text": "Einkaufen"
+            },
+            {
+              "iconClass": "fa fa-square-o",
+              "text": "putzen"
+            },
+            {
+              "iconClass": "fa fa-square-o",
+              "text": "that thing"
+            },
+            {
+              "iconClass": "fa fa-info-circle",
+              "text": "2 weitere Aufgaben"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "genericHTML",
+      "attributes": {
+        "title": "My list",
+        "subtitle": "mirrOS-Module",
+        "data": {
+          "content": "<img src=\"http://placehold.it/600x300\" />"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "custom-inline",
+      "attributes": {
+        "customType": "info",
+        "template": "<div><clock :format=\"12\" locale=\"en-EN\"></clock>{{data.content}}</div>",
+        "uses": ["Clock"],
+        "title": "Info",
+        "subtitle": "",
+        "data": {
+
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": "dwtfyw",
+      "attributes": {
+        "totallyCustomType": "murks",
+        "title": "My super-custom component",
+        "subtitle": "mirrOS-Module",
+        "data": {
+          "param1": "nothing"
+        }
+      }
+    }
+  ],
+  "errors": [
+
+  ],
+  "meta": {
+    "timestamp": "2017-03-10 06:00:00+2"
+  }
+}
