@@ -4,6 +4,7 @@
   "description": "Display frontend for the glancr Smart Mirror.",
   "private": true,
   "scripts": {
+    "init": "node ./init",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
