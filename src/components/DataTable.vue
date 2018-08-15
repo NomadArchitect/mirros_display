@@ -14,18 +14,17 @@
 
 <script>
 // @TODO: Check path for image assets
-    export default {
-      name: 'dataTable',
-      props: {
-        data: {
-          rows: Array
-        }
-      }
+export default {
+  name: "dataTable",
+  props: {
+    data: {
+      rows: Array
     }
+  }
+};
 </script>
 
 <style>
-    .table {
-
-    }
+.table {
+}
 </style>

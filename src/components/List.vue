@@ -10,17 +10,15 @@
 </template>
 
 <script>
-
-  export default {
-    name: 'list',
-    props: {
-      data: {
-        items: Array
-      }
+export default {
+  name: "list",
+  props: {
+    data: {
+      items: Array
     }
   }
+};
 </script>
 
 <style>
-
 </style>
