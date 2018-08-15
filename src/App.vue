@@ -1,58 +1,53 @@
 <template>
   <div id="app">
-    <span v-if="serverError.length != 0">{{serverError}}</span>
+    <!-- <span v-if="serverError.length != 0">{{serverError}}</span> -->
 
     <main v-if="errors.length != 0">
-      <span v-for="error in errors">Error {{ error.status }}: {{error.title}} (Source: {{error.source}})</span>
+      <span v-for="error in errors" :key="error.id">Error {{ error.status }}: {{error.title}} (Source: {{error.source}})</span>
     </main>
 
-    <main v-else-if="data.length === 0">
+    <main v-else-if="widgetInstances.length === 0">
       <p>Loading</p>
     </main>
 
     <main>
-      <div v-for="moduleData in data">
-        <h2 :title="moduleData.attributes.title">{{ moduleData.attributes.title }}</h2>
-        <span v-if="moduleData.attributes.subtitle" :subtitle="moduleData.attributes.subtitle"></span>
-
-        <div v-if="moduleData.type === 'dwtfyw'" :id="moduleData.attributes.totallyCustomType"></div>
-        <component
-          v-else-if="moduleData.type === 'custom-inline'"
-          :is="moduleData.attributes.customType"
-          :key="moduleData.id"
-          v-bind:data="moduleData.attributes.data"
-        ></component>
-        <component
-          v-else
-          :is="moduleData.id"
-          :key="moduleData.id"
-          v-bind:data="moduleData.attributes.data"
-        ></component>
-      </div>
+      <WidgetInstanceWrapper
+        v-for="widgetInstance in widgetInstances" :key="widgetInstance.id"
+        :widgetInstance="widgetInstance" />
     </main>
 
   </div>
 </template>
 
 <script>
-import Clock from "./components/Clock";
-import DataTable from "./components/DataTable";
-import List from "./components/List";
-import GenericHTML from "./components/GenericHTML";
+import { mapState } from "vuex";
+
+import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 
 export default {
   name: "app",
   components: {
-    DataTable,
-    List,
-    GenericHTML
+    WidgetInstanceWrapper
   },
-  data: () => ({
-    data: [],
-    errors: [],
-    serverError: ""
-  }),
-  created() {}
+  computed: {
+    ...mapState(["errors", "widgetInstances"])
+  },
+  beforeMount: function() {
+    this.fetchData();
+    window.setInterval(this.fetchData, 100000);
+  },
+  methods: {
+    fetchData: function() {
+      this.$store.dispatch("fetchWidgetInstances", {
+        include: [
+          "widget",
+          "source-instances",
+          "source-instances.record-links",
+          "source-instances.record-links.recordable"
+        ]
+      });
+    }
+  }
 };
 </script>
 
