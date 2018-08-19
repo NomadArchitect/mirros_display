@@ -6,8 +6,9 @@
       <span v-for="error in errors" :key="error.id">Error {{ error.status }}: {{error.title}} (Source: {{error.source}})</span>
     </main>
 
-    <main v-else-if="widgetInstances.length === 0">
-      <p>Loading</p>
+    <main v-else-if="loading" class="spinner">
+      <p>Loading …</p>
+      <!-- TODO: Replace with spinner to avoid translation -->
     </main>
 
     <main>
@@ -20,7 +21,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 
@@ -29,23 +30,34 @@ export default {
   components: {
     WidgetInstanceWrapper
   },
+  data: function() {
+    return {
+      loading: true
+    };
+  },
   computed: {
-    ...mapState(["errors", "widgetInstances"])
+    ...mapState(["errors", "widgetInstances"]),
+    ...mapGetters(["language"])
   },
   beforeMount: function() {
-    this.fetchData();
-    window.setInterval(this.fetchData, 100000);
+    this.fetchData().then(() => {
+      this.loading = false;
+      window.setInterval(this.fetchData, 100000);
+    });
   },
   methods: {
     fetchData: function() {
-      this.$store.dispatch("fetchWidgetInstances", {
-        include: [
-          "widget",
-          "source-instances",
-          "source-instances.record-links",
-          "source-instances.record-links.recordable"
-        ]
-      });
+      return Promise.all([
+        this.$store.dispatch("fetchSetting", "system_language"),
+        this.$store.dispatch("fetchWidgetInstances", {
+          include: [
+            "widget",
+            "source-instances",
+            "source-instances.record-links",
+            "source-instances.record-links.recordable"
+          ]
+        })
+      ]).then(() => this.$translate.setLang(this.language));
     }
   }
 };
