@@ -63,7 +63,51 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+$gridstack-columns: 12 !default;
+$gridstack-rows: 20 !default;
+$horizontal_padding: 20px !default;
+$vertical_padding: 20px !default;
+
+.grid-stack {
+  position: relative;
+  > .grid-stack-item {
+    min-width: 100% / $gridstack-columns;
+    position: absolute;
+    padding: 0;
+
+    @for $i from 1 through $gridstack-columns {
+      &[data-gs-width="#{$i}"] {
+        width: (100% / $gridstack-columns) * $i;
+      }
+      &[data-gs-x="#{$i}"] {
+        left: (100% / $gridstack-columns) * $i;
+      }
+    }
+
+    @for $i from 1 through $gridstack-rows {
+      &[data-gs-height="#{$i}"] {
+        height: (100vh / $gridstack-rows) * $i;
+      }
+      &[data-gs-y="#{$i}"] {
+        top: (100vh / $gridstack-rows) * $i;
+      }
+    }
+    > .grid-stack-item-content {
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: $horizontal_padding / 2;
+      right: $horizontal_padding / 2;
+      bottom: 0;
+      width: auto;
+      z-index: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+  }
+}
+
 body {
   margin: 0;
   background-color: black;
