@@ -5,7 +5,10 @@ import appconfig from "@/appconfig";
 
 import axios from "axios";
 
+import VueTranslate from "vue-translate-plugin";
+
 Vue.config.productionTip = false;
+Vue.use(VueTranslate);
 
 axios.defaults.baseURL = appconfig.backendUrl;
 
