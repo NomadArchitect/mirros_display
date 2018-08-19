@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="grid-stack-item-content">
     <h2>{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
     <component v-if="this.widget.id === 'calendar_today'" :is="this.widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" />

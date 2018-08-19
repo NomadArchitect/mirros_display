@@ -11,10 +11,18 @@
       <!-- TODO: Replace with spinner to avoid translation -->
     </main>
 
-    <main>
-      <WidgetInstanceWrapper
-        v-for="widgetInstance in widgetInstances" :key="widgetInstance.id"
-        :widgetInstance="widgetInstance" />
+    <main v-else class="grid-stack">
+      <div
+      v-for="widgetInstance in widgetInstances"
+      :key="widgetInstance.id"
+      class="grid-stack-item"
+      :data-gs-x="widgetInstance.attributes.position.x"
+      :data-gs-y="widgetInstance.attributes.position.y"
+      :data-gs-width="widgetInstance.attributes.position.width"
+      :data-gs-height="widgetInstance.attributes.position.height"
+      >
+        <WidgetInstanceWrapper :widgetInstance="widgetInstance" />
+      </div>
     </main>
 
   </div>
