@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
 
 export default {
@@ -41,7 +41,8 @@ export default {
 
       return records;
     },
-    ...mapState(["language", "sourceInstances", "recordLinks"])
+    ...mapGetters(["language"]),
+    ...mapState(["sourceInstances", "recordLinks"])
   },
   beforeMount: function() {
     if (this.widget.id != "calendar_today") return;

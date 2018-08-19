@@ -7,13 +7,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    language: "enGb",
+    settings: {},
     errors: [],
     widgetInstances: {},
     sourceInstances: {},
     recordLinks: {}
   },
   mutations: {
+    SET_SETTINGS: (state, payload) => {
+      state.settings = { ...state.settings, ...payload };
+    },
     ADD_ERROR: (state, error) => {
       state.errors = state.errors.push(error);
     },
@@ -44,8 +47,25 @@ export default new Vuex.Store({
         const normalized = normalize(response.data, normalizerOptions);
         commitAll(commit, normalized);
       } catch (error) {
-        commit("ADD_ERROR", error);
+        commit("ADD_ERROR", error.data ? error.data.errors : error);
       }
+    },
+    fetchSetting: async ({ commit }, setting) => {
+      try {
+        const response = await axios.get(`/settings/${setting}`);
+        const normalized = normalize(response.data, normalizerOptions);
+
+        commit("SET_SETTINGS", normalized.settings);
+      } catch (error) {
+        commit("ADD_ERROR", error.data ? error.data.errors : error);
+      }
+    }
+  },
+  getters: {
+    language: state => {
+      return state.settings.system_language != undefined
+        ? state.settings.system_language.attributes.value
+        : "enGb";
     }
   }
 });
