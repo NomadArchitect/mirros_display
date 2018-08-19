@@ -4,10 +4,8 @@ import store from "@/store";
 import appconfig from "@/appconfig";
 
 import axios from "axios";
-import VueAxios from "vue-axios";
 
 Vue.config.productionTip = false;
-Vue.use(VueAxios, axios);
 
 axios.defaults.baseURL = appconfig.backendUrl;
 
