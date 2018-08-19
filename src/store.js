@@ -46,6 +46,11 @@ export default new Vuex.Store({
       } catch (error) {
         commit("ADD_ERROR", error);
       }
+  getters: {
+    language: state => {
+      return state.settings.system_language != undefined
+        ? state.settings.system_language.attributes.value
+        : "enGb";
     }
   }
 });
