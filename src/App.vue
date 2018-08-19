@@ -7,8 +7,7 @@
     </main>
 
     <main v-else-if="loading" class="spinner">
-      <p>Loading …</p>
-      <!-- TODO: Replace with spinner to avoid translation -->
+      <AnimatedLoader />
     </main>
 
     <main v-else class="grid-stack">
@@ -32,11 +31,13 @@
 import { mapState, mapGetters } from "vuex";
 
 import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
+import AnimatedLoader from "@/components/AnimatedLoader";
 
 export default {
   name: "app",
   components: {
-    WidgetInstanceWrapper
+    WidgetInstanceWrapper,
+    AnimatedLoader
   },
   data: function() {
     return {
@@ -129,11 +130,10 @@ body {
 }
 
 .spinner {
-  font-size: 5rem;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 10%;
+  height: 10vh;
+  position: relative;
+  margin: 0 auto;
+  top: 50vh;
 }
 </style>
