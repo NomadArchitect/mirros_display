@@ -100,8 +100,3 @@ function buildFilterString(filters) {
 }
 
 const normalizerOptions = { camelizeKeys: true };
-const defaultParams = {
-  headers: {
-    "Content-Type": "application/vnd.api+json"
-  }
-};

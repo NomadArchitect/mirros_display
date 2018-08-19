@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 Vue.use(VueTranslate);
 
 axios.defaults.baseURL = appconfig.backendUrl;
+axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
 
 new Vue({
   store: store,
