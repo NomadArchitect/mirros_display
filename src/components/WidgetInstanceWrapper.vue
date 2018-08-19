@@ -2,7 +2,7 @@
   <section class="grid-stack-item-content">
     <h2>{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
-    <component v-if="this.widget.id === 'calendar_today'" :is="this.widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" />
+    <component :is="this.widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" />
   </section>
 </template>
 
@@ -45,11 +45,11 @@ export default {
     ...mapState(["sourceInstances", "recordLinks"])
   },
   beforeMount: function() {
-    if (this.widget.id != "calendar_today") return;
+    // if (this.widget.id != "calendar_today") return;
     this.$options.components[this.widget.id] = httpVueLoader(
       `./templates/${this.widget.id}.vue`
     );
-    //`http://localhost:3000/templates/${this.widget.id}/display.vue`
+    //TODO: Use backend route for templates `http://localhost:3000/templates/${this.widget.id}/display`
   }
 };
 </script>
