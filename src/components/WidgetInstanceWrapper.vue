@@ -2,7 +2,11 @@
   <section class="grid-stack-item-content widget">
     <h2 class="widget__title">{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
-    <component :is="this.widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" />
+    <component
+      :is="widget.id"
+      :configuration="widgetInstance.attributes.configuration" :records="records"
+      :language="languageTag"
+    />
   </section>
 </template>
 
@@ -40,6 +44,12 @@ export default {
       });
 
       return records;
+    },
+    languageTag: function() {
+      const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
+      return this.language.replace(regex, match => {
+        return match.toUpperCase().padStart(match.length + 1, "-");
+      });
     },
     ...mapGetters(["language"]),
     ...mapState(["sourceInstances", "recordLinks"])
