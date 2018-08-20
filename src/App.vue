@@ -105,10 +105,10 @@ $vertical_padding: 20px !default;
     > .grid-stack-item-content {
       margin: 0;
       position: absolute;
-      top: 0;
+      top: $vertical_padding / 2;
       left: $horizontal_padding / 2;
       right: $horizontal_padding / 2;
-      bottom: 0;
+      bottom: $vertical_padding / 2;
       width: auto;
       z-index: 0;
       overflow-x: hidden;
@@ -117,16 +117,9 @@ $vertical_padding: 20px !default;
   }
 }
 
-body {
-  margin: 0;
-  background-color: black;
-}
-
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: white;
+.grid-stack-item {
+  box-sizing: border-box;
+  border: 1px solid red;
 }
 
 .spinner {

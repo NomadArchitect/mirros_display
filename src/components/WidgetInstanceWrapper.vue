@@ -1,6 +1,6 @@
 <template>
-  <section class="grid-stack-item-content">
-    <h2>{{ widget.attributes.title[language] }}</h2>
+  <section class="grid-stack-item-content widget">
+    <h2 class="widget__title">{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
     <component :is="this.widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" />
   </section>
