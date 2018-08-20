@@ -7,6 +7,8 @@ import axios from "axios";
 
 import VueTranslate from "vue-translate-plugin";
 
+import "@/assets/sass/global.scss";
+
 Vue.config.productionTip = false;
 Vue.use(VueTranslate);
 
