@@ -88,7 +88,7 @@ function buildIncludeString(includes) {
   }, "?include=");
 }
 
-function buildFilterString(filters) {
+/* function buildFilterString(filters) {
   if (filters.length === 0) {
     return "";
   }
@@ -97,6 +97,6 @@ function buildFilterString(filters) {
     let sep = currentIndex != 0 && currentIndex != array.length ? "&" : "";
     return `${acc}${sep}filter[${filter[0]}]=${filter[1]}`;
   }, "?");
-}
+} */
 
 const normalizerOptions = { camelizeKeys: true };
