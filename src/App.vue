@@ -111,8 +111,8 @@ $vertical_padding: 20px !default;
       bottom: $vertical_padding / 2;
       width: auto;
       z-index: 0;
-      overflow-x: hidden;
-      overflow-y: hidden;
+      overflow-x: visible; // TODO: hidden once styling is complete
+      overflow-y: visible; // TODO: hidden once styling is complete
     }
   }
 }
