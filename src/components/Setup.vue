@@ -1,38 +1,37 @@
 <template>
     <article>
-      <section class="instructions" id="wifi">
-        <p>
-          <span>{{ t("I made a Wi-Fi for you.")}}</span>
-          <br>
-          <span>{{t("Connect your smartphone or laptop with me.")}}</span>
-        </p>
-        <p>{{t("Wi-Fi name")}}: <code>glancr</code></p>
-        
-        <p class="smaller" id="connected">
-          <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
-        </p>
+        <section class="instructions" id="wifi">
+            <p>
+                <span>{{ t("I made a Wi-Fi for you.")}}</span>
+                <br>
+                <span>{{t("Connect your smartphone or laptop with me.")}}</span>
+            </p>
+            <p>{{t("Wi-Fi name")}}: <code>glancr</code></p>
 
-        <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
-      </section>
-      <hr>
+            <!-- <p class="smaller" id="connected">
+                <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
+            </p> -->
 
-      <section class="instructions" id="browser">
-          <img src="@/assets/icons/http.svg" width="150" height="auto" alt="">
-          <p>
-              <span>{{t("On most devices, the setup screen should start automatically.")}}</span>
-              <br>
-              <em>{{t("If it doesn't, visit http://glancr.conf in your browser.")}}</em>
-          </p>
-
-          <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
-      </section>
+            <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
+        </section>
         <hr>
 
+        <section class="instructions" id="browser">
+            <img src="@/assets/icons/http.svg" width="150" height="auto" alt="">
+            <p>
+                <span>{{t("On most devices, the setup screen should start automatically.")}}</span>
+                <br>
+                <em>{{t("If it doesn't, visit http://glancr.conf in your browser.")}}</em>
+            </p>
 
-      <section class="instructions" id="follow">
-          <img src="@/assets/icons/instructions.svg" width="150" height="auto" alt="">
-          <p>{{t("Follow the instructions to complete the setup!")}}</p>
-      </section>
+            <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
+        </section>
+        <hr>
+
+        <section class="instructions" id="follow">
+            <img src="@/assets/icons/instructions.svg" width="150" height="auto" alt="">
+            <p>{{t("Follow the instructions to complete the setup!")}}</p>
+        </section>
 
     </article>
 </template>

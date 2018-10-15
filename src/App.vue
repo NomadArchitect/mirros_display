@@ -1,9 +1,23 @@
 <template>
   <div id="app">
-    <!-- <span v-if="serverError.length != 0">{{serverError}}</span> -->
 
-    <main v-if="errors.length != 0">
-      <span v-for="error in errors" :key="error.id">Error {{ error.status }}: {{error.title}} (Source: {{error.source}})</span>
+    <main v-if="!systemStatus.setup_completed">
+      <Setup />
+    </main>
+
+    <main v-else-if="systemStatus.online === false">
+      <p>
+        {{ t("Something is wrong with your glancr's Wi-Fi connection. Please reconnect your phone or laptop with the Wi-Fi GlancrAP and check if you entered the correct Wi-Fi name and password.") }}
+
+      </p>
+    </main>
+
+    <main v-else-if="errors.length != 0">
+      <div v-for="error in errors" :key="error.id">
+        <span>{{ t("Error") }} {{ error.code }}: {{ error.title }}</span>
+        <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
+        <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
+      </div>
     </main>
 
     <main v-else-if="loading" class="spinner">
@@ -11,15 +25,7 @@
     </main>
 
     <main v-else class="grid-stack">
-      <div
-      v-for="widgetInstance in widgetInstances"
-      :key="widgetInstance.id"
-      class="grid-stack-item"
-      :data-gs-x="widgetInstance.attributes.position.x"
-      :data-gs-y="widgetInstance.attributes.position.y"
-      :data-gs-width="widgetInstance.attributes.position.width"
-      :data-gs-height="widgetInstance.attributes.position.height"
-      >
+      <div v-for="widgetInstance in widgetInstances" :key="widgetInstance.id" class="grid-stack-item" :data-gs-x="widgetInstance.attributes.position.x" :data-gs-y="widgetInstance.attributes.position.y" :data-gs-width="widgetInstance.attributes.position.width" :data-gs-height="widgetInstance.attributes.position.height">
         <WidgetInstanceWrapper :widgetInstance="widgetInstance" />
       </div>
     </main>
@@ -32,12 +38,14 @@ import { mapState, mapGetters } from "vuex";
 
 import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 import AnimatedLoader from "@/components/AnimatedLoader";
+import Setup from "@/components/Setup";
 
 export default {
   name: "app",
   components: {
     WidgetInstanceWrapper,
-    AnimatedLoader
+    AnimatedLoader,
+    Setup
   },
   data: function() {
     return {
@@ -45,18 +53,22 @@ export default {
     };
   },
   computed: {
-    ...mapState(["errors", "widgetInstances"]),
+    ...mapState(["errors", "widgetInstances", "systemStatus"]),
     ...mapGetters(["language"])
   },
   beforeMount: function() {
     this.fetchData().then(() => {
       this.loading = false;
-      window.setInterval(this.fetchData, 100000);
+      this.$options.interval = setInterval(this.fetchData, 50000);
     });
+  },
+  beforeDestroy: function() {
+    clearInterval(this.$options.interval);
   },
   methods: {
     fetchData: function() {
       return Promise.all([
+        this.$store.dispatch("fetchSystemStatus"),
         this.$store.dispatch("fetchSetting", "system_language"),
         this.$store.dispatch("fetchWidgetInstances", {
           include: [
@@ -115,11 +127,6 @@ $vertical_padding: 20px !default;
       overflow-y: visible; // TODO: hidden once styling is complete
     }
   }
-}
-
-.grid-stack-item {
-  box-sizing: border-box;
-  border: 1px solid red;
 }
 
 .spinner {
