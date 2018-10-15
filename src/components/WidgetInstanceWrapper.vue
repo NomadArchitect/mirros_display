@@ -13,6 +13,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
+import appconfig from "@/appconfig";
 
 export default {
   name: "WidgetInstanceWrapper",
@@ -64,7 +65,7 @@ export default {
   beforeMount: function() {
     // if (this.widget.id != "calendar_today") return;
     this.$options.components[this.widget.id] = httpVueLoader(
-      `./templates/${this.widget.id}.vue`
+      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue`
     );
     //TODO: Use backend route for templates `http://localhost:3000/templates/${this.widget.id}/display`
   }

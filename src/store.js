@@ -7,18 +7,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    systemStatus: {},
     settings: {},
     errors: [],
+    connectionError: "",
     widgetInstances: {},
     sourceInstances: {},
     recordLinks: {}
   },
   mutations: {
+    SET_SYSTEMSTATUS: (state, payload) => {
+      state.systemStatus = payload;
+    },
     SET_SETTINGS: (state, payload) => {
       state.settings = { ...state.settings, ...payload };
     },
     ADD_ERROR: (state, error) => {
-      state.errors = state.errors.push(error);
+      state.errors = [...state.errors, error];
     },
     ADD_WIDGETS: (state, payload) => {
       state.widgets = { ...state.widgets, ...payload };
@@ -40,6 +45,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    fetchSystemStatus: async ({ commit }) => {
+      try {
+        const res = await axios.get("/system/status");
+        commit("SET_SYSTEMSTATUS", res.data.meta);
+      } catch (error) {
+        commit("ADD_ERROR", error.data ? error.data.errors : error.response);
+      }
+    },
     fetchWidgetInstances: async ({ commit }, { include: includes }) => {
       const includeString = buildIncludeString(includes);
       try {
@@ -47,7 +60,8 @@ export default new Vuex.Store({
         const normalized = normalize(response.data, normalizerOptions);
         commitAll(commit, normalized);
       } catch (error) {
-        commit("ADD_ERROR", error.data ? error.data.errors : error);
+        console.log(error);
+        commit("ADD_ERROR", error.data ? error.data.errors : error.response);
       }
     },
     fetchSetting: async ({ commit }, setting) => {
@@ -57,7 +71,7 @@ export default new Vuex.Store({
 
         commit("SET_SETTINGS", normalized.settings);
       } catch (error) {
-        commit("ADD_ERROR", error.data ? error.data.errors : error);
+        commit("ADD_ERROR", error.data ? error.data.errors : error.response);
       }
     }
   },
