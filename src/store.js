@@ -60,7 +60,6 @@ export default new Vuex.Store({
         const normalized = normalize(response.data, normalizerOptions);
         commitAll(commit, normalized);
       } catch (error) {
-        console.log(error);
         commit("ADD_ERROR", error.data ? error.data.errors : error.response);
       }
     },
