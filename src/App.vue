@@ -158,7 +158,7 @@ $vertical_padding: 20px !default;
   margin: 0 auto;
   top: 40vh;
   max-width: 75%;
-  font-size: 2rem;
+  font-size: 3rem;
   text-align: center;
 }
 </style>
