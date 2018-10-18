@@ -5,7 +5,7 @@
       <Setup />
     </main>
 
-    <main v-else-if="systemStatus.online === false">
+    <main v-else-if="systemStatus.online === false" class="text-center h3">
       <p>
         {{ t("Something is wrong with your glancr's Wi-Fi connection. Please reconnect your phone or laptop with the Wi-Fi GlancrAP and check if you entered the correct Wi-Fi name and password.") }}
 
@@ -135,5 +135,10 @@ $vertical_padding: 20px !default;
   position: relative;
   margin: 0 auto;
   top: 50vh;
+}
+
+.centered {
+  text-align: center;
+  margin: 0 auto;
 }
 </style>
