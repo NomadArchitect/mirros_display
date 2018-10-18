@@ -5,10 +5,17 @@
       <Setup />
     </main>
 
-    <main v-else-if="systemStatus.online === false" class="text-center h3">
-      <p>
-        {{ t("Something is wrong with your glancr's Wi-Fi connection. Please reconnect your phone or laptop with the Wi-Fi GlancrAP and check if you entered the correct Wi-Fi name and password.") }}
+    <main v-else-if="!systemStatus.online && !systemStatus.ap_active" class="spinner">
+      <AnimatedLoader />
+      <p>{{ t("Connecting") }}</p>
+    </main>
 
+    <main v-else-if="!systemStatus.online && systemStatus.ap_active" class="centered-message">
+      <h4>
+        {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
+      </h4>
+      <p>
+        {{ t("Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.") }}
       </p>
     </main>
 
@@ -51,6 +58,15 @@ export default {
     return {
       loading: true
     };
+  },
+  locales: {
+    deDe: {
+      Connecting: "Verbinden",
+      "Something is wrong with your glancr's Wi-Fi connection.":
+        "Etwas stimmt nicht mit der WLAN-Verbindung deines glancr.",
+      "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.":
+        "Bitte verbinde dein Telefon oder deinen Laptop erneut mit dem WLAN 'glancr setup' und prüfe, ob du WLAN-Name und Passwort richtig eingegeben hast."
+    }
   },
   computed: {
     ...mapState(["errors", "widgetInstances", "systemStatus"]),
@@ -137,8 +153,12 @@ $vertical_padding: 20px !default;
   top: 50vh;
 }
 
-.centered {
-  text-align: center;
+.centered-message {
+  position: relative;
   margin: 0 auto;
+  top: 40vh;
+  max-width: 75%;
+  font-size: 2rem;
+  text-align: center;
 }
 </style>
