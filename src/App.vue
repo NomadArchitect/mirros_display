@@ -1,7 +1,11 @@
 <template>
   <div id="app">
 
-    <main v-if="!systemStatus.setup_completed">
+    <main v-if="loading" class="spinner">
+      <AnimatedLoader />
+    </main>
+
+    <main v-else-if="!systemStatus.setup_completed">
       <Setup />
     </main>
 
@@ -25,10 +29,6 @@
         <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
         <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
       </div>
-    </main>
-
-    <main v-else-if="loading" class="spinner">
-      <AnimatedLoader />
     </main>
 
     <main v-else class="grid-stack">
