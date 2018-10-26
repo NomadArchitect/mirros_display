@@ -75,7 +75,7 @@ export default {
   beforeMount: function() {
     this.fetchData().then(() => {
       this.loading = false;
-      this.$options.interval = setInterval(this.fetchData, 50000);
+      this.$options.interval = setInterval(this.fetchData, 5000);
     });
   },
   beforeDestroy: function() {
