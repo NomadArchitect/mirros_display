@@ -2,11 +2,7 @@
   <section class="grid-stack-item-content widget">
     <h2 class="widget__title">{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
-    <component
-      :is="widget.id"
-      :configuration="widgetInstance.attributes.configuration" :records="records"
-      :language="languageTag"
-    />
+    <component :is="widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" :language="languageTag" :backendUrl="backendUrl" />
   </section>
 </template>
 
@@ -23,6 +19,11 @@ export default {
       type: Object,
       required: true
     }
+  },
+  data: function() {
+    return {
+      backendUrl: appconfig.backendUrl
+    };
   },
   computed: {
     widget: function() {
