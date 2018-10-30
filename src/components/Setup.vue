@@ -6,9 +6,9 @@
                 <br>
                 <span>{{t("Connect your smartphone or laptop with me.")}}</span>
             </p>
-            <p>{{t("Wi-Fi name")}}: <code>glancr</code></p>
 
             <!-- <p class="smaller" id="connected">
+      <p>{{t("Wi-Fi name")}}: <code>glancr setup</code></p>
                 <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
             </p> -->
 
