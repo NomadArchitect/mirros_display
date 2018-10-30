@@ -2,7 +2,7 @@
   <section class="grid-stack-item-content widget">
     <h2 class="widget__title">{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
-    <component :is="widget.id" :configuration="widgetInstance.attributes.configuration" :records="records" :language="languageTag" :backendUrl="backendUrl" />
+    <component :is="widget.id" :currentSettings="widgetInstance.attributes.configuration" :records="records" :language="languageTag" :locale="language" :backendUrl="backendUrl" />
   </section>
 </template>
 
