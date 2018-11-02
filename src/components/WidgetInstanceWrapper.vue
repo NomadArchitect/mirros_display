@@ -64,11 +64,9 @@ export default {
     ...mapState(["sourceInstances", "recordLinks"])
   },
   beforeMount: function() {
-    // if (this.widget.id != "calendar_today") return;
     this.$options.components[this.widget.id] = httpVueLoader(
       `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue`
     );
-    //TODO: Use backend route for templates `http://localhost:3000/templates/${this.widget.id}/display`
   }
 };
 </script>
