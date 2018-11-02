@@ -33,6 +33,9 @@ export default {
       ];
     },
     records: function() {
+      // Return early if the widget has no group, and thus no records.
+      if (this.widgetInstance.relationships.group === null) return [];
+
       // TODO: Can this be written more concise?
       const sourceInstances = this.widgetInstance.relationships.sourceInstances
         .data;
