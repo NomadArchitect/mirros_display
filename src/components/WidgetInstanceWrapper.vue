@@ -32,6 +32,12 @@ export default {
         this.widgetInstance.relationships.widget.data.id
       ];
     },
+    sourcesConfigured: function() {
+      if (this.widgetInstance.relationships.group === null) return true;
+      return this.widgetInstance.relationships.sourceInstances.data.length > 0
+        ? true
+        : false;
+    },
     records: function() {
       // Return early if the widget has no group, and thus no records.
       if (this.widgetInstance.relationships.group === null) return [];
