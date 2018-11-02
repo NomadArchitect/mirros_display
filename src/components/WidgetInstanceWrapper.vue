@@ -2,13 +2,14 @@
   <section class="grid-stack-item-content widget">
     <h2 class="widget__title">{{ widget.attributes.title[language] }}</h2>
     <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
-    <component :is="widget.id" :currentSettings="widgetInstance.attributes.configuration" :records="records" :language="languageTag" :locale="language" :backendUrl="backendUrl" />
+    <component :is="widget.id" :currentSettings="widgetInstance.attributes.configuration" :sourcesConfigured="sourcesConfigured" :records="records" :language="languageTag" :locale="language" :backendUrl="backendUrl" :fetchAsset="fetchAsset" />
   </section>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
+import axios from "axios";
 import appconfig from "@/appconfig";
 
 export default {
@@ -67,6 +68,13 @@ export default {
     this.$options.components[this.widget.id] = httpVueLoader(
       `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue`
     );
+  },
+  methods: {
+    fetchAsset: async function(type, name) {
+      return axios
+        .get(`/assets/${this.widget.id}/${type}/${name}`)
+        .then(res => res.data);
+    }
   }
 };
 </script>
