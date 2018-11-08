@@ -20,28 +20,31 @@ export default new Vuex.Store({
       state.systemStatus = payload;
     },
     SET_SETTINGS: (state, payload) => {
-      state.settings = { ...state.settings, ...payload };
+      state.settings = payload;
     },
     ADD_ERROR: (state, error) => {
       state.errors = [...state.errors, error];
     },
-    ADD_WIDGETS: (state, payload) => {
-      state.widgets = { ...state.widgets, ...payload };
+    SET_WIDGETS: (state, payload) => {
+      state.widgets = payload;
     },
-    ADD_WIDGETINSTANCES: (state, payload) => {
-      state.widgetInstances = { ...state.widgetInstances, ...payload };
+    SET_WIDGETINSTANCES: (state, payload) => {
+      state.widgetInstances = payload;
     },
-    ADD_SOURCEINSTANCES: (state, payload) => {
-      state.sourceInstances = { ...state.sourceInstances, ...payload };
+    SET_SOURCEINSTANCES: (state, payload) => {
+      state.sourceInstances = payload;
     },
-    ADD_RECORDLINKS: (state, payload) => {
-      state.recordLinks = { ...state.recordLinks, ...payload };
+    SET_RECORDLINKS: (state, payload) => {
+      state.recordLinks = payload;
     },
-    ADD_CALENDARS: (state, payload) => {
-      state.calendars = { ...state.calendars, ...payload };
+    SET_CALENDARS: (state, payload) => {
+      state.calendars = payload;
     },
-    ADD_REMINDERLISTS: (state, payload) => {
-      state.reminderLists = { ...state.reminderLists, ...payload };
+    SET_REMINDERLISTS: (state, payload) => {
+      state.reminderLists = payload;
+    },
+    SET_WEATHEROWMS: (state, payload) => {
+      state.weatherOwms = payload;
     }
   },
   actions: {
@@ -85,7 +88,7 @@ export default new Vuex.Store({
 
 function commitAll(commit, response) {
   Object.keys(response).forEach(key => {
-    commit(`ADD_${key.toUpperCase().replace("-", "_")}`, response[key]);
+    commit(`SET_${key.toUpperCase().replace("-", "_")}`, response[key]);
   });
 }
 
