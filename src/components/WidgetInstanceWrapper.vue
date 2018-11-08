@@ -1,7 +1,6 @@
 <template>
   <section class="grid-stack-item-content widget">
-    <h2 class="widget__title">{{ widget.attributes.title[language] }}</h2>
-    <span v-if="widget.attributes.subtitle">{{ widget.attributes.subtitle }}</span>
+    <h2 v-show="widgetInstance.attributes.showtitle" class="widget__title">{{ widgetInstance.attributes.title || localizedTitleOrFallback }}</h2>
     <component :is="widget.id" :currentSettings="widgetInstance.attributes.configuration" :sourcesConfigured="sourcesConfigured" :records="records" :language="languageTag" :locale="language" :backendUrl="backendUrl" :fetchAsset="fetchAsset" />
   </section>
 </template>
@@ -69,6 +68,12 @@ export default {
       return this.language.replace(regex, match => {
         return match.toUpperCase().padStart(match.length + 1, "-");
       });
+    },
+    localizedTitleOrFallback: function() {
+      return (
+        this.widget.attributes.title[this.language] ||
+        this.widget.attributes.title["enGb"]
+      );
     },
     ...mapGetters(["language"]),
     ...mapState(["sourceInstances", "recordLinks"])
