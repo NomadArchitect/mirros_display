@@ -13,6 +13,7 @@ export default new Vuex.Store({
     connectionError: "",
     widgetInstances: {},
     sourceInstances: {},
+    weatherOwms: {},
     recordLinks: {}
   },
   mutations: {
