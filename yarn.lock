@@ -7922,6 +7922,11 @@ vue-async-computed@^3.4.1:
   resolved "https://registry.yarnpkg.com/vue-async-computed/-/vue-async-computed-3.4.1.tgz#b3923c177b38ab80cb767bbc09cca3dbbb25dd48"
   integrity sha512-+nuT0vUGjMwpDf50/3E29gIcJEgAk3i7cP03CCjffptb7FsXjzVyJfLd5yqjMhmma4ovW5Wkh3blNRpWUG/amg==
 
+vue-axios@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.1.4.tgz#a9d298f7e876f9a87feb336b37adcbce34ff9f9f"
+  integrity sha512-DS8Q+WFT3i7nS0aZ/NMmTPf2yhbtlXhj4QEZmY69au/BshsGzGjC6dXaniZaPQlErP3J3Sv1HtQ4RVrXaUTkxA==
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
