@@ -86,6 +86,7 @@ export default {
       return Promise.all([
         this.$store.dispatch("fetchSystemStatus"),
         this.$store.dispatch("fetchSetting", "system_language"),
+        this.$store.dispatch("fetchSetting", "personal_name"),
         this.$store.dispatch("fetchWidgetInstances", {
           include: [
             "widget",

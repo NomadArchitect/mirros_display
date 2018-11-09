@@ -21,7 +21,7 @@ export default new Vuex.Store({
       state.systemStatus = payload;
     },
     SET_SETTINGS: (state, payload) => {
-      state.settings = payload;
+      state.settings = { ...state.settings, ...payload };
     },
     ADD_ERROR: (state, error) => {
       state.errors = [...state.errors, error];
