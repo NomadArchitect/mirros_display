@@ -14,6 +14,7 @@ export default new Vuex.Store({
     widgetInstances: {},
     sourceInstances: {},
     weatherOwms: {},
+    newsfeeds: {},
     recordLinks: {}
   },
   mutations: {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     },
     SET_WEATHEROWMS: (state, payload) => {
       state.weatherOwms = payload;
+    },
+    SET_NEWSFEEDS: (state, payload) => {
+      state.newsfeeds = payload;
     }
   },
   actions: {
