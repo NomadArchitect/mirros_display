@@ -14,7 +14,6 @@ build:
     - yarn install
     - yarn run init
     - yarn run build
-
-artifacts:
-  paths:
-    - dist/
+  artifacts:
+    paths:
+      - dist/
