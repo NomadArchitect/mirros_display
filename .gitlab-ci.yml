@@ -10,10 +10,12 @@ cache:
   - node_modules/
 
 build:
+  only: tags
   script:
     - yarn install
     - yarn run init
     - yarn run build
   artifacts:
+    name: "CI_PROJECT_NAME-$CI_COMMIT_TAG"
     paths:
-      - dist/*
+      - dist/
