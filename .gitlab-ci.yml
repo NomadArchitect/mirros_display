@@ -12,5 +12,6 @@ cache:
 build:
   script:
     - yarn global add @vue/cli
+    - yarn install
     - yarn run init
     - yarn run build
