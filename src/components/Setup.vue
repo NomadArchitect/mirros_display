@@ -104,6 +104,8 @@ export default {
 <style scoped>
 article {
   padding: 3rem;
+  font-size: 2rem;
+  line-height: 4rem;
 }
 
 section {
@@ -111,8 +113,8 @@ section {
 }
 
 hr {
-  max-width: 3rem;
-  margin: 3rem auto 3rem auto;
+  max-width: 6rem;
+  margin: 6rem auto 6rem auto;
   transform: rotate(90deg);
 }
 
@@ -139,5 +141,9 @@ td:nth-of-type(2) {
 
 .margin-top {
   margin-top: 2rem;
+}
+
+.instructions svg {
+  width: 25%;
 }
 </style>
