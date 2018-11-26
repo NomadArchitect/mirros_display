@@ -110,7 +110,11 @@ export default {
             "source-instances.record-links.recordable"
           ]
         })
-      ]).then(() => this.$translate.setLang(this.language));
+      ]).then(() => {
+        if (this.systemStatus.setup_complete) {
+          this.$translate.setLang(this.language);
+        }
+      });
     }
   }
 };
