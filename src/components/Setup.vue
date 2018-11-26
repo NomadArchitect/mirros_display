@@ -6,7 +6,7 @@
         <br>
         <span>{{t("Connect your smartphone or laptop with me.")}}</span>
       </p>
-      <p>{{t("Wi-Fi name")}}: <code>glancr setup</code></p>
+      <p>{{t("Wi-Fi name")}}: <b>glancr setup</b></p>
 
       <!-- <p class="smaller" id="connected">
                 <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
@@ -21,7 +21,7 @@
       <p>
         <span>{{t("On most devices, the setup screen should start automatically.")}}</span>
         <br>
-        <em>{{t("If it doesn't, visit http://glancr.conf in your browser.")}}</em>
+        <em>{{t("If it doesn't, visit") }} <b>http://glancr.conf</b> {{ t("in your browser.")}}</em>
       </p>
 
       <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
@@ -64,8 +64,8 @@ export default {
       Connected: "Verbunden",
       "On most devices, the setup screen should start automatically.":
         "Auf den meisten Geräten sollte die Einrichtung automatisch starten.",
-      "If it doesn't, visit http://glancr.conf in your browser.":
-        "Falls nicht, rufe http://glancr.conf in deinem Browser auf.",
+      "If it doesn't, visit": "Falls nicht, rufe",
+      "in your browser.": "in deinem Browser auf.",
       "Follow the instructions to complete the setup!":
         "Folge den Anweisungen, um die Einrichtung abzuschließen!"
     },
@@ -74,8 +74,12 @@ export default {
       "Connect your smartphone or laptop with me.":
         "Relie ton smartphone ou ton portable.",
       Connected: "Lié",
-      "On most devices, the setup screen should start automatically.": "TODO",
-      "Follow the instructions to complete the setup": "TODO"
+      "On most devices, the setup screen should start automatically.":
+        "Sur la plupart des appareils, l'écran de configuration devrait démarrer automatiquement.",
+      "If it doesn't, visit": "Si ce n'est pas le cas, visitez",
+      "in your browser.": "dans votre navigateur",
+      "Follow the instructions to complete the setup":
+        "Suivez les instructions pour terminer l'installation"
     }
   },
 
