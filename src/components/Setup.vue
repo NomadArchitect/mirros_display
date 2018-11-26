@@ -47,15 +47,14 @@ export default {
     BrowserIcon,
     InstructionsIcon
   },
-  computed: {
-    ...mapState(["settings"]),
-    languages() {
-      return Object.keys(
-        this.settings.system_language.attributes.options
-      ).slice(0);
-    }
+  data: function() {
+    return {
+      languages: []
+    };
   },
-
+  computed: {
+    ...mapState(["settings"])
+  },
   // TODO: Move translations to global Vue.locales once a PO=>JSON pipeline is ready.
   locales: {
     deDe: {
@@ -81,8 +80,13 @@ export default {
   },
 
   mounted: function() {
-    this.$translate.setLang("enGb");
-    window.setInterval(this.changeLocale, 5000);
+    this.languages = Object.keys(
+      this.settings.system_language.attributes.options
+    ).slice(0);
+    this.$options.interval = setInterval(this.changeLocale, 7000);
+  },
+  beforeDestroy: function() {
+    clearInterval(this.$options.interval);
   },
   methods: {
     changeLocale: function() {
