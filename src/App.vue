@@ -9,12 +9,13 @@
       <Setup />
     </main>
 
-    <main v-else-if="!systemStatus.online && !systemStatus.ap_active" class="spinner">
+    <main v-else-if="!systemStatus.online && !connectionTimeout" class="spinner">
       <AnimatedLoader />
       <p>{{ t("Connecting") }}</p>
     </main>
 
-    <main v-else-if="!systemStatus.online && systemStatus.ap_active" class="centered-message">
+    <main v-else-if="!systemStatus.online && connectionTimeout && systemStatus.ap_active" class="centered-message">
+      <ErrorIcon class="error__icon" />
       <h4>
         {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
       </h4>
@@ -46,17 +47,20 @@ import { mapState, mapGetters } from "vuex";
 import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 import AnimatedLoader from "@/components/AnimatedLoader";
 import Setup from "@/components/Setup";
+import ErrorIcon from "@/assets/icons/error.svg";
 
 export default {
   name: "app",
   components: {
     WidgetInstanceWrapper,
     AnimatedLoader,
-    Setup
+    Setup,
+    ErrorIcon,
   },
   data: function() {
     return {
-      loading: true
+      loading: true,
+      connectionAttempts: 0
     };
   },
   locales: {
@@ -82,6 +86,17 @@ export default {
     clearInterval(this.$options.interval);
   },
   methods: {
+    connectionTimeout: function() {
+      if (this.connectionAttempts > 5) {
+        return true;
+      } else if (!this.systemStatus.online && !this.systemStatus.ap_active) {
+        this.connectionAttempts++;
+        return false;
+      } else {
+        this.connectionAttempts = 0;
+        return false;
+      }
+    },
     fetchData: function() {
       return Promise.all([
         this.$store.dispatch("fetchSystemStatus"),
@@ -157,9 +172,14 @@ $vertical_padding: 20px !default;
 .centered-message {
   position: relative;
   margin: 0 auto;
-  top: 40vh;
+  top: 30vh;
   max-width: 75%;
   font-size: 3rem;
   text-align: center;
+  line-height: 3.5rem;
+}
+
+.error__icon {
+  width: 15rem;
 }
 </style>
