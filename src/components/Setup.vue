@@ -17,7 +17,7 @@
     <hr>
 
     <section class="instructions" id="browser">
-      <img src="@/assets/icons/http.svg" width="150" height="auto" alt="">
+      <BrowserIcon />
       <p>
         <span>{{t("On most devices, the setup screen should start automatically.")}}</span>
         <br>
@@ -29,7 +29,7 @@
     <hr>
 
     <section class="instructions" id="follow">
-      <img src="@/assets/icons/instructions.svg" width="150" height="auto" alt="">
+      <InstructionsIcon />
       <p>{{t("Follow the instructions to complete the setup!")}}</p>
     </section>
 
@@ -38,10 +38,15 @@
 
 <script>
 import { mapState } from "vuex";
+import BrowserIcon from "@/assets/icons/http.svg";
+import InstructionsIcon from "@/assets/icons/instructions.svg";
 
 export default {
   name: "Setup",
-
+  components: {
+    BrowserIcon,
+    InstructionsIcon
+  },
   computed: {
     ...mapState(["settings"]),
     languages() {
