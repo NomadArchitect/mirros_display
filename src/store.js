@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     systemStatus: {},
+    networkError: false,
     settings: {},
     errors: [],
     connectionError: "",
@@ -18,14 +19,17 @@ export default new Vuex.Store({
     recordLinks: {}
   },
   mutations: {
+    SET_NETWORK_ERROR: (state, error) => {
+      state.networkError = error;
+    },
     SET_SYSTEMSTATUS: (state, payload) => {
       state.systemStatus = payload;
     },
     SET_SETTINGS: (state, payload) => {
       state.settings = { ...state.settings, ...payload };
     },
-    ADD_ERROR: (state, error) => {
-      state.errors = [...state.errors, error];
+    SET_ERRORS: (state, errors) => {
+      state.errors = errors;
     },
     SET_WIDGETS: (state, payload) => {
       state.widgets = payload;
@@ -53,32 +57,42 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchSystemStatus: async ({ commit }) => {
+    fetchSystemStatus: async ({ commit, dispatch }) => {
       try {
         const res = await axios.get("/system/status");
         commit("SET_SYSTEMSTATUS", res.data.meta);
       } catch (error) {
-        commit("ADD_ERROR", error.data ? error.data.errors : error.response);
+        dispatch("handleError", error);
       }
     },
-    fetchWidgetInstances: async ({ commit }, { include: includes }) => {
+    fetchWidgetInstances: async (
+      { commit, dispatch },
+      { include: includes }
+    ) => {
       const includeString = buildIncludeString(includes);
       try {
         const response = await axios.get(`/widget-instances${includeString}`);
         const normalized = normalize(response.data, normalizerOptions);
         commitAll(commit, normalized);
       } catch (error) {
-        commit("ADD_ERROR", error.data ? error.data.errors : error.response);
+        dispatch("handleError", error);
       }
     },
-    fetchSetting: async ({ commit }, setting) => {
+    fetchSetting: async ({ commit, dispatch }, setting) => {
       try {
         const response = await axios.get(`/settings/${setting}`);
         const normalized = normalize(response.data, normalizerOptions);
 
         commit("SET_SETTINGS", normalized.settings);
       } catch (error) {
-        commit("ADD_ERROR", error.data ? error.data.errors : error.response);
+        dispatch("handleError", error);
+      }
+    },
+    handleError: ({ commit }, error) => {
+      if (error.response) {
+        commit("ADD_ERRORS", error.response.data.errors);
+      } else {
+        commit("SET_NETWORK_ERROR", true);
       }
     }
   },

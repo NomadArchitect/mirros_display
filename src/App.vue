@@ -5,6 +5,19 @@
       <AnimatedLoader />
     </main>
 
+    <main
+      v-if="networkError"
+      class="centered-message"
+    >
+      <h4>
+        {{ t("The server is not responding.") }}
+      </h4>
+      <p>
+        {{ t("This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.") }}
+      </p>
+      <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
+    </main>
+
     <main v-else-if="!systemStatus.setup_completed">
       <Setup />
     </main>
