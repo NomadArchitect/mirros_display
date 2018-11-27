@@ -46,18 +46,31 @@
       </p>
     </main>
 
-    <main v-else-if="errors.length != 0">
-      <div v-for="error in errors" :key="error.id">
+    <main v-else>
+      <section class="grid-stack">
+        <div
+          v-for="widgetInstance in widgetInstances"
+          :key="widgetInstance.id"
+          class="grid-stack-item"
+          :data-gs-x="widgetInstance.attributes.position.x"
+          :data-gs-y="widgetInstance.attributes.position.y"
+          :data-gs-width="widgetInstance.attributes.position.width"
+          :data-gs-height="widgetInstance.attributes.position.height"
+        >
+          <WidgetInstanceWrapper :widgetInstance="widgetInstance" />
+        </div>
+      </section>
+
+      <!-- <div slot="fetch-errors" v-for="error in errors" :key="error.id">
         <span>{{ t("Error") }} {{ error.code }}: {{ error.title }}</span>
         <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
         <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
-      </div>
-    </main>
-
-    <main v-else class="grid-stack">
-      <div v-for="widgetInstance in widgetInstances" :key="widgetInstance.id" class="grid-stack-item" :data-gs-x="widgetInstance.attributes.position.x" :data-gs-y="widgetInstance.attributes.position.y" :data-gs-width="widgetInstance.attributes.position.width" :data-gs-height="widgetInstance.attributes.position.height">
-        <WidgetInstanceWrapper :widgetInstance="widgetInstance" />
-      </div>
+      </div> -->
+      <SystemErrorOverlay v-if="!systemStatus.online">
+        <OfflineIcon slot="icon" />
+        <template slot="title">{{ t('Your glancr is offline.') }}</template>
+        <template slot="text">{{ t('mirr.OS can talk to your network, but cannot reach the internet. Please check your router if your internet connection is active.') }}</template>
+      </SystemErrorOverlay>
     </main>
 
   </div>
@@ -70,6 +83,9 @@ import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 import AnimatedLoader from "@/components/AnimatedLoader";
 import Setup from "@/components/Setup";
 import ErrorIcon from "@/assets/icons/error.svg";
+import OfflineIcon from "@/assets/icons/offline.svg";
+
+import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 
 export default {
   name: "app",
@@ -78,6 +94,8 @@ export default {
     AnimatedLoader,
     Setup,
     ErrorIcon,
+    OfflineIcon,
+    SystemErrorOverlay
   },
   data: function() {
     return {
