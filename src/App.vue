@@ -73,11 +73,24 @@ export default {
   data: function() {
     return {
       loading: true,
-      connectionAttempts: 0
+      connectionAttempts: 0,
+      countdown: 5
     };
+  },
+  watch: {
+    networkError: function(val) {
+      if (val === true) {
+        this.$options.countdown = setInterval(this.doCountdown, 1000);
+      } else {
+        clearInterval(this.$options.countdown);
+      }
+    }
   },
   locales: {
     deDe: {
+      "The server is not responding.": "Der Server reagiert nicht.",
+      "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.":
+        "Das sollte nicht passieren, ist es aber offensichtlich. Bitte starte das Gerät neu und kontaktiere den Support, falls sich der Fehler so nicht beheben lässt.",
       Connecting: "Verbinden",
       "Something is wrong with your glancr's Wi-Fi connection.":
         "Etwas stimmt nicht mit der WLAN-Verbindung deines glancr.",
@@ -86,7 +99,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["errors", "widgetInstances", "systemStatus"]),
+    ...mapState(["errors", "widgetInstances", "systemStatus", "networkError"]),
     ...mapGetters(["language"])
   },
   beforeMount: function() {
@@ -128,6 +141,14 @@ export default {
           this.$translate.setLang(this.language);
         }
       });
+    },
+    doCountdown: function() {
+      if (this.countdown > 0) {
+        this.countdown--;
+      } else {
+        this.$store.commit("SET_NETWORK_ERROR", false);
+        this.countdown = 5;
+      }
     }
   }
 };
@@ -194,6 +215,10 @@ $vertical_padding: 20px !default;
   font-size: 3rem;
   text-align: center;
   line-height: 3.5rem;
+}
+
+.smaller {
+  font-size: 80%;
 }
 
 .error__icon {
