@@ -1,7 +1,19 @@
 <template>
   <section class="grid-stack-item-content widget">
-    <h2 v-show="widgetInstance.attributes.showtitle" class="widget__title">{{ widgetInstance.attributes.title || localizedTitleOrFallback }}</h2>
-    <component :is="widget.id" :currentSettings="widgetInstance.attributes.configuration" :sourcesConfigured="sourcesConfigured" :records="records" :language="languageTag" :locale="language" :backendUrl="backendUrl" :fetchAsset="fetchAsset" />
+    <h2
+      v-show="widgetInstance.attributes.showtitle"
+      class="widget__title"
+    >{{ widgetInstance.attributes.title || localizedTitleOrFallback }}</h2>
+    <component
+      :is="widget.id"
+      :currentSettings="widgetInstance.attributes.configuration"
+      :sourcesConfigured="sourcesConfigured"
+      :records="records"
+      :language="languageTag"
+      :locale="language"
+      :backendUrl="backendUrl"
+      :fetchAsset="fetchAsset"
+    />
   </section>
 </template>
 

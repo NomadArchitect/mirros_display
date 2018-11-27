@@ -1,6 +1,9 @@
 <template>
   <article>
-    <section class="instructions" id="wifi">
+    <section
+      class="instructions"
+      id="wifi"
+    >
       <p>
         <span>{{ t("I made a Wi-Fi for you.")}}</span>
         <br>
@@ -16,7 +19,10 @@
     </section>
     <hr>
 
-    <section class="instructions" id="browser">
+    <section
+      class="instructions"
+      id="browser"
+    >
       <BrowserIcon />
       <p>
         <span>{{t("On most devices, the setup screen should start automatically.")}}</span>
@@ -28,7 +34,10 @@
     </section>
     <hr>
 
-    <section class="instructions" id="follow">
+    <section
+      class="instructions"
+      id="follow"
+    >
       <InstructionsIcon />
       <p>{{t("Follow the instructions to complete the setup!")}}</p>
     </section>
