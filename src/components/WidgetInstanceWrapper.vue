@@ -18,6 +18,10 @@ export default {
     widgetInstance: {
       type: Object,
       required: true
+    },
+    languageTag: {
+      type: String,
+      required: true
     }
   },
   data: function() {
@@ -62,12 +66,6 @@ export default {
         });
 
       return records;
-    },
-    languageTag: function() {
-      const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
-      return this.language.replace(regex, match => {
-        return match.toUpperCase().padStart(match.length + 1, "-");
-      });
     },
     localizedTitleOrFallback: function() {
       return (

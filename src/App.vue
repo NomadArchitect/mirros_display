@@ -57,7 +57,10 @@
           :data-gs-width="widgetInstance.attributes.position.width"
           :data-gs-height="widgetInstance.attributes.position.height"
         >
-          <WidgetInstanceWrapper :widgetInstance="widgetInstance" />
+          <WidgetInstanceWrapper
+            :widgetInstance="widgetInstance"
+            :languageTag="languageTag()"
+          />
         </div>
       </section>
 
@@ -166,6 +169,7 @@ export default {
       ]).then(() => {
         if (this.systemStatus.setup_completed) {
           this.$translate.setLang(this.language);
+          document.documentElement.setAttribute("lang", this.languageTag());
         }
       });
     },
@@ -176,6 +180,12 @@ export default {
         this.$store.commit("SET_NETWORK_ERROR", false);
         this.countdown = 5;
       }
+    },
+    languageTag: function() {
+      const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
+      return this.language.replace(regex, match => {
+        return match.toUpperCase().padStart(match.length + 1, "-");
+      });
     }
   }
 };
