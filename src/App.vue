@@ -9,7 +9,7 @@
     </main>
 
     <main
-      v-if="networkError"
+      v-else-if="networkError"
       class="centered-message"
     >
       <h4>
