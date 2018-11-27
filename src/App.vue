@@ -1,7 +1,10 @@
 <template>
   <div id="app">
 
-    <main v-if="loading" class="spinner">
+    <main
+      v-if="loading"
+      class="spinner"
+    >
       <AnimatedLoader />
     </main>
 
@@ -22,12 +25,18 @@
       <Setup />
     </main>
 
-    <main v-else-if="!systemStatus.online && !connectionTimeout" class="spinner">
+    <main
+      v-else-if="!systemStatus.online && !connectionTimeout"
+      class="spinner"
+    >
       <AnimatedLoader />
       <p>{{ t("Connecting") }}</p>
     </main>
 
-    <main v-else-if="!systemStatus.online && connectionTimeout && systemStatus.ap_active" class="centered-message">
+    <main
+      v-else-if="!systemStatus.online && connectionTimeout && systemStatus.ap_active"
+      class="centered-message"
+    >
       <ErrorIcon class="error__icon" />
       <h4>
         {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
