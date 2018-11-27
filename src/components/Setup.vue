@@ -83,7 +83,7 @@ export default {
     }
   },
 
-  mounted: function() {
+  afterCreate: function() {
     this.languages = Object.keys(
       this.settings.system_language.attributes.options
     ).slice(0);
