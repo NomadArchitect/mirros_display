@@ -92,7 +92,7 @@ export default {
     }
   },
 
-  afterCreate: function() {
+  mounted: function() {
     this.languages = Object.keys(
       this.settings.system_language.attributes.options
     ).slice(0);
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     changeLocale: function() {
-      // Relies on this.languages to be cloned
+      // Rotating languages relies on this.languages to be cloned
       this.languages.push(this.languages.shift());
       this.$translate.setLang(this.languages[0]);
     }
