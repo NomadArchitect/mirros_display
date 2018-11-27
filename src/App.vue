@@ -164,7 +164,7 @@ export default {
           ]
         })
       ]).then(() => {
-        if (this.systemStatus.setup_complete) {
+        if (this.systemStatus.setup_completed) {
           this.$translate.setLang(this.language);
         }
       });
