@@ -21,7 +21,7 @@
       <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
     </main>
 
-    <main v-else-if="!systemStatus.setup_completed">
+    <main v-else-if="!loading && !systemStatus.setup_completed">
       <Setup />
     </main>
 
