@@ -23,12 +23,13 @@ export default {
 
 .error__box {
   background-color: $white;
+  box-sizing: border-box;
   position: absolute;
   bottom: 0;
-  width: 90%;
+  width: 95%;
   padding: 1rem 2rem;
+  margin: 0 2.5%;
   font-size: 2rem;
-  left: calc(5% - 1rem);
   color: black;
   display: flex;
   align-items: center;
