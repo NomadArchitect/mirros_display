@@ -90,7 +90,7 @@ export default new Vuex.Store({
     },
     handleError: ({ commit }, error) => {
       if (error.response) {
-        commit("ADD_ERRORS", error.response.data.errors);
+        commit("SET_ERRORS", error.response.data.errors);
       } else {
         commit("SET_NETWORK_ERROR", true);
       }
