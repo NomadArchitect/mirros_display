@@ -21,20 +21,20 @@
       <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
     </main>
 
-    <main v-else-if="!loading && !systemStatus.setup_completed">
+    <main v-else-if="!loading && !systemStatus.setup_completed || systemStatus.setup_completed && !systemStatus.connecting && systemStatus.ap_active">
       <Setup />
     </main>
 
     <main
-      v-else-if="!systemStatus.online && !connectionTimeout"
+      v-else-if="!systemStatus.online && systemStatus.connecting"
       class="spinner"
     >
       <AnimatedLoader />
-      <p>{{ t("Connecting") }}</p>
+      <p style="text-align: center">{{ t("Connecting") }}</p>
     </main>
 
     <main
-      v-else-if="!systemStatus.online && connectionTimeout && systemStatus.ap_active"
+      v-else-if="!systemStatus.online && systemStatus.ap_active"
       class="centered-message"
     >
       <ErrorIcon class="error__icon" />
@@ -103,7 +103,6 @@ export default {
   data: function() {
     return {
       loading: true,
-      connectionAttempts: 0,
       countdown: 5
     };
   },
@@ -145,17 +144,6 @@ export default {
     clearInterval(this.$options.interval);
   },
   methods: {
-    connectionTimeout: function() {
-      if (this.connectionAttempts > 5) {
-        return true;
-      } else if (!this.systemStatus.online && !this.systemStatus.ap_active) {
-        this.connectionAttempts++;
-        return false;
-      } else {
-        this.connectionAttempts = 0;
-        return false;
-      }
-    },
     fetchData: function() {
       return Promise.all([
         this.$store.dispatch("fetchSystemStatus"),
