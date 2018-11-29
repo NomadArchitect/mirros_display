@@ -5,19 +5,22 @@
       id="wifi"
     >
       <p>
-        <span>{{ t("I made a Wi-Fi for you.")}}</span>
-        <br>
-        <span>{{t("Connect your smartphone or laptop with me.")}}</span>
+        <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
+        <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
       </p>
-      <p>{{t("Wi-Fi name")}}: <b>glancr setup</b></p>
+      <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
 
-      <!-- <p class="smaller" id="connected">
-                <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
-            </p> -->
+      <!--
+        <p class="smaller" id="connected">
+          <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
+        </p>
+      -->
 
-      <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
+      <!--
+        <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top" />
+      -->
     </section>
-    <hr>
+    <hr />
 
     <section
       class="instructions"
@@ -25,23 +28,31 @@
     >
       <BrowserIcon />
       <p>
-        <span>{{t("On most devices, the setup screen should start automatically.")}}</span>
-        <br>
-        <em>{{t("If it doesn't, visit") }} <b>http://glancr.conf</b> {{ t("in your browser.")}}</em>
+        <span>
+          {{
+          t("On most devices, the setup screen should start automatically.")
+          }}
+        </span>
+        <br />
+        <em>
+          {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b>
+          {{ t("in your browser.") }}
+        </em>
       </p>
 
-      <!-- <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/> -->
+      <!--
+        <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/>
+      -->
     </section>
-    <hr>
+    <hr />
 
     <section
       class="instructions"
       id="follow"
     >
       <InstructionsIcon />
-      <p>{{t("Follow the instructions to complete the setup!")}}</p>
+      <p>{{ t("Follow the instructions to complete the setup!") }}</p>
     </section>
-
   </article>
 </template>
 
