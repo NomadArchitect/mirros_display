@@ -188,6 +188,10 @@ $gridstack-rows: 20 !default;
 $horizontal_padding: 20px !default;
 $vertical_padding: 20px !default;
 
+#app {
+  padding: 0.3125rem;
+}
+
 .grid-stack {
   position: relative;
   > .grid-stack-item {
