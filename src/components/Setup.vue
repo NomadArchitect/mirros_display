@@ -35,8 +35,7 @@
         </span>
         <br />
         <em>
-          {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b>
-          {{ t("in your browser.") }}
+          {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b> {{ t("in your browser.") }}
         </em>
       </p>
 
@@ -81,6 +80,7 @@ export default {
       "I made a Wi-Fi for you.": "Ich habe ein WLAN für dich erstellt.",
       "Connect your smartphone or laptop with me.":
         "Verbinde dein Smartphone oder Laptop mit mir.",
+      "Wi-Fi name": "WLAN-Name",
       Connected: "Verbunden",
       "On most devices, the setup screen should start automatically.":
         "Auf den meisten Geräten sollte die Einrichtung automatisch starten.",
@@ -93,13 +93,26 @@ export default {
       "I made a Wi-Fi for you.": "J'ai creé un WLAN pour toi.",
       "Connect your smartphone or laptop with me.":
         "Relie ton smartphone ou ton portable.",
+      "Wi-Fi name": "nom wi-fi",
       Connected: "Lié",
       "On most devices, the setup screen should start automatically.":
         "Sur la plupart des appareils, l'écran de configuration devrait démarrer automatiquement.",
       "If it doesn't, visit": "Si ce n'est pas le cas, visitez",
       "in your browser.": "dans votre navigateur",
-      "Follow the instructions to complete the setup":
-        "Suivez les instructions pour terminer l'installation"
+      "Follow the instructions to complete the setup!":
+        "Suivez les instructions pour terminer l'installation!"
+    },
+    jaJp: {
+      "I made a Wi-Fi for you.": "専用Wi-Fiを設定しました。",
+      "Connect your smartphone or laptop with me.":
+        "スマートフォンまたはパソコンを接続してください。",
+      "Wi-Fi name": "Wi-Fiの名前は",
+      "On most devices, the setup screen should start automatically.":
+        "接続後、通常であればセットアップが自動で始まります。",
+      "If it doesn't, visit": "もし始まらない場合は、",
+      "in your browser.": "にアクセスしてください。",
+      "Follow the instructions to complete the setup!":
+        "指示に従えばセットアップは完了します。"
     }
   },
 
