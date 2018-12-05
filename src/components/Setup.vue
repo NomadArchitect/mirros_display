@@ -96,7 +96,7 @@ export default {
       "Wi-Fi name": "nom wi-fi",
       Connected: "Lié",
       "On most devices, the setup screen should start automatically.":
-        "Sur la plupart des appareils, l'écran de configuration devrait démarrer automatiquement.",
+        "Normalement, la configuration devrait démarrer automatiquement.",
       "If it doesn't, visit": "Si ce n'est pas le cas, visitez",
       "in your browser.": "dans votre navigateur",
       "Follow the instructions to complete the setup!":
