@@ -1,27 +1,27 @@
 <template>
   <div id="app">
+    <main v-if="loading" class="spinner"><AnimatedLoader /></main>
 
-    <main
-      v-if="loading"
-      class="spinner"
-    >
-      <AnimatedLoader />
-    </main>
-
-    <main
-      v-else-if="networkError"
-      class="centered-message"
-    >
-      <h4>
-        {{ t("The server is not responding.") }}
-      </h4>
+    <main v-else-if="networkError" class="centered-message">
+      <h4>{{ t("The server is not responding.") }}</h4>
       <p>
-        {{ t("This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.") }}
+        {{
+          t(
+            "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue."
+          )
+        }}
       </p>
       <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
     </main>
 
-    <main v-else-if="!loading && !systemStatus.setup_completed || systemStatus.setup_completed && !systemStatus.connecting && systemStatus.ap_active">
+    <main
+      v-else-if="
+        (!loading && !systemStatus.setup_completed) ||
+          (systemStatus.setup_completed &&
+            !systemStatus.connecting &&
+            systemStatus.ap_active)
+      "
+    >
       <Setup />
     </main>
 
@@ -42,7 +42,11 @@
         {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
       </h4>
       <p>
-        {{ t("Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.") }}
+        {{
+          t(
+            "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password."
+          )
+        }}
       </p>
     </main>
 
@@ -64,18 +68,23 @@
         </div>
       </section>
 
-      <!-- <div slot="fetch-errors" v-for="error in errors" :key="error.id">
-        <span>{{ t("Error") }} {{ error.code }}: {{ error.title }}</span>
-        <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
-        <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
-      </div> -->
+      <!--
+        <div slot="fetch-errors" v-for="error in errors" :key="error.id">
+          <span>{{ t("Error") }} {{ error.code }}: {{ error.title }}</span>
+          <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
+          <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
+        </div>
+      -->
       <SystemErrorOverlay v-if="!systemStatus.online">
         <OfflineIcon slot="icon" />
-        <template slot="title">{{ t('Your glancr is offline.') }}</template>
-        <template slot="text">{{ t('mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active.') }}</template>
+        <template slot="title">{{ t("Your glancr is offline.") }}</template>
+        <template slot="text">{{
+          t(
+            "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active."
+          )
+        }}</template>
       </SystemErrorOverlay>
     </main>
-
   </div>
 </template>
 

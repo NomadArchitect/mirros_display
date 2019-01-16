@@ -1,9 +1,6 @@
 <template>
   <article>
-    <section
-      class="instructions"
-      id="wifi"
-    >
+    <section class="instructions" id="wifi">
       <p>
         <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
         <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
@@ -22,20 +19,18 @@
     </section>
     <hr />
 
-    <section
-      class="instructions"
-      id="browser"
-    >
+    <section class="instructions" id="browser">
       <BrowserIcon />
       <p>
         <span>
           {{
-          t("On most devices, the setup screen should start automatically.")
+            t("On most devices, the setup screen should start automatically.")
           }}
         </span>
         <br />
         <em>
-          {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b> {{ t("in your browser.") }}
+          {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b>
+          {{ t("in your browser.") }}
         </em>
       </p>
 
@@ -45,10 +40,7 @@
     </section>
     <hr />
 
-    <section
-      class="instructions"
-      id="follow"
-    >
+    <section class="instructions" id="follow">
       <InstructionsIcon />
       <p>{{ t("Follow the instructions to complete the setup!") }}</p>
     </section>

@@ -1,15 +1,9 @@
 <template functional>
   <div class="error__box">
-    <div class="error__icon">
-      <slot name="icon"></slot>
-    </div>
+    <div class="error__icon"><slot name="icon"></slot></div>
     <section>
-      <h4 class="error__title">
-        <slot name="title"></slot>
-      </h4>
-      <p class="error__text">
-        <slot name="text"></slot>
-      </p>
+      <h4 class="error__title"><slot name="title"></slot></h4>
+      <p class="error__text"><slot name="text"></slot></p>
     </section>
   </div>
 </template>

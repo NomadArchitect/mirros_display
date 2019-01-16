@@ -1,5 +1,5 @@
 const fs = require("fs");
-const defaults = require('./appconfig.defaults');
+const defaults = require("./appconfig.defaults");
 
 if (!fs.existsSync("./src/appconfig.js")) {
   console.log("Writing default configuration to appconfig.js:\n", defaults);
