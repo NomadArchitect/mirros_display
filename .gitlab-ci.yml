@@ -10,7 +10,8 @@ cache:
   - node_modules/
 
 build:
-  only: tags
+  only:
+    - tags
   script:
     - yarn install
     - yarn run init
