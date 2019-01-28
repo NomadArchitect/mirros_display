@@ -21,12 +21,12 @@ build-tag:
     paths:
       - dist/
       
-build-commit:
-  script:
-    - yarn install
-    - yarn run init
-    - yarn run build
-  artifacts:
-    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - dist/
+# build-commit:
+#  script:
+#    - yarn install
+#    - yarn run init
+#    - yarn run build
+#  artifacts:
+#    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+#    paths:
+#      - dist/
