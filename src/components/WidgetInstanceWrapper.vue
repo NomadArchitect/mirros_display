@@ -59,11 +59,12 @@ export default {
       // TODO: Can this be written more concise?
       const sourceInstances = this.widgetInstance.relationships.sourceInstances
         .data;
-      const records = sourceInstances
-        .map(si => {
-          return this.sourceInstances[si.id].relationships.recordLinks.data;
-        })
-        .flat()
+      const records = sourceInstances.map(si => {
+        return this.sourceInstances[si.id].relationships.recordLinks.data;
+      });
+      // .flat() not supported by WPE fork yet
+      return [].concat
+        .apply([], records)
         .filter(link => {
           return (
             this.recordLinks[link.id].relationships.group.data.id ===
@@ -75,8 +76,6 @@ export default {
             .data;
           return this.$store.state[record.type][record.id];
         });
-
-      return records;
     },
     localizedTitleOrFallback: function() {
       return (
