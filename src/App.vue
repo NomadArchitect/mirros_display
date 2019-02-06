@@ -122,21 +122,11 @@ export default {
       } else {
         clearInterval(this.$options.countdown);
       }
-    }
-  },
-  locales: {
-    deDe: {
-      "The server is not responding.": "Der Server reagiert nicht.",
-      "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.":
-        "Das sollte nicht passieren, ist es aber offensichtlich. Bitte starte das Gerät neu und kontaktiere den Support, falls sich der Fehler so nicht beheben lässt.",
-      Connecting: "Verbinden",
-      "Something is wrong with your glancr's Wi-Fi connection.":
-        "Etwas stimmt nicht mit der WLAN-Verbindung deines glancr.",
-      "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.":
-        "Bitte verbinde dein Telefon oder deinen Laptop erneut mit dem WLAN 'glancr setup' und prüfe, ob du WLAN-Name und Passwort richtig eingegeben hast.",
-      "Your glancr is offline.": "Dein glancr ist offline.",
-      "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active.":
-        "mirr.OS ist mit deinem Netzwerk verbunden, kann aber das Internet nicht erreichen. Bitte prüfe an deinem Router, ob die Internetverbindung aktiv ist."
+    },
+    systemStatus: function(newVal) {
+      if (newVal.refresh_frontend === true) {
+        this.fetchData();
+      }
     }
   },
   computed: {
@@ -144,18 +134,23 @@ export default {
     ...mapGetters(["language"])
   },
   beforeMount: function() {
-    this.fetchData().then(() => {
+    return Promise.all([
+      this.$store.dispatch("fetchSystemStatus"),
+      this.fetchData()
+    ]).then(() => {
       this.loading = false;
-      this.$options.interval = setInterval(this.fetchData, 5000);
+      this.$options.interval = setInterval(this.checkRefresh, 3000);
     });
   },
   beforeDestroy: function() {
     clearInterval(this.$options.interval);
   },
   methods: {
+    checkRefresh: function() {
+      this.$store.dispatch("fetchSystemStatus");
+    },
     fetchData: function() {
       return Promise.all([
-        this.$store.dispatch("fetchSystemStatus"),
         this.$store.dispatch("fetchSetting", "system_language"),
         this.$store.dispatch("fetchSetting", "personal_name"),
         this.$store.dispatch("fetchWidgetInstances", {
@@ -186,6 +181,21 @@ export default {
       return this.language.replace(regex, match => {
         return match.toUpperCase().padStart(match.length + 1, "-");
       });
+    }
+  },
+  locales: {
+    deDe: {
+      "The server is not responding.": "Der Server reagiert nicht.",
+      "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.":
+        "Das sollte nicht passieren, ist es aber offensichtlich. Bitte starte das Gerät neu und kontaktiere den Support, falls sich der Fehler so nicht beheben lässt.",
+      Connecting: "Verbinden",
+      "Something is wrong with your glancr's Wi-Fi connection.":
+        "Etwas stimmt nicht mit der WLAN-Verbindung deines glancr.",
+      "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.":
+        "Bitte verbinde dein Telefon oder deinen Laptop erneut mit dem WLAN 'glancr setup' und prüfe, ob du WLAN-Name und Passwort richtig eingegeben hast.",
+      "Your glancr is offline.": "Dein glancr ist offline.",
+      "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active.":
+        "mirr.OS ist mit deinem Netzwerk verbunden, kann aber das Internet nicht erreichen. Bitte prüfe an deinem Router, ob die Internetverbindung aktiv ist."
     }
   }
 };
