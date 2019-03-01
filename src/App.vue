@@ -209,6 +209,7 @@ $vertical_padding: 20px !default;
 
 .grid-stack {
   position: relative;
+  margin: 5px;
   > .grid-stack-item {
     min-width: 100% / $gridstack-columns;
     position: absolute;
