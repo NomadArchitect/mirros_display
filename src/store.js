@@ -14,9 +14,12 @@ export default new Vuex.Store({
     connectionError: "",
     widgetInstances: {},
     sourceInstances: {},
+    recordLinks: {},
+    calendars: {},
+    reminderLists: {},
     weatherOwms: {},
     newsfeeds: {},
-    recordLinks: {}
+    publicTransports: {}
   },
   mutations: {
     SET_NETWORK_ERROR: (state, error) => {
@@ -54,6 +57,9 @@ export default new Vuex.Store({
     },
     SET_NEWSFEEDS: (state, payload) => {
       state.newsfeeds = payload;
+    },
+    SET_PUBLICTRANSPORTS: (state, payload) => {
+      state.publicTransports = payload;
     }
   },
   actions: {
