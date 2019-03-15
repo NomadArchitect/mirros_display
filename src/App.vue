@@ -188,6 +188,7 @@ export default {
       "The server is not responding.": "Der Server reagiert nicht.",
       "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.":
         "Das sollte nicht passieren, ist es aber offensichtlich. Bitte starte das Gerät neu und kontaktiere den Support, falls sich der Fehler so nicht beheben lässt.",
+      "Reconnecting in": "Verbindungsversuch in",
       Connecting: "Verbinden",
       "Something is wrong with your glancr's Wi-Fi connection.":
         "Etwas stimmt nicht mit der WLAN-Verbindung deines glancr.",
