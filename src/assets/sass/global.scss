@@ -6,6 +6,12 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  &[lang="ko-KR"] {
+    font-family: "AlegreyaSans", "NotoSansKR",  Helvetica, Arial, sans-serif;
+  }
+  // &[lang="ja-JP"] {
+  //   font-family: "NotoSansJP", "AlegreyaSans", Helvetica, Arial, sans-serif;
+  // }
 }
 
 body {
