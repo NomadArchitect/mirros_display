@@ -1,0 +1,89 @@
+// Alegreya Sans
+// Regular
+@font-face {
+    font-family: "AlegreyaSans";
+    src: url("../fonts/AlegreyaSans-Regular.woff2") format("woff2"),
+      url("../fonts/AlegreyaSans-Regular.woff") format("woff");
+    font-style: normal;
+    font-weight: 400;
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+      U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF, U+0000-00FF, U+0131,
+      U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+      U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// Bold
+@font-face {
+font-family: "AlegreyaSans";
+src: url("../fonts/AlegreyaSans-Bold.woff2") format("woff2"),
+    url("../fonts/AlegreyaSans-Bold.woff") format("woff");
+font-style: normal;
+font-weight: 700;
+unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF, U+0000-00FF, U+0131,
+    U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+    U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// Italic
+@font-face {
+font-family: "AlegreyaSans";
+src: url("../fonts/AlegreyaSans-Italic.woff2") format("woff2"),
+    url("../fonts/AlegreyaSans-Italic.woff") format("woff");
+font-style: italic;
+font-weight: 400;
+unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// FIXME: Downloaded subset font files via https://gist.github.com/ludens/d4bb5e95c22f5507e664 jsdelivr links, but we don't know which version the font is (or if it was altered). Download and subset the original fonts: https://www.google.com/get/noto/#sans-kore
+// See https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization?hl=de
+
+// Noto Sans KR
+// Regular Hangul
+@font-face {
+font-family: "NotoSansKR";
+src: 
+//local("Noto Sans KR"), local("NotoSansKR-Regular"),
+    url("../fonts/NotoSansKR-Regular-Hangul.woff2") format("woff2"),
+    url("../fonts/NotoSansKR-Regular-Hangul.woff") format("woff");
+font-style: normal;
+font-weight: 400;
+font-stretch: normal;
+unicode-range: U+0021-33FF,U+A000-F8FF,U+FB00-F251;
+}
+
+// Regular Hanja
+@font-face {
+    font-family: 'NotoSansKR';
+    font-style: normal;
+    font-weight: 400;
+    src: local('NotoSansKR-Regular'),
+         url('../fonts/NotoSansKR-Regular-Hanja.woff2') format('woff2'), 
+         url('../fonts/NotoSansKR-Regular-Hanja.woff') format('woff');
+    font-stretch: normal;
+    unicode-range: U+4E00-9F95,U+F900-FA0B;
+  }
+
+// Bold Hangul
+@font-face {
+font-family: 'NotoSansKR';
+font-style: normal;
+font-weight: 700;
+src: local('NotoSansKR-Bold'),
+        url('../fonts/NotoSansKR-Bold-Hangul.woff2') format('woff2'), 
+        url('../fonts/NotoSansKR-Bold-Hangul.woff') format('woff');
+font-stretch: normal;
+unicode-range: U+0021-33FF,U+A000-F8FF,U+FB00-F251;
+}
+
+// Bold Hanja
+@font-face {
+    font-family: 'NotoSansKR';
+    font-style: normal;
+    font-weight: 700;
+    src: local('NotoSansKR-Bold'),
+         url('../fonts/NotoSansKR-Bold-Hanja.woff2') format('woff2'), 
+         url('../fonts/NotoSansKR-Bold-Hanja.woff') format('woff');
+    font-stretch: normal;
+    unicode-range: U+4E00-9F95,U+F900-FA0B;
+}

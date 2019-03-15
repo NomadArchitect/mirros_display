@@ -1,35 +1,16 @@
 @import "variables";
+@import "fonts";
 
-@font-face {
-  font-family: "AlegreyaSans";
-  src: url("../fonts/AlegreyaSans-Regular.woff2") format("woff2"),
-    url("../fonts/AlegreyaSans-Regular.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
-}
+html {
+  font-family: "AlegreyaSans", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-@font-face {
-  font-family: "AlegreyaSans";
-  src: url("../fonts/AlegreyaSans-Bold.woff2") format("woff2"),
-    url("../fonts/AlegreyaSans-Bold.woff") format("woff");
-  font-style: normal;
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: "AlegreyaSans";
-  src: url("../fonts/AlegreyaSans-Italic.woff2") format("woff2"),
-    url("../fonts/AlegreyaSans-Italic.woff") format("woff");
-  font-style: italic;
-  font-weight: 400;
 }
 
 body {
   margin: 0;
   background-color: black;
-  font-family: "AlegreyaSans", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: white;
   font-size: 1.25rem;
   line-height: 1.5rem;
