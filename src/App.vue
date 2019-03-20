@@ -204,7 +204,7 @@ export default {
 
 <style lang="scss">
 $gridstack-columns: 12 !default;
-$gridstack-rows: 20 !default;
+$gridstack-rows: 21.33333 !default;
 $horizontal_padding: 20px !default;
 $vertical_padding: 20px !default;
 
