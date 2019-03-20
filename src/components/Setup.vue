@@ -120,18 +120,33 @@ export default {
       "Follow the instructions to complete the setup!":
         "Postępuj zgodnie z instrukcjami, aby zakończyć konfigurację!"
     },
-    jaJp: {
-      "I made a Wi-Fi for you.": "専用Wi-Fiを設定しました。",
+    koKr: {
+      "I made a Wi-Fi for you.": "설정을 위한 Wi-Fi를 생성하였습니다",
       "Connect your smartphone or laptop with me.":
-        "スマートフォンまたはパソコンを接続してください。",
-      "Wi-Fi name": "Wi-Fiの名前は",
+        "스마트폰이나 노트북으로 Wi-Fi에 연결해 주세요",
+      "Wi-Fi name": "Wi-Fi 이름",
+      Connected: "연결되었습니다",
       "On most devices, the setup screen should start automatically.":
-        "接続後、通常であればセットアップが自動で始まります。",
-      "If it doesn't, visit": "もし始まらない場合は、",
-      "in your browser.": "にアクセスしてください。",
+        "대부분의 디바이스에서는 자동으로 설정화면이 나타납니다.",
+      "If it doesn't, visit":
+        "만약 설정화면이 나타나지 않는다면 에 연결해주세요 ",
+      "in your browser.": "브라우저에서.",
       "Follow the instructions to complete the setup!":
-        "指示に従えばセットアップは完了します。"
+        "설정을 완료하기 위한 지시에 따라주세요!"
     }
+    // jaJp: {
+    //   "I made a Wi-Fi for you.": "専用Wi-Fiを設定しました。",
+    //   "Connect your smartphone or laptop with me.":
+    //     "スマートフォンまたはパソコンを接続してください。",
+    //   "Wi-Fi name": "Wi-Fiの名前は",
+    //    Connected: "",
+    //   "On most devices, the setup screen should start automatically.":
+    //     "接続後、通常であればセットアップが自動で始まります。",
+    //   "If it doesn't, visit": "もし始まらない場合は、",
+    //   "in your browser.": "にアクセスしてください。",
+    //   "Follow the instructions to complete the setup!":
+    //     "指示に従えばセットアップは完了します。"
+    // }
   },
 
   mounted: function() {
