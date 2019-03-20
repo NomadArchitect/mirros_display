@@ -176,7 +176,13 @@ export default {
         this.countdown = 5;
       }
     },
+    /**
+     * Formats the internal camelCase language tag as BCP 47
+     * compliant (e. g. `en-GB`). Returns `en-GB` if the language is not set.
+     */
     languageTag: function() {
+      if (this.language.length === 0) return "en-GB";
+
       const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
       return this.language.replace(regex, match => {
         return match.toUpperCase().padStart(match.length + 1, "-");
