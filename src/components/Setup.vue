@@ -94,6 +94,32 @@ export default {
       "Follow the instructions to complete the setup!":
         "Suivez les instructions pour terminer l'installation!"
     },
+    esEs: {
+      "I made a Wi-Fi for you.": "Hice una Wi-Fi para ti.",
+      "Connect your smartphone or laptop with me.":
+        "Conecta tu smartphone o portátil conmigo.",
+      "Wi-Fi name": "Nombre Wi-Fi",
+      Connected: "Conectado",
+      "On most devices, the setup screen should start automatically.":
+        "En la mayoría de los dispositivos, la pantalla de configuración debería iniciarse automáticamente.",
+      "If it doesn't, visit": "Si no lo hace, visite",
+      "in your browser.": "en su navegador.",
+      "Follow the instructions to complete the setup!":
+        "Siga las instrucciones para completar la configuración!"
+    },
+    plPl: {
+      "I made a Wi-Fi for you.": "Stworzyłem Wi-Fi dla Ciebie.",
+      "Connect your smartphone or laptop with me.":
+        "Połącz ze mną swój smartfon lub laptop.",
+      "Wi-Fi name": "Nazwa Wi-Fi",
+      Connected: "Podłączone",
+      "On most devices, the setup screen should start automatically.":
+        "W większości urządzeń ekran ustawień powinien uruchamiać się automatycznie.",
+      "If it doesn't, visit": "Jeśli tak nie jest, odwiedź stronę",
+      "in your browser.": "w swojej przeglądarce.",
+      "Follow the instructions to complete the setup!":
+        "Postępuj zgodnie z instrukcjami, aby zakończyć konfigurację!"
+    },
     jaJp: {
       "I made a Wi-Fi for you.": "専用Wi-Fiを設定しました。",
       "Connect your smartphone or laptop with me.":
