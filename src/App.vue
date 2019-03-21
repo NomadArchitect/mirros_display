@@ -112,7 +112,8 @@ export default {
   data: function() {
     return {
       loading: true,
-      countdown: 5
+      countdown: 5,
+      retries: 1
     };
   },
   watch: {
@@ -173,7 +174,8 @@ export default {
         this.countdown--;
       } else {
         this.$store.commit("SET_NETWORK_ERROR", false);
-        this.countdown = 5;
+        this.retries++;
+        this.countdown = this.retries * 5;
       }
     },
     /**
