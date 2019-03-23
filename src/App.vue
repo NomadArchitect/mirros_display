@@ -14,14 +14,7 @@
       <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
     </main>
 
-    <main
-      v-else-if="
-        (!loading && !systemStatus.setup_completed) ||
-          (systemStatus.setup_completed &&
-            !systemStatus.connecting &&
-            systemStatus.ap_active)
-      "
-    >
+    <main v-else-if="!systemStatus.setup_completed && systemStatus.ap_active">
       <Setup />
     </main>
 
@@ -34,7 +27,10 @@
     </main>
 
     <main
-      v-else-if="!systemStatus.online && systemStatus.ap_active"
+      v-else-if="
+        systemStatus.configured_at_boot &&
+          (systemStatus.ip === null && systemStatus.ap_active)
+      "
       class="centered-message"
     >
       <ErrorIcon class="error__icon" />
