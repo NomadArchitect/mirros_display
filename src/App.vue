@@ -113,65 +113,74 @@ export default {
     };
   },
   watch: {
-    networkError: function(val) {
-      if (val === true) {
-        this.$options.countdown = setInterval(this.doCountdown, 1000);
-      } else {
-        clearInterval(this.$options.countdown);
+    networkError: {
+      immediate: true,
+      handler: function(val) {
+        if (val === true) {
+          clearInterval(this.$options.refresh);
+          this.$options.countdown = setInterval(this.doCountdown, 1000);
+        } else {
+          clearInterval(this.$options.countdown);
+          this.$options.refresh = setInterval(this.checkRefresh, 3000);
+        }
       }
     },
     systemStatus: function(newVal) {
       if (newVal.refresh_frontend === true) {
         this.fetchData();
       }
+      if (newVal.setup_completed) {
+        this.$translate.setLang(this.language);
+        document.documentElement.setAttribute("lang", this.languageTag());
+      }
+    },
     }
   },
   computed: {
     ...mapState(["errors", "widgetInstances", "systemStatus", "networkError"]),
     ...mapGetters(["language"])
   },
-  beforeMount: function() {
-    return Promise.all([
-      this.$store.dispatch("fetchSystemStatus"),
-      this.fetchData()
-    ]).then(() => {
+  beforeMount: async function() {
+    try {
+      await this.$store.dispatch("fetchSystemStatus");
+      this.fetchData();
+    } catch (error) {
+      // caught
+    } finally {
       this.loading = false;
-      this.$options.interval = setInterval(this.checkRefresh, 3000);
-    });
   },
   beforeDestroy: function() {
-    clearInterval(this.$options.interval);
+    clearInterval(this.$options.refresh);
+    clearInterval(this.$options.countdown);
   },
   methods: {
-    checkRefresh: function() {
-      this.$store.dispatch("fetchSystemStatus");
+    checkRefresh: async function() {
+      try {
+        await this.$store.dispatch("fetchSystemStatus");
+        this.$store.commit("SET_NETWORK_ERROR", false);
+      } catch (error) {
+        // caught
+      }
     },
-    fetchData: function() {
-      return Promise.all([
-        this.$store.dispatch("fetchSetting", "system_language"),
-        this.$store.dispatch("fetchSetting", "personal_name"),
-        this.$store.dispatch("fetchWidgetInstances", {
-          include: [
-            "widget",
-            "source-instances",
-            "source-instances.record-links",
-            "source-instances.record-links.recordable"
-          ]
-        })
-      ]).then(() => {
-        if (this.systemStatus.setup_completed) {
-          this.$translate.setLang(this.language);
-          document.documentElement.setAttribute("lang", this.languageTag());
-        }
-      });
+    fetchData: async function() {
+      try {
+        await this.$store.dispatch("fetchFullData");
+        this.$store.commit("SET_NETWORK_ERROR", false);
+      } catch (error) {
+        // caught
+      }
     },
-    doCountdown: function() {
+    doCountdown: async function() {
       if (this.countdown > 0) {
         this.countdown--;
       } else {
-        this.$store.commit("SET_NETWORK_ERROR", false);
-        this.retries++;
-        this.countdown = this.retries * 5;
+        // Retry async status fetch
+        try {
+          await this.$store.dispatch("fetchSystemStatus");
+        } catch (error) {
+          this.retries++;
+          this.countdown = this.retries * 5;
+        }
       }
     },
     /**

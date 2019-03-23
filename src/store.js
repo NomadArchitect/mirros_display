@@ -64,12 +64,30 @@ export default new Vuex.Store({
   },
   actions: {
     fetchSystemStatus: async ({ commit, dispatch }) => {
-      try {
-        const res = await axios.get("/system/status");
-        commit("SET_SYSTEMSTATUS", res.data.meta);
-      } catch (error) {
-        dispatch("handleError", error);
-      }
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.get("/system/status");
+          commit("SET_SYSTEMSTATUS", res.data.meta);
+          resolve();
+        } catch (error) {
+          dispatch("handleError", error);
+          reject();
+        }
+      });
+    },
+    fetchFullData: async ({ dispatch }) => {
+      return Promise.all([
+        dispatch("fetchSetting", "system_language"),
+        dispatch("fetchSetting", "personal_name"),
+        dispatch("fetchWidgetInstances", {
+          include: [
+            "widget",
+            "source-instances",
+            "source-instances.record-links",
+            "source-instances.record-links.recordable"
+          ]
+        })
+      ]);
     },
     fetchWidgetInstances: async (
       { commit, dispatch },
