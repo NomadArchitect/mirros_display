@@ -134,6 +134,9 @@ export default {
         document.documentElement.setAttribute("lang", this.languageTag());
       }
     },
+    language: function(newLang) {
+      console.log("storing language", newLang);
+      localStorage.language = newLang;
     }
   },
   computed: {
@@ -148,6 +151,15 @@ export default {
       // caught
     } finally {
       this.loading = false;
+      if (localStorage.language) {
+        console.log(
+          "setting language from localStorage to ",
+          localStorage.language
+        );
+        this.$translate.setLang(localStorage.language);
+        document.documentElement.setAttribute("lang", this.languageTag());
+      }
+    }
   },
   beforeDestroy: function() {
     clearInterval(this.$options.refresh);
@@ -188,10 +200,12 @@ export default {
      * compliant (e. g. `en-GB`). Returns `en-GB` if the language is not set.
      */
     languageTag: function() {
-      if (this.language.length === 0) return "en-GB";
+      if (this.language.length === 0 && !localStorage.language) return "en-GB";
+      const language =
+        this.language.length > 0 ? this.language : localStorage.language;
 
       const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
-      return this.language.replace(regex, match => {
+      return language.replace(regex, match => {
         return match.toUpperCase().padStart(match.length + 1, "-");
       });
     }
