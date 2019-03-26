@@ -19,6 +19,13 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = appconfig.backendUrl;
 axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
 
+Vue.filter("bcp47tag", function(language) {
+  const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
+  return language.replace(regex, match => {
+    return match.toUpperCase().padStart(match.length + 1, "-");
+  });
+});
+
 new Vue({
   store: store,
   render: h => h(App)
