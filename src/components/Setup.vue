@@ -163,6 +163,10 @@ export default {
       // Rotating languages relies on this.languages to be cloned
       this.languages.push(this.languages.shift());
       this.$translate.setLang(this.languages[0]);
+      document.documentElement.setAttribute(
+        "lang",
+        this.$options.filters.bcp47tag(this.languages[0])
+      );
     }
   }
 };
