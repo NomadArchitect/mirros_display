@@ -26,6 +26,11 @@
       <p style="text-align: center">{{ t("Connecting") }}</p>
     </main>
 
+    <main v-else-if="systemStatus.resetting" class="spinner">
+      <AnimatedLoader />
+      <p style="text-align: center">{{ t("Reset") }}</p>
+    </main>
+
     <main
       v-else-if="
         systemStatus.configured_at_boot &&
@@ -132,6 +137,13 @@ export default {
       if (newVal.setup_completed) {
         this.$translate.setLang(this.language);
         document.documentElement.setAttribute("lang", this.languageTag());
+      }
+
+      if (newVal.resetting) {
+        clearInterval(this.$options.refresh);
+        setTimeout(() => {
+          this.$options.refresh = setInterval(this.checkRefresh, 3000);
+        }, 180000);
       }
     },
     language: function(newLang) {
