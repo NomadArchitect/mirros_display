@@ -24,7 +24,20 @@
     </main>
 
     <main
+      v-else-if="!systemStatus.setup_complete && !systemStatus.ap_active"
+      class="centered-message"
     >
+      <ErrorIcon class="error__icon" />
+      <h4>{{ t("Can't open setup WiFi.") }}</h4>
+      <p>
+        {{
+          t(
+            "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
+          )
+        }}
+      </p>
+    </main>
+
     <main v-else-if="systemStatus.connection_attempt" class="spinner">
       <AnimatedLoader />
       <p style="text-align: center">{{ t("Connecting") }}</p>
