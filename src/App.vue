@@ -14,14 +14,18 @@
       <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
     </main>
 
-    <main v-else-if="!systemStatus.setup_completed && systemStatus.ap_active">
+    <main
+      v-else-if="
+        (!systemStatus.setup_complete && systemStatus.ap_active) ||
+          (!systemStatus.configured_at_boot && systemStatus.ap_active)
+      "
+    >
       <Setup />
     </main>
 
     <main
-      v-else-if="!systemStatus.online && systemStatus.connecting"
-      class="spinner"
     >
+    <main v-else-if="systemStatus.connection_attempt" class="spinner">
       <AnimatedLoader />
       <p style="text-align: center">{{ t("Connecting") }}</p>
     </main>
@@ -134,7 +138,7 @@ export default {
       if (newVal.refresh_frontend === true) {
         this.fetchData();
       }
-      if (newVal.setup_completed) {
+      if (newVal.setup_complete) {
         this.$translate.setLang(this.language);
         document.documentElement.setAttribute("lang", this.languageTag());
       }
