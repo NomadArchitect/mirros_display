@@ -51,7 +51,7 @@
     <main
       v-else-if="
         systemStatus.configured_at_boot &&
-          (systemStatus.ip === null && systemStatus.ap_active)
+          (systemStatus.current_ip === null && systemStatus.ap_active)
       "
       class="centered-message"
     >
