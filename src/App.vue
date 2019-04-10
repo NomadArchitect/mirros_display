@@ -160,7 +160,7 @@ export default {
         clearInterval(this.$options.refresh);
         setTimeout(() => {
           this.$options.refresh = setInterval(this.checkRefresh, 3000);
-        }, 180000);
+        }, 60000);
       }
     },
     language: function(newLang) {
