@@ -175,7 +175,7 @@ export default {
   beforeMount: async function() {
     try {
       await this.$store.dispatch("fetchSystemStatus");
-      this.fetchData();
+      await this.fetchData();
     } catch (error) {
       // caught
     } finally {

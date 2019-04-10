@@ -79,6 +79,7 @@ export default new Vuex.Store({
       return Promise.all([
         dispatch("fetchSetting", "system_language"),
         dispatch("fetchSetting", "personal_name"),
+        dispatch("fetchSetting", "system_timezone"),
         dispatch("fetchWidgetInstances", {
           include: [
             "widget",
