@@ -8,4 +8,5 @@ test/e2e/reports
 selenium-debug.log
 /.vscode
 
-/src/appconfig.js
+/src/app-config.js
+/src/app-version.js

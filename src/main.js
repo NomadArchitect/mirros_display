@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "@/App.vue";
 import store from "@/store";
-import appconfig from "@/appconfig";
+import appconfig from "@/app-config";
 
 import axios from "axios";
 import VueAxios from "vue-axios";

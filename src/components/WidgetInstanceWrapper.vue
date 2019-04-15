@@ -20,7 +20,7 @@
 import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
 import axios from "axios";
-import appconfig from "@/appconfig";
+import appconfig from "@/app-config";
 
 export default {
   name: "WidgetInstanceWrapper",
