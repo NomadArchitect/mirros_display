@@ -115,7 +115,13 @@ export default new Vuex.Store({
     },
     handleError: ({ commit }, error) => {
       if (error.response) {
-        commit("SET_ERRORS", error.response.data.errors);
+        if (error.response.data.errors) {
+          // Response contains errors from the backend
+          commit("SET_ERRORS", error.response.data.errors);
+        } else {
+          // Response is likely a proxy error from nginx
+          commit("SET_NETWORK_ERROR", true);
+        }
       } else {
         commit("SET_NETWORK_ERROR", true);
       }
