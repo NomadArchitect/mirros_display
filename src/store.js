@@ -16,6 +16,7 @@ export default new Vuex.Store({
     sourceInstances: {},
     recordLinks: {},
     calendars: {},
+    idioms: {},
     reminderLists: {},
     weatherOwms: {},
     newsfeeds: {},
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     },
     SET_CALENDARS: (state, payload) => {
       state.calendars = payload;
+    },
+    SET_IDIOMS: (state, payload) => {
+      state.idioms = payload;
     },
     SET_REMINDERLISTS: (state, payload) => {
       state.reminderLists = payload;
