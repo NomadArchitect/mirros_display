@@ -190,6 +190,14 @@ export default {
       }
     }
   },
+  mounted: function() {
+    if (location.hash === "#preview") {
+      const html = document.documentElement;
+      html.classList.add("preview");
+      html.style.transform = `scale(${window.innerWidth / 1080})`;
+      html.style.transformOrigin = "top left";
+    }
+  },
   beforeDestroy: function() {
     clearInterval(this.$options.refresh);
     clearInterval(this.$options.countdown);
@@ -300,6 +308,21 @@ $vertical_padding: 20px !default;
       z-index: 0;
       overflow-x: hidden;
       overflow-y: hidden;
+    }
+  }
+}
+
+.preview .grid-stack {
+  height: 1900px;
+  width: 1070px;
+  > .grid-stack-item {
+    @for $i from 1 through $gridstack-rows {
+      &[data-gs-height="#{$i}"] {
+        height: (100% / $gridstack-rows) * $i;
+      }
+      &[data-gs-y="#{$i}"] {
+        top: (100% / $gridstack-rows) * $i;
+      }
     }
   }
 }
