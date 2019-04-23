@@ -166,11 +166,33 @@ export default {
     language: function(newLang) {
       console.log("storing language", newLang);
       localStorage.language = newLang;
+    },
+    backgroundcolor: function(newVal) {
+      if (newVal.attributes != undefined) {
+        document.body.style.backgroundColor = newVal.attributes.value;
+      }
+    },
+    fontcolor: function(newVal) {
+      if (newVal.attributes != undefined) {
+        document.body.style.color = newVal.attributes.value;
+      }
     }
   },
   computed: {
-    ...mapState(["errors", "widgetInstances", "systemStatus", "networkError"]),
-    ...mapGetters(["language"])
+    ...mapState([
+      "errors",
+      "widgetInstances",
+      "systemStatus",
+      "networkError",
+      "settings"
+    ]),
+    ...mapGetters(["language"]),
+    backgroundcolor: function() {
+      return this.settings.system_backgroundcolor;
+    },
+    fontcolor: function() {
+      return this.settings.system_fontcolor;
+    }
   },
   beforeMount: async function() {
     try {

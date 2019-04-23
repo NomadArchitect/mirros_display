@@ -80,6 +80,8 @@ export default new Vuex.Store({
         dispatch("fetchSetting", "system_language"),
         dispatch("fetchSetting", "personal_name"),
         dispatch("fetchSetting", "system_timezone"),
+        dispatch("fetchSetting", "system_backgroundcolor"),
+        dispatch("fetchSetting", "system_fontcolor"),
         dispatch("fetchWidgetInstances", {
           include: [
             "widget",
