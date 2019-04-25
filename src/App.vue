@@ -216,8 +216,10 @@ export default {
     if (location.hash === "#preview") {
       const html = document.documentElement;
       html.classList.add("preview");
-      html.style.transform = `scale(${window.innerWidth / 1080})`;
-      html.style.transformOrigin = "top left";
+      if (window.innerWidth < 1080) {
+        html.style.transform = `scale(${window.innerWidth / 1080})`;
+        html.style.transformOrigin = "top left";
+      }
     }
   },
   beforeDestroy: function() {
@@ -337,6 +339,7 @@ $vertical_padding: 20px !default;
 .preview .grid-stack {
   height: 1900px;
   width: 1070px;
+  margin: 0 auto;
   > .grid-stack-item {
     @for $i from 1 through $gridstack-rows {
       &[data-gs-height="#{$i}"] {
