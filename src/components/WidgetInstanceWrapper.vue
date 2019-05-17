@@ -88,7 +88,9 @@ export default {
   },
   beforeMount: function() {
     this.$options.components[this.widget.id] = httpVueLoader(
-      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue`
+      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue?${
+        this.widget.attributes.version
+      }`
     );
   },
   methods: {
