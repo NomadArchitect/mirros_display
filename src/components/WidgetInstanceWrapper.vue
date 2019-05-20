@@ -6,6 +6,7 @@
     <component
       :is="widget.id"
       :currentSettings="widgetInstance.attributes.configuration"
+      :currentPosition="widgetInstance.attributes.position"
       :sourcesConfigured="sourcesConfigured"
       :records="records"
       :language="languageTag"
