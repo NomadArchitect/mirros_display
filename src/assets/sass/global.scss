@@ -7,7 +7,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 
   &[lang="ko-KR"] {
-    font-family: "AlegreyaSans", "NotoSansKR",  Helvetica, Arial, sans-serif;
+    font-family: "AlegreyaSans", "NotoSansKR", Helvetica, Arial, sans-serif;
   }
   // &[lang="ja-JP"] {
   //   font-family: "NotoSansJP", "AlegreyaSans", Helvetica, Arial, sans-serif;
@@ -32,4 +32,15 @@ th {
 
 table {
   width: 100%;
+}
+
+@media screen and (max-width: 65.25rem) {
+  html {
+    font-size: 0.75rem;
+  }
+}
+@media screen and (max-width: 51.2rem) {
+  html {
+    font-size: 0.35rem;
+  }
 }
