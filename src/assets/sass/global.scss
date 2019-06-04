@@ -5,6 +5,7 @@ html {
   font-family: "AlegreyaSans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: lining-nums;
 
   &[lang="ko-KR"] {
     font-family: "AlegreyaSans", "NotoSansKR", Helvetica, Arial, sans-serif;
