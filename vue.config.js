@@ -1,6 +1,6 @@
 module.exports = {
   runtimeCompiler: true,
-  baseUrl: process.env.NODE_ENV === "production" ? "/display/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/display/" : "/",
   chainWebpack: config => {
     const svgRule = config.module.rule("svg");
 
