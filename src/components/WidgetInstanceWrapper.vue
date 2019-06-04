@@ -1,12 +1,16 @@
 <template>
   <section class="grid-stack-item-content widget">
-    <h2 v-show="widgetInstance.attributes.showtitle" class="widget__title">
+    <h2
+      v-show="widgetInstance.attributes.showtitle"
+      class="widget__title"
+      :id="`widget-title-${widgetInstance.id}`"
+    >
       {{ widgetInstance.attributes.title || localizedTitleOrFallback }}
     </h2>
     <component
       :is="widget.id"
       :currentSettings="widgetInstance.attributes.configuration"
-      :currentPosition="widgetInstance.attributes.position"
+      :currentDimensions="currentDimensions"
       :sourcesConfigured="sourcesConfigured"
       :records="records"
       :language="languageTag"
@@ -40,6 +44,39 @@ export default {
     return {
       backendUrl: appconfig.backendUrl
     };
+  },
+  asyncComputed: {
+    /**
+     * Computes the actual pixel dimensions for the inner container, minus the title if currently shown, and adds the configured grid position.
+     */
+    currentDimensions: async function() {
+      await this.$nextTick();
+      let titleHeight = 0;
+      if (this.widgetInstance.attributes.showtitle) {
+        const el = document.getElementById(
+          `widget-title-${this.widgetInstance.id}`
+        );
+        titleHeight =
+          el.clientHeight +
+          parseInt(
+            window.getComputedStyle(el).getPropertyValue("margin-bottom")
+          );
+      }
+      return {
+        heightPx:
+          Math.floor(
+            (window.innerHeight / 21.33333) *
+              this.widgetInstance.attributes.position.height
+          ) -
+          titleHeight -
+          20,
+        widthPx:
+          (window.innerWidth / 12) *
+            this.widgetInstance.attributes.position.width -
+          20,
+        ...this.widgetInstance.attributes.position
+      };
+    }
   },
   computed: {
     widget: function() {
