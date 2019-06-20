@@ -80,9 +80,7 @@ export default {
   },
   computed: {
     widget: function() {
-      return this.$store.state.widgets[
-        this.widgetInstance.relationships.widget.data.id
-      ];
+      return this.widgetForInstance(this.widgetInstance);
     },
     sourcesConfigured: function() {
       if (this.widgetInstance.relationships.group === null) return true;
@@ -91,29 +89,7 @@ export default {
         : false;
     },
     records: function() {
-      // Return early if the widget has no group, and thus no records.
-      if (this.widgetInstance.relationships.group === null) return [];
-
-      // TODO: Can this be written more concise?
-      const sourceInstances = this.widgetInstance.relationships.sourceInstances
-        .data;
-      const records = sourceInstances.map(si => {
-        return this.sourceInstances[si.id].relationships.recordLinks.data;
-      });
-      // .flat() not supported by WPE fork yet
-      return [].concat
-        .apply([], records)
-        .filter(link => {
-          return (
-            this.recordLinks[link.id].relationships.group.data.id ===
-            this.widgetInstance.relationships.group.data.id
-          );
-        })
-        .map(link => {
-          const record = this.recordLinks[link.id].relationships.recordable
-            .data;
-          return this.$store.state[record.type][record.id];
-        });
+      return this.recordsForWidgetInstance(this.widgetInstance);
     },
     localizedTitleOrFallback: function() {
       return (
@@ -121,7 +97,11 @@ export default {
         this.widget.attributes.title["enGb"]
       );
     },
-    ...mapGetters(["language"]),
+    ...mapGetters([
+      "language",
+      "widgetForInstance",
+      "recordsForWidgetInstance"
+    ]),
     ...mapState(["sourceInstances", "recordLinks"])
   },
   beforeMount: function() {
