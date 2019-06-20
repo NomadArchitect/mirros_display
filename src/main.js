@@ -18,10 +18,17 @@ Vue.use(VueTranslate);
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 
+const backend =
+  process.env.NODE_ENV === "development"
+    ? new URL(appconfig.backendUrl).host
+    : `${window.location.host}`;
+
+console.log(backend);
+
 Vue.use(ActionCableVue, {
   debug: false,
   debugLevel: "error",
-  connectionUrl: `ws://${new URL(appconfig.backendUrl).host}/cable`
+  connectionUrl: `ws://${backend}/cable`
 });
 
 axios.defaults.baseURL = appconfig.backendUrl;
