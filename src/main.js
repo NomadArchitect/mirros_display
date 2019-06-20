@@ -9,12 +9,20 @@ import VueAxios from "vue-axios";
 import VueTranslate from "vue-translate-plugin";
 import AsyncComputed from "vue-async-computed";
 
+import ActionCableVue from "actioncable-vue";
+
 import "@/assets/sass/global.scss";
 
 Vue.config.productionTip = false;
 Vue.use(VueTranslate);
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
+
+Vue.use(ActionCableVue, {
+  debug: false,
+  debugLevel: "error",
+  connectionUrl: `ws://${new URL(appconfig.backendUrl).host}/cable`
+});
 
 axios.defaults.baseURL = appconfig.backendUrl;
 axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
@@ -25,6 +33,9 @@ Vue.filter("bcp47tag", function(language) {
     return match.toUpperCase().padStart(match.length + 1, "-");
   });
 });
+
+import locales from "@/locales/global";
+Vue.locales(locales);
 
 new Vue({
   store: store,

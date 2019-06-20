@@ -1,0 +1,18 @@
+{
+    "The server is not responding.": "서버가 응답하지 않습니다.",
+    "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.": "이것은 일어나서는 안되지만 분명히 그랬습니다. 문제가 해결되지 않으면 장치를 다시 시작하고 지원 담당자에게 문의하십시오.",
+    "Reconnecting in": "다시 연결",
+    "Connecting": "연결 중",
+    "Something is wrong with your glancr's Wi-Fi connection.": "glancr의 Wi-Fi 연결에 문제가 있습니다.",
+    "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.": "휴대 전화 나 노트북을 Wi-Fi 'glancr 설정'으로 다시 연결하고 올바른 Wi-Fi 이름과 비밀번호를 입력했는지 확인하십시오.",
+    "Your glancr is offline.": "너의 영광은 오프라인이다.",
+    "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active.": "mirr.OS가 네트워크에 연결되었지만 인터넷에 연결할 수 없습니다. 인터넷 연결이 활성화되어 있으면 라우터를 확인하십시오.",
+    "I made a Wi-Fi for you.": "설정을 위한 Wi-Fi를 생성하였습니다",
+    "Connect your smartphone or laptop with me.": "스마트폰이나 노트북으로 Wi-Fi에 연결해 주세요",
+    "Wi-Fi name": "Wi-Fi 이름",
+    "Connected": "연결되었습니다",
+    "On most devices, the setup screen should start automatically.": "대부분의 디바이스에서는 자동으로 설정화면이 나타납니다.",
+    "If it doesn't, visit": "만약 설정화면이 나타나지 않는다면 에 연결해주세요 ",
+    "in your browser.": "브라우저에서.",
+    "Follow the instructions to complete the setup!": "설정을 완료하기 위한 지시에 따라주세요!"
+}
