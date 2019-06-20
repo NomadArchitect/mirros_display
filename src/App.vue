@@ -134,33 +134,55 @@ export default {
       retries: 1
     };
   },
-  watch: {
-    networkError: {
-      immediate: true,
-      handler: function(val) {
-        if (val === true) {
-          clearInterval(this.$options.refresh);
-          this.$options.countdown = setInterval(this.doCountdown, 1000);
-        } else {
-          clearInterval(this.$options.countdown);
-          this.$options.refresh = setInterval(this.checkRefresh, 3000);
+  channels: {
+    UpdatesChannel: {
+      connected() {},
+      rejected() {},
+      received(data) {
+        switch (data.type) {
+          case "update":
+            this.$store.dispatch("handleResourceUpdate", data.payload);
+            break;
+          case "deletion":
+            this.$store.dispatch("handleResourceDeletion", data.payload);
+            break;
+          default:
+            console.log(data.type);
         }
+      },
+      disconnected() {
+        //this.$store.commit("SET_NETWORK_ERROR", true);
+      }
+    },
+    StatusChannel: {
+      connected() {
+        clearTimeout(this.$options.timeout);
+        delete this.$options.timeout;
+        this.$store.commit("SET_NETWORK_ERROR", false);
+      },
+      rejected() {},
+      received(data) {
+        this.$store.commit("SET_SYSTEMSTATUS", data.payload);
+      },
+      disconnected() {
+        this.$options.timeout = setTimeout(() => {
+          this.$store.commit("SET_NETWORK_ERROR", true);
+        }, 30000);
+      }
+    }
+  },
+  watch: {
+    networkError: function(val) {
+      if (val === true) {
+        this.$options.countdown = setInterval(this.doCountdown, 1000);
+      } else {
+        clearInterval(this.$options.countdown);
       }
     },
     systemStatus: function(newVal) {
-      if (newVal.refresh_frontend === true) {
-        this.fetchData();
-      }
       if (newVal.setup_complete) {
         this.$translate.setLang(this.language);
         document.documentElement.setAttribute("lang", this.languageTag());
-      }
-
-      if (newVal.resetting) {
-        clearInterval(this.$options.refresh);
-        setTimeout(() => {
-          this.$options.refresh = setInterval(this.checkRefresh, 3000);
-        }, 60000);
       }
     },
     language: function(newLang) {
@@ -213,6 +235,9 @@ export default {
     }
   },
   mounted: function() {
+    this.$cable.subscribe({ channel: "UpdatesChannel" });
+    this.$cable.subscribe({ channel: "StatusChannel" });
+
     if (location.hash === "#preview") {
       const html = document.documentElement;
       html.classList.add("preview");
@@ -223,7 +248,6 @@ export default {
     }
   },
   beforeDestroy: function() {
-    clearInterval(this.$options.refresh);
     clearInterval(this.$options.countdown);
   },
   methods: {
@@ -247,13 +271,9 @@ export default {
       if (this.countdown > 0) {
         this.countdown--;
       } else {
+        this.retries++;
+        this.countdown = this.retries * 5;
         // Retry async status fetch
-        try {
-          await this.$store.dispatch("fetchSystemStatus");
-        } catch (error) {
-          this.retries++;
-          this.countdown = this.retries * 5;
-        }
       }
     },
     /**
@@ -269,22 +289,6 @@ export default {
       return language.replace(regex, match => {
         return match.toUpperCase().padStart(match.length + 1, "-");
       });
-    }
-  },
-  locales: {
-    deDe: {
-      "The server is not responding.": "Der Server reagiert nicht.",
-      "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.":
-        "Das sollte nicht passieren, ist es aber offensichtlich. Bitte starte das Gerät neu und kontaktiere den Support, falls sich der Fehler so nicht beheben lässt.",
-      "Reconnecting in": "Verbindungsversuch in",
-      Connecting: "Verbinden",
-      "Something is wrong with your glancr's Wi-Fi connection.":
-        "Etwas stimmt nicht mit der WLAN-Verbindung deines glancr.",
-      "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.":
-        "Bitte verbinde dein Telefon oder deinen Laptop erneut mit dem WLAN 'glancr setup' und prüfe, ob du WLAN-Name und Passwort richtig eingegeben hast.",
-      "Your glancr is offline.": "Dein glancr ist offline.",
-      "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active.":
-        "mirr.OS ist mit deinem Netzwerk verbunden, kann aber das Internet nicht erreichen. Bitte prüfe an deinem Router, ob die Internetverbindung aktiv ist."
     }
   }
 };

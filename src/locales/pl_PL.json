@@ -1,0 +1,18 @@
+{
+    "The server is not responding.": "Serwer nie odpowiada.",
+    "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.": "To nie powinno mieć miejsca, ale oczywiście tak się stało. Spróbuj ponownie uruchomić urządzenie i skontaktować się z działem pomocy technicznej, jeśli nie rozwiąże to problemu.",
+    "Reconnecting in": "Ponowne podłączenie w",
+    "Connecting": "Podłączanie",
+    "Something is wrong with your glancr's Wi-Fi connection.": "Coś jest nie tak z połączeniem Wi-Fi twojego glancr.",
+    "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.": "Proszę ponownie podłączyć telefon lub laptopa do sieci Wi-Fi 'glancr setup' i sprawdzić, czy wprowadziłeś prawidłową nazwę Wi-Fi i hasło.",
+    "Your glancr is offline.": "Twój glancr jest wyłączony.",
+    "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active.": "mirr.OS jest podłączony do sieci, ale nie może dotrzeć do Internetu. Proszę sprawdzić router, czy połączenie internetowe jest aktywne.",
+    "I made a Wi-Fi for you.": "Stworzyłem Wi-Fi dla Ciebie.",
+    "Connect your smartphone or laptop with me.": "Połącz ze mną swój smartfon lub laptop.",
+    "Wi-Fi name": "Nazwa Wi-Fi",
+    "Connected": "Podłączone",
+    "On most devices, the setup screen should start automatically.": "W większości urządzeń ekran ustawień powinien uruchamiać się automatycznie.",
+    "If it doesn't, visit": "Jeśli tak nie jest, odwiedź stronę",
+    "in your browser.": "w swojej przeglądarce.",
+    "Follow the instructions to complete the setup!": "Postępuj zgodnie z instrukcjami, aby zakończyć konfigurację!"
+}
