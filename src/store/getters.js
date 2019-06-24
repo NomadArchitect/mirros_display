@@ -11,21 +11,19 @@ export default {
   widgetForInstance: state => instance => {
     return state.widgets[instance.relationships.widget.data.id];
   },
-  recordsForWidgetInstance: state => instance => {
+  recordsForWidgetInstance: (state, getters) => instance => {
     // Return early if the widget has no group, and thus no records.
     if (instance.relationships.group === null) return [];
 
     // TODO: Can this be written more concise?
     const sourceInstances = instance.relationships.sourceInstances.data;
-    const chosenSubresources = instance.relationships.instanceAssociations.data.map(
-      ia => state.instanceAssociations[ia.id].attributes.configuration.chosen
-    );
 
-    const records = sourceInstances.map(si => {
+    let records = [];
+    records = sourceInstances.map(si => {
       return state.sourceInstances[si.id].relationships.recordLinks.data;
     });
     // .flat() not supported by WPE fork yet
-    return [].concat
+    records = [].concat
       .apply([], records)
       .filter(link => {
         // TODO: Maybe restructure the data model so that groups encapsulate their records, making this filtering unnecessary
@@ -37,9 +35,19 @@ export default {
       .map(link => {
         const record = state.recordLinks[link.id].relationships.recordable.data;
         return state[record.type][record.id];
-      })
-      .filter(record => {
+      });
+
+    if (getters.widgetForInstance(instance).attributes.singleSource) {
+      return records;
+    } else {
+      const chosenSubresources = instance.relationships.instanceAssociations.data.reduce(
+        (acc, ia) =>
+          state.instanceAssociations[ia.id].attributes.configuration.chosen,
+        []
+      );
+      return records.filter(record => {
         return chosenSubresources.includes(record.attributes.uid);
       });
+    }
   }
 };
