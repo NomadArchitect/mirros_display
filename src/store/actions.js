@@ -38,11 +38,11 @@ export default {
       dispatch("fetchWidgetInstances", {
         include: [
           "widget",
-          "source-instances",
-          "instance-associations",
-          "source-instances.source",
-          "source-instances.record-links",
-          "source-instances.record-links.recordable"
+          "sourceInstances",
+          "instanceAssociations",
+          "sourceInstances.source",
+          "sourceInstances.recordLinks",
+          "sourceInstances.recordLinks.recordable"
         ]
       })
     ]);
