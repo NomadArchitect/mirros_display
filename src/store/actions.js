@@ -88,7 +88,7 @@ export default {
     const normalized = normalize(resource);
     let toCommit = { updated: {}, deleted: {} };
     switch (resource.data.type) {
-      case "widget-instances": {
+      case "widgetInstances": {
         // This leaves unused widgets in the store
         const { sourceInstances, widgets, ...other } = normalized;
         toCommit.updated = {
@@ -98,7 +98,7 @@ export default {
         toCommit.deleted = other;
         break;
       }
-      case "source-instances": {
+      case "sourceInstances": {
         const { widgetInstances, sources, ...other } = normalized;
         toCommit.updated = {
           widgetInstances: widgetInstances,
@@ -108,7 +108,7 @@ export default {
         dispatch("cleanOrphanedRecordLinks");
         break;
       }
-      case "instance-associations": {
+      case "instanceAssociations": {
         // This leaves unused source instances with their records in the store, but ¯\_(ツ)_/¯
         const { widgetInstances, sourceInstances, ...other } = normalized;
         toCommit.updated = {
