@@ -66,18 +66,31 @@ export default {
   computed: {
     ...mapState(["settings"])
   },
+  watch: {
+    settings: {
+      immediate: true,
+      handler: function(newVal) {
+        // Stop the rotation once a language has been set.
+        if (newVal.system_language.attributes.value != "") {
+          this.$translate.setLang(newVal.system_language.attributes.value);
+          clearInterval(this.$options.languageRotation);
+        }
+      }
+    }
+  },
   mounted: function() {
+    // Avoids mutating shared state.
     this.languages = Object.keys(
       this.settings.system_language.attributes.options
     ).slice(0);
-    this.$options.interval = setInterval(this.changeLocale, 7000);
+    this.$options.languageRotation = setInterval(this.changeLocale, 7000);
   },
   beforeDestroy: function() {
-    clearInterval(this.$options.interval);
+    clearInterval(this.$options.languageRotation);
   },
   methods: {
     changeLocale: function() {
-      // Rotating languages relies on this.languages to be cloned
+      // Relies on this.languages to be cloned from Vuex store state.
       this.languages.push(this.languages.shift());
       this.$translate.setLang(this.languages[0]);
       document.documentElement.setAttribute(
