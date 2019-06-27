@@ -76,10 +76,12 @@ function generateMutationsForCoreResources() {
   const groups = [
     "widgets",
     "sources",
+    "groups",
     "widgetInstances",
     "sourceInstances",
     "recordLinks",
-    "instanceAssociations"
+    "instanceAssociations",
+    "settings"
   ];
   return generateMutationsForResourceTypes(groups);
 }
