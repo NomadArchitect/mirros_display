@@ -11,6 +11,7 @@ export default {
   widgetForInstance: state => instance => {
     return state.widgets[instance.relationships.widget.data.id];
   },
+  // FIXME: This is some monstrous filter logic.
   recordsForWidgetInstance: (state, getters) => instance => {
     // Return early if the widget has no group, and thus no records.
     if (instance.relationships.group === null) return [];
@@ -40,10 +41,16 @@ export default {
     if (getters.widgetForInstance(instance).attributes.singleSource) {
       return records;
     } else {
-      const chosenSubresources = instance.relationships.instanceAssociations.data.reduce(
-        (acc, ia) =>
-          state.instanceAssociations[ia.id].attributes.configuration.chosen,
-        []
+      const chosenSubresources = [].concat(
+        ...instance.relationships.instanceAssociations.data.reduce(
+          (acc, ia) => {
+            acc.push(
+              state.instanceAssociations[ia.id].attributes.configuration.chosen
+            );
+            return acc;
+          },
+          []
+        )
       );
       return records.filter(record => {
         return chosenSubresources.includes(record.attributes.uid);
