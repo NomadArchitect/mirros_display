@@ -6,6 +6,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
 
   &[lang="ko-KR"] {
     font-family: "AlegreyaSans", "NotoSansKR", Helvetica, Arial, sans-serif;
