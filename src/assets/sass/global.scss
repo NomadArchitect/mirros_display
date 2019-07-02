@@ -6,6 +6,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1; // FIXME: WPE doesn't properly recognize font-variant-numeric, re-evaluate with later releases if we can drop this font-feature-settings declaration.
 
   &[lang="ko-KR"] {
     font-family: "AlegreyaSans", "NotoSansKR", Helvetica, Arial, sans-serif;

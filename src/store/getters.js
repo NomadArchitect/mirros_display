@@ -20,9 +20,13 @@ export default {
     const sourceInstances = instance.relationships.sourceInstances.data;
 
     let records = [];
-    records = sourceInstances.map(si => {
-      return state.sourceInstances[si.id].relationships.recordLinks.data;
-    });
+    for (let si of sourceInstances) {
+      if (state.sourceInstances[si.id]) {
+        records.push(
+          state.sourceInstances[si.id].relationships.recordLinks.data
+        );
+      }
+    }
     // .flat() not supported by WPE fork yet
     records = [].concat
       .apply([], records)
@@ -44,9 +48,12 @@ export default {
       const chosenSubresources = [].concat(
         ...instance.relationships.instanceAssociations.data.reduce(
           (acc, ia) => {
-            acc.push(
-              state.instanceAssociations[ia.id].attributes.configuration.chosen
-            );
+            if (state.instanceAssociations[ia.id]) {
+              acc.push(
+                state.instanceAssociations[ia.id].attributes.configuration
+                  .chosen
+              );
+            }
             return acc;
           },
           []

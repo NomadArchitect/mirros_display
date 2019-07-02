@@ -105,10 +105,16 @@ export default {
     ...mapState(["sourceInstances", "recordLinks"])
   },
   beforeMount: function() {
+    let n = 0;
+    while (!this.widget && n <= 20000) {
+      // Wait paitiently for the widget to appear
+      n++;
+    }
+    if (!this.widget) {
+      throw new Error("Failed to retrieve widget from store, giving up");
+    }
     this.$options.components[this.widget.id] = httpVueLoader(
-      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue?${
-        this.widget.attributes.version
-      }`
+      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
     );
   },
   methods: {
