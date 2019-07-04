@@ -147,7 +147,9 @@ export default {
             this.$store.dispatch("handleResourceDeletion", data.payload);
             break;
           default:
-            console.log(data.type);
+            throw new Error(
+              "[websocket] unknown message type on UpdatesChannel"
+            );
         }
       },
       disconnected() {
