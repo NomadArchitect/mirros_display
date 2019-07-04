@@ -114,7 +114,9 @@ export default {
       throw new Error("Failed to retrieve widget from store, giving up");
     }
     this.$options.components[this.widget.id] = httpVueLoader(
-      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
+      `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue?${
+        this.widget.attributes.version
+      }`
     );
   },
   methods: {
