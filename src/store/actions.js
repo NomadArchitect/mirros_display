@@ -35,6 +35,7 @@ export default {
       dispatch("fetchSetting", "system_timezone"),
       dispatch("fetchSetting", "system_backgroundcolor"),
       dispatch("fetchSetting", "system_fontcolor"),
+      dispatch("fetchSetting", "system_backgroundimage"),
       dispatch("fetchWidgetInstances", {
         include: [
           "widget",
