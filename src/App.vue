@@ -117,6 +117,8 @@ import OfflineIcon from "@/assets/icons/offline.svg";
 
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 
+import appConfig from "@/app-config";
+
 export default {
   name: "app",
   components: {
@@ -147,7 +149,9 @@ export default {
             this.$store.dispatch("handleResourceDeletion", data.payload);
             break;
           default:
-            console.log(data.type);
+            throw new Error(
+              "[websocket] unknown message type on UpdatesChannel"
+            );
         }
       },
       disconnected() {
@@ -198,6 +202,23 @@ export default {
       if (newVal.attributes != undefined) {
         document.body.style.color = newVal.attributes.value;
       }
+    },
+    backgroundImage: function(newVal) {
+      if (newVal.attributes.value.length > 0) {
+        const fileObject = JSON.parse(
+          this.settings.system_backgroundimage.attributes.value
+        );
+        document.body.style.backgroundImage = `url("${appConfig.backendUrl}${fileObject.url}")`;
+        document.body.style.backgroundOrigin = "center center";
+        document.body.style.backgroundRepeat = "no-repeat";
+        document.body.style.backgroundSize = "cover";
+      } else {
+        let bodyStyles = document.body.style;
+        bodyStyles.removeProperty("background-image");
+        bodyStyles.removeProperty("background-origin");
+        bodyStyles.removeProperty("background-repeat");
+        bodyStyles.removeProperty("background-size");
+      }
     }
   },
   computed: {
@@ -214,6 +235,9 @@ export default {
     },
     fontcolor: function() {
       return this.settings.system_fontcolor;
+    },
+    backgroundImage: function() {
+      return this.settings.system_backgroundimage;
     }
   },
   beforeMount: async function() {

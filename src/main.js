@@ -23,8 +23,6 @@ const backend =
     ? new URL(appconfig.backendUrl).host
     : `${window.location.host}`;
 
-console.log(backend);
-
 Vue.use(ActionCableVue, {
   debug: false,
   debugLevel: "error",
