@@ -3,15 +3,17 @@
     <main v-if="loading" class="spinner"><AnimatedLoader /></main>
 
     <main v-else-if="networkError" class="centered-message">
-      <h4>{{ t("The server is not responding.") }}</h4>
+      <h4>{{ t("Connecting to the server.") }}</h4>
       <p>
         {{
           t(
-            "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue."
+            "If you keep seeing this message after a few minutes, please restart the device. If that doesn't help, please contact support."
           )
         }}
       </p>
-      <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
+      <span class="smaller"
+        >{{ t("Attempting connection in") }} {{ countdown }}s &hellip;</span
+      >
     </main>
 
     <main
