@@ -15,8 +15,19 @@ import "@/assets/sass/global.scss";
 
 Vue.config.productionTip = false;
 Vue.use(VueTranslate);
+
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
+
+Vue.config.errorHandler = function(err, vm, info) {
+  // TODO: send error to backend for logging
+  err, vm, info;
+  localStorage.reloads = parseInt(localStorage.reloads) + 1 || 1;
+
+  parseInt(localStorage.reloads) <= 10
+    ? window.location.reload()
+    : vm.$store.commit("SET_RUNTIME_ERROR", true);
+};
 
 const backend =
   process.env.NODE_ENV === "development"

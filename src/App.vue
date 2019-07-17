@@ -284,6 +284,9 @@ export default {
         html.style.transformOrigin = "top left";
       }
     }
+    window.setTimeout(() => {
+      localStorage.removeItem("reloads");
+    }, 10000);
   },
   beforeDestroy: function() {
     clearInterval(this.$options.countdown);
