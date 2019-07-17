@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     systemStatus: {},
     networkError: false,
+    runtimeError: false,
     settings: {},
     errors: [],
     connectionError: "",
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     {
       SET_NETWORK_ERROR: (state, error) => {
         state.networkError = error;
+      },
+      SET_RUNTIME_ERROR: (state, error) => {
+        state.runtimeError = error;
       },
       SET_SYSTEMSTATUS: (state, payload) => {
         state.systemStatus = payload;
