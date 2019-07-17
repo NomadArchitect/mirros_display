@@ -99,13 +99,6 @@
         </div>
       </section>
 
-      <!--
-        <div slot="fetch-errors" v-for="error in errors" :key="error.id">
-          <span>{{ t("Error") }} {{ error.code }}: {{ error.title }}</span>
-          <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
-          <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
-        </div>
-      -->
       <SystemErrorOverlay v-if="!systemStatus.online">
         <OfflineIcon slot="icon" />
         <template slot="title">{{ t("Your glancr is offline.") }}</template>
