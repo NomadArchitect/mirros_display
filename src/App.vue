@@ -3,15 +3,17 @@
     <main v-if="loading" class="spinner"><AnimatedLoader /></main>
 
     <main v-else-if="networkError" class="centered-message">
-      <h4>{{ t("The server is not responding.") }}</h4>
+      <h4>{{ t("Connecting to the server.") }}</h4>
       <p>
         {{
           t(
-            "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue."
+            "If you keep seeing this message after a few minutes, please restart the device. If that doesn't help, please contact support."
           )
         }}
       </p>
-      <span class="smaller">{{ t("Reconnecting in") }} {{ countdown }}s …</span>
+      <span class="smaller"
+        >{{ t("Attempting connection in") }} {{ countdown }}s &hellip;</span
+      >
     </main>
 
     <main
@@ -68,6 +70,17 @@
       </p>
     </main>
 
+    <main v-else-if="runtimeError" class="centered-message">
+      <h4>{{ t("Aw snap!") }}</h4>
+      <p>
+        {{
+          t(
+            "An unrecoverable error occurred. This might be caused by a widget you just added. Please remove it from the board and restart the device. Please also send a debug report through the Help tab in mirr.OS settings."
+          )
+        }}
+      </p>
+    </main>
+
     <main v-else>
       <section class="grid-stack">
         <div
@@ -86,13 +99,6 @@
         </div>
       </section>
 
-      <!--
-        <div slot="fetch-errors" v-for="error in errors" :key="error.id">
-          <span>{{ t("Error") }} {{ error.code }}: {{ error.title }}</span>
-          <span>{{ error.detail }} ({{ t("Source") }}: {{ error.source }})</span>
-          <span>{{ t("HTTP Status") }}: {{ error.status }}</span>
-        </div>
-      -->
       <SystemErrorOverlay v-if="!systemStatus.online">
         <OfflineIcon slot="icon" />
         <template slot="title">{{ t("Your glancr is offline.") }}</template>
@@ -169,7 +175,7 @@ export default {
         this.$store.commit("SET_SYSTEMSTATUS", data.payload);
       },
       disconnected() {
-        this.$options.timeout = setTimeout(() => {
+        this.$options.timeout = window.setTimeout(() => {
           this.$store.commit("SET_NETWORK_ERROR", true);
         }, 30000);
       }
@@ -227,6 +233,7 @@ export default {
       "widgetInstances",
       "systemStatus",
       "networkError",
+      "runtimeError",
       "settings"
     ]),
     ...mapGetters(["language"]),
@@ -270,6 +277,9 @@ export default {
         html.style.transformOrigin = "top left";
       }
     }
+    window.setTimeout(() => {
+      localStorage.removeItem("reloads");
+    }, 10000);
   },
   beforeDestroy: function() {
     clearInterval(this.$options.countdown);
