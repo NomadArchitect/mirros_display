@@ -175,7 +175,7 @@ export default {
         this.$store.commit("SET_SYSTEMSTATUS", data.payload);
       },
       disconnected() {
-        this.$options.timeout = setTimeout(() => {
+        this.$options.timeout = window.setTimeout(() => {
           this.$store.commit("SET_NETWORK_ERROR", true);
         }, 30000);
       }
