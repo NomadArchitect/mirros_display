@@ -106,7 +106,6 @@ export default {
           sources: sources
         };
         toCommit.deleted = other;
-        dispatch("cleanOrphanedRecordLinks");
         break;
       }
       case "instanceAssociations": {

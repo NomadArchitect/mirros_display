@@ -4,10 +4,6 @@ export default {
       ? state.settings.system_language.attributes.value
       : "enGb";
   },
-  // TODO
-  selectOrphanedRecords: () => res => {
-    res;
-  },
   widgetForInstance: state => instance => {
     return state.widgets[instance.relationships.widget.data.id];
   },
