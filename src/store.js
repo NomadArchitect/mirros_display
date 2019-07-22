@@ -20,36 +20,25 @@ export default new Vuex.Store({
     sources: {},
     widgetInstances: {},
     sourceInstances: {},
-    instanceAssociations: {},
-    calendars: {},
-    idioms: {},
-    reminderLists: {},
-    weatherOwms: {},
-    newsfeeds: {},
-    publicTransports: {}
+    instanceAssociations: {}
   },
-  mutations: Object.assign(
-    {},
-    ...generateMutationsForGroupResources(),
-    ...generateMutationsForCoreResources(),
-    {
-      SET_NETWORK_ERROR: (state, error) => {
-        state.networkError = error;
-      },
-      SET_RUNTIME_ERROR: (state, error) => {
-        state.runtimeError = error;
-      },
-      SET_SYSTEMSTATUS: (state, payload) => {
-        state.systemStatus = payload;
-      },
-      SET_ERRORS: (state, errors) => {
-        state.errors = errors;
-      },
-      SET_SETTING: (state, payload) => {
-        state.settings = { ...state.settings, ...payload };
-      }
+  mutations: Object.assign({}, ...generateMutationsForCoreResources(), {
+    SET_NETWORK_ERROR: (state, error) => {
+      state.networkError = error;
+    },
+    SET_RUNTIME_ERROR: (state, error) => {
+      state.runtimeError = error;
+    },
+    SET_SYSTEMSTATUS: (state, payload) => {
+      state.systemStatus = payload;
+    },
+    SET_ERRORS: (state, errors) => {
+      state.errors = errors;
+    },
+    SET_SETTING: (state, payload) => {
+      state.settings = { ...state.settings, ...payload };
     }
-  )
+  })
 });
 
 /* function buildFilterString(filters) {
@@ -62,18 +51,6 @@ export default new Vuex.Store({
     return `${acc}${sep}filter[${filter[0]}]=${filter[1]}`;
   }, "?");
 } */
-
-function generateMutationsForGroupResources() {
-  const groups = [
-    "calendars",
-    "idioms",
-    "reminderLists",
-    "weatherOwms",
-    "newsfeeds",
-    "publicTransports"
-  ];
-  return generateMutationsForResourceTypes(groups);
-}
 
 function generateMutationsForCoreResources() {
   const groups = [
