@@ -21,7 +21,6 @@ export default new Vuex.Store({
     widgetInstances: {},
     sourceInstances: {},
     instanceAssociations: {},
-    recordLinks: {},
     calendars: {},
     idioms: {},
     reminderLists: {},
@@ -83,7 +82,6 @@ function generateMutationsForCoreResources() {
     "groups",
     "widgetInstances",
     "sourceInstances",
-    "recordLinks",
     "instanceAssociations",
     "settings"
   ];

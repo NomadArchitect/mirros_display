@@ -41,9 +41,7 @@ export default {
           "widget",
           "sourceInstances",
           "instanceAssociations",
-          "sourceInstances.source",
-          "sourceInstances.recordLinks",
-          "sourceInstances.recordLinks.recordable"
+          "sourceInstances.source"
         ]
       })
     ]);
