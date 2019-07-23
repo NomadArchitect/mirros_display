@@ -80,11 +80,11 @@ export default {
     }
   },
   handleResourceUpdate: ({ commit }, resource) => {
-    const normalized = normalize(resource);
+    const normalized = normalize(resource, normalizerOptions);
     commitAll(commit, normalized);
   },
-  handleResourceDeletion: ({ commit, dispatch }, resource) => {
-    const normalized = normalize(resource);
+  handleResourceDeletion: ({ commit }, resource) => {
+    const normalized = normalize(resource, normalizerOptions);
     let toCommit = { updated: {}, deleted: {} };
     switch (resource.data.type) {
       case "widgetInstances": {
@@ -160,4 +160,4 @@ function deleteAll(commit, response) {
   }
 }
 
-const normalizerOptions = { camelizeKeys: true };
+const normalizerOptions = { camelizeKeys: false };
