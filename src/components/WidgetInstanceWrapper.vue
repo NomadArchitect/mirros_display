@@ -56,11 +56,13 @@ export default {
         const el = document.getElementById(
           `widget-title-${this.widgetInstance.id}`
         );
-        titleHeight =
-          el.clientHeight +
-          parseInt(
-            window.getComputedStyle(el).getPropertyValue("margin-bottom")
-          );
+        if (el != null) {
+          titleHeight =
+            el.clientHeight +
+            parseInt(
+              window.getComputedStyle(el).getPropertyValue("margin-bottom")
+            );
+        }
       }
       return {
         heightPx:
@@ -89,7 +91,13 @@ export default {
         : false;
     },
     records: function() {
-      return this.recordsForWidgetInstance(this.widgetInstance);
+      if (
+        this.widgetInstance.relationships.instanceAssociations.data.length > 0
+      ) {
+        return this.recordsForWidgetInstance(this.widgetInstance);
+      } else {
+        return [];
+      }
     },
     localizedTitleOrFallback: function() {
       return (
