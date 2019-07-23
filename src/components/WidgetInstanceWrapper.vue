@@ -56,11 +56,13 @@ export default {
         const el = document.getElementById(
           `widget-title-${this.widgetInstance.id}`
         );
-        titleHeight =
-          el.clientHeight +
-          parseInt(
-            window.getComputedStyle(el).getPropertyValue("margin-bottom")
-          );
+        if (el != null) {
+          titleHeight =
+            el.clientHeight +
+            parseInt(
+              window.getComputedStyle(el).getPropertyValue("margin-bottom")
+            );
+        }
       }
       return {
         heightPx:
