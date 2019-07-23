@@ -20,37 +20,25 @@ export default new Vuex.Store({
     sources: {},
     widgetInstances: {},
     sourceInstances: {},
-    instanceAssociations: {},
-    recordLinks: {},
-    calendars: {},
-    idioms: {},
-    reminderLists: {},
-    weatherOwms: {},
-    newsfeeds: {},
-    publicTransports: {}
+    instanceAssociations: {}
   },
-  mutations: Object.assign(
-    {},
-    ...generateMutationsForGroupResources(),
-    ...generateMutationsForCoreResources(),
-    {
-      SET_NETWORK_ERROR: (state, error) => {
-        state.networkError = error;
-      },
-      SET_RUNTIME_ERROR: (state, error) => {
-        state.runtimeError = error;
-      },
-      SET_SYSTEMSTATUS: (state, payload) => {
-        state.systemStatus = payload;
-      },
-      SET_ERRORS: (state, errors) => {
-        state.errors = errors;
-      },
-      SET_SETTING: (state, payload) => {
-        state.settings = { ...state.settings, ...payload };
-      }
+  mutations: Object.assign({}, ...generateMutationsForCoreResources(), {
+    SET_NETWORK_ERROR: (state, error) => {
+      state.networkError = error;
+    },
+    SET_RUNTIME_ERROR: (state, error) => {
+      state.runtimeError = error;
+    },
+    SET_SYSTEMSTATUS: (state, payload) => {
+      state.systemStatus = payload;
+    },
+    SET_ERRORS: (state, errors) => {
+      state.errors = errors;
+    },
+    SET_SETTING: (state, payload) => {
+      state.settings = { ...state.settings, ...payload };
     }
-  )
+  })
 });
 
 /* function buildFilterString(filters) {
@@ -64,18 +52,6 @@ export default new Vuex.Store({
   }, "?");
 } */
 
-function generateMutationsForGroupResources() {
-  const groups = [
-    "calendars",
-    "idioms",
-    "reminderLists",
-    "weatherOwms",
-    "newsfeeds",
-    "publicTransports"
-  ];
-  return generateMutationsForResourceTypes(groups);
-}
-
 function generateMutationsForCoreResources() {
   const groups = [
     "widgets",
@@ -83,7 +59,6 @@ function generateMutationsForCoreResources() {
     "groups",
     "widgetInstances",
     "sourceInstances",
-    "recordLinks",
     "instanceAssociations",
     "settings"
   ];
