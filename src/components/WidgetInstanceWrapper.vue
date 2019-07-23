@@ -89,7 +89,13 @@ export default {
         : false;
     },
     records: function() {
-      return this.recordsForWidgetInstance(this.widgetInstance);
+      if (
+        this.widgetInstance.relationships.instanceAssociations.data.length > 0
+      ) {
+        return this.recordsForWidgetInstance(this.widgetInstance);
+      } else {
+        return [];
+      }
     },
     localizedTitleOrFallback: function() {
       return (
