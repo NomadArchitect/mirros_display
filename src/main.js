@@ -56,6 +56,7 @@ import locales from "@/locales/global";
 Vue.locales(locales);
 
 new Vue({
+  backendUrl: appconfig.backendUrl,
   store: store,
   render: h => h(App)
 }).$mount("#app");
