@@ -104,7 +104,7 @@ export default {
       "widgetForInstance",
       "recordsForWidgetInstance"
     ]),
-    ...mapState(["sourceInstances", "recordLinks"])
+    ...mapState(["sourceInstances"])
   },
   beforeMount: function() {
     if (!this.widget) {
