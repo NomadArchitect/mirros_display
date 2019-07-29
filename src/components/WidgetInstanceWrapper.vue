@@ -15,7 +15,7 @@
       :records="records"
       :language="languageTag"
       :locale="language"
-      :backendUrl="backendUrl"
+      :backendUrl="$root.$options.backendUrl"
       :fetchAsset="fetchAsset"
     />
   </section>
@@ -25,7 +25,6 @@
 import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
 import axios from "axios";
-import appconfig from "@/app-config";
 
 export default {
   name: "WidgetInstanceWrapper",
@@ -39,11 +38,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  data: function() {
-    return {
-      backendUrl: appconfig.backendUrl
-    };
   },
   asyncComputed: {
     /**
@@ -110,14 +104,14 @@ export default {
       "widgetForInstance",
       "recordsForWidgetInstance"
     ]),
-    ...mapState(["sourceInstances", "recordLinks"])
+    ...mapState(["sourceInstances"])
   },
   beforeMount: function() {
     if (!this.widget) {
       throw new Error("widget not present in Vuex store");
     } else {
       this.$options.components[this.widget.id] = httpVueLoader(
-        `${appconfig.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
+        `${this.$root.$options.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
       );
     }
   },
