@@ -1,7 +1,4 @@
 {
-    "The server is not responding.": "El servidor no responde.",
-    "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.": "Esto no debería suceder, pero obviamente lo hizo. Intente reiniciar el dispositivo y póngase en contacto con el servicio de asistencia técnica si esto no resuelve el problema.",
-    "Reconnecting in": "Reconectando en",
     "Connecting": "Conectando",
     "Something is wrong with your glancr's Wi-Fi connection.": "Algo está mal con la conexión Wi-Fi de tu navegador.",
     "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.": "Vuelve a conectar el teléfono o el portátil con el Wi-Fi 'glancr setup' y comprueba si has introducido el nombre y la contraseña de Wi-Fi correctos.",
@@ -14,5 +11,9 @@
     "On most devices, the setup screen should start automatically.": "En la mayoría de los dispositivos, la pantalla de configuración debería iniciarse automáticamente.",
     "If it doesn't, visit": "Si no lo hace, visite",
     "in your browser.": "en su navegador.",
-    "Follow the instructions to complete the setup!": "Siga las instrucciones para completar la configuración!"
+    "Follow the instructions to complete the setup!": "Siga las instrucciones para completar la configuración!",
+    "Connecting to the server.": "Conectando al servidor.",
+    "If you keep seeing this message after a few minutes, please restart the device. If that doesn't help, please contact support.": "Si sigue viendo este mensaje después de unos minutos, reinicie el dispositivo. Si eso no ayuda, póngase en contacto con el soporte.",
+    "Attempting connection in": "Intentando conexión en",
+    "Aw snap! Something went wrong. Please remove this widget and send us a bug report.": "Concho! Algo salió mal. Elimine este widget y envíenos un informe de error."
 }
