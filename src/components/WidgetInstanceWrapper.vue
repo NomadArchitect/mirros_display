@@ -7,7 +7,15 @@
     >
       {{ widgetInstance.attributes.title || localizedTitleOrFallback }}
     </h2>
+    <p v-if="renderError">
+      {{
+        t(
+          "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
+        )
+      }}
+    </p>
     <component
+      v-else
       :is="widget.id"
       :currentSettings="widgetInstance.attributes.configuration"
       :currentDimensions="currentDimensions"
@@ -99,12 +107,15 @@ export default {
         this.widget.attributes.title["enGb"]
       );
     },
+    renderError: function() {
+      return this.runtimeError.includes(this._uid);
+    },
     ...mapGetters([
       "language",
       "widgetForInstance",
       "recordsForWidgetInstance"
     ]),
-    ...mapState(["sourceInstances"])
+    ...mapState(["sourceInstances", "runtimeError"])
   },
   beforeMount: function() {
     if (!this.widget) {
