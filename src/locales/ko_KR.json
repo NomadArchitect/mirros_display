@@ -1,7 +1,4 @@
 {
-    "The server is not responding.": "서버가 응답하지 않습니다.",
-    "This should not happen, but obviously did. Please try restarting the device and contact support if that does not resolve the issue.": "이것은 일어나서는 안되지만 분명히 그랬습니다. 문제가 해결되지 않으면 장치를 다시 시작하고 지원 담당자에게 문의하십시오.",
-    "Reconnecting in": "다시 연결",
     "Connecting": "연결 중",
     "Something is wrong with your glancr's Wi-Fi connection.": "glancr의 Wi-Fi 연결에 문제가 있습니다.",
     "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password.": "휴대 전화 나 노트북을 Wi-Fi 'glancr 설정'으로 다시 연결하고 올바른 Wi-Fi 이름과 비밀번호를 입력했는지 확인하십시오.",
@@ -14,5 +11,9 @@
     "On most devices, the setup screen should start automatically.": "대부분의 디바이스에서는 자동으로 설정화면이 나타납니다.",
     "If it doesn't, visit": "만약 설정화면이 나타나지 않는다면 에 연결해주세요 ",
     "in your browser.": "브라우저에서.",
-    "Follow the instructions to complete the setup!": "설정을 완료하기 위한 지시에 따라주세요!"
+    "Follow the instructions to complete the setup!": "설정을 완료하기 위한 지시에 따라주세요!",
+    "Connecting to the server.": "서버에 연결 중입니다.",
+    "If you keep seeing this message after a few minutes, please restart the device. If that doesn't help, please contact support.": "몇 분 후에이 메시지가 계속 나타나면 장치를 다시 시작하십시오. 문제가 해결되지 않으면 지원 팀에 문의하십시오.",
+    "Attempting connection in": "연결 시도 중",
+    "Aw snap! Something went wrong. Please remove this widget and send us a bug report.": "아 스냅! 문제가 발생했습니다. 이 위젯을 제거하고 버그 보고서를 보내주십시오."
 }

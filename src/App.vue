@@ -69,18 +69,6 @@
         }}
       </p>
     </main>
-
-    <main v-else-if="runtimeError" class="centered-message">
-      <h4>{{ t("Aw snap!") }}</h4>
-      <p>
-        {{
-          t(
-            "An unrecoverable error occurred. This might be caused by a widget you just added. Please remove it from the board and restart the device. Please also send a debug report through the Help tab in mirr.OS settings."
-          )
-        }}
-      </p>
-    </main>
-
     <main v-else>
       <section class="grid-stack">
         <div
@@ -233,7 +221,6 @@ export default {
       "widgetInstances",
       "systemStatus",
       "networkError",
-      "runtimeError",
       "settings"
     ]),
     ...mapGetters(["language"]),
