@@ -186,6 +186,8 @@ export default {
     language: function(newLang) {
       console.log("storing language", newLang);
       localStorage.language = newLang;
+      this.$translate.setLang(this.language);
+      document.documentElement.setAttribute("lang", this.languageTag());
     },
     backgroundcolor: function(newVal) {
       if (newVal.attributes != undefined) {
