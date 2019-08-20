@@ -22,13 +22,13 @@ Vue.use(VueAxios, axios);
 Vue.config.errorHandler = function(err, vm, info) {
   // TODO: send error to backend for logging
   console.log(err, vm, info);
-  //if (process.env.NODE_ENV != "development") {
-  localStorage.reloads = parseInt(localStorage.reloads) + 1 || 1;
+  if (process.env.NODE_ENV != "development") {
+    localStorage.reloads = parseInt(localStorage.reloads) + 1 || 1;
 
-  parseInt(localStorage.reloads) <= 5
-    ? window.location.reload()
-    : vm.$store.commit("SET_RUNTIME_ERROR", vm.$parent._uid);
-  //}
+    parseInt(localStorage.reloads) <= 5
+      ? window.location.reload()
+      : vm.$store.commit("SET_RUNTIME_ERROR", vm.$parent._uid);
+  }
 };
 
 const backend =
