@@ -184,7 +184,6 @@ export default {
       }
     },
     language: function(newLang) {
-      console.log("storing language", newLang);
       localStorage.language = newLang;
       this.$translate.setLang(this.language);
       document.documentElement.setAttribute("lang", this.languageTag());
@@ -245,10 +244,6 @@ export default {
     } finally {
       this.loading = false;
       if (localStorage.language) {
-        console.log(
-          "setting language from localStorage to ",
-          localStorage.language
-        );
         this.$translate.setLang(localStorage.language);
         document.documentElement.setAttribute("lang", this.languageTag());
       }
@@ -348,6 +343,43 @@ $vertical_padding: 20px !default;
         top: (100vh / $gridstack-rows) * $i;
       }
     }
+
+    @media (orientation: landscape) {
+      // Columns
+      @for $i from 1 through $gridstack-columns {
+        &[data-gs-width="#{$i}"] {
+          width: (50% / $gridstack-columns) * $i;
+        }
+      }
+      @for $i from 1 through $gridstack-columns {
+        &[data-gs-x="#{$i}"] {
+          left: (50% / $gridstack-columns) * $i;
+        }
+      }
+
+      // Rows
+      @for $i from 1 through $gridstack-rows {
+        &[data-gs-height="#{$i}"] {
+          height: calc(#{100vh / round($gridstack-rows / 2) * $i} - 10px);
+        }
+      }
+
+      @for $i from 1 through 10 {
+        &[data-gs-y="#{$i}"] {
+          top: calc(#{100vh / round($gridstack-rows / 2) * $i} - 10px);
+        }
+      }
+      @for $i from 11 through $gridstack-rows {
+        &[data-gs-y="#{$i}"] {
+          margin-left: 50%;
+          top: calc(#{100vh / round($gridstack-rows / 2) * ($i - 11)} - 10px);
+        }
+      }
+      &[data-gs-y="11"] {
+        top: 0;
+      }
+    }
+
     > .grid-stack-item-content {
       margin: 0;
       position: absolute;
