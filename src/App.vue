@@ -198,12 +198,13 @@ export default {
         document.body.style.color = newVal.attributes.value;
       }
     },
-    backgroundImage: function(newVal) {
+    backgroundImage: async function(newVal) {
       if (newVal.attributes.value.length > 0) {
-        const fileObject = JSON.parse(
-          this.settings.system_backgroundimage.attributes.value
-        );
-        document.body.style.backgroundImage = `url("${appConfig.backendUrl}${fileObject.url}")`;
+        const bgId = this.settings.system_backgroundimage.attributes.value;
+        const data = await fetch(
+          `${appConfig.backendUrl}/uploads/${bgId}`
+        ).then(res => res.json());
+        document.body.style.backgroundImage = `url("${data.file_url}")`;
         document.body.style.backgroundOrigin = "center center";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = "cover";
