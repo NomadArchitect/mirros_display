@@ -70,7 +70,7 @@ export default {
         const el = document.getElementById(
           `widget-title-${this.widgetInstance.id}`
         );
-        if (el != null) {
+        if (el != null && el.clientHeight > 0) {
           titleHeight =
             el.clientHeight +
             parseInt(
@@ -78,6 +78,7 @@ export default {
             );
         }
       }
+      // FIXME: Adapt calculation for landscape
       return {
         heightPx:
           Math.floor(
