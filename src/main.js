@@ -19,9 +19,16 @@ Vue.use(VueTranslate);
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 
+axios.defaults.baseURL = appconfig.backendUrl;
+axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
+
 Vue.config.errorHandler = function(err, vm, info) {
-  // TODO: send error to backend for logging
-  console.log(err, vm, info);
+  console.debug(err, vm, info);
+  axios.post("/system/log_client_error", {
+    error: err.message,
+    stack: err.stack,
+    instance: vm.$vnode.tag
+  });
   if (process.env.NODE_ENV != "development") {
     localStorage.reloads = parseInt(localStorage.reloads) + 1 || 1;
 
@@ -41,9 +48,6 @@ Vue.use(ActionCableVue, {
   debugLevel: "error",
   connectionUrl: `ws://${backend}/cable`
 });
-
-axios.defaults.baseURL = appconfig.backendUrl;
-axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
 
 Vue.filter("bcp47tag", function(language) {
   const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);

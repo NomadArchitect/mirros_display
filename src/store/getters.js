@@ -1,8 +1,6 @@
 export default {
   language: state => {
-    return state.settings.system_language != undefined
-      ? state.settings.system_language.attributes.value
-      : "enGb";
+    return state.settings.system_language?.attributes?.value ?? "enGb";
   },
   widgetForInstance: state => instance => {
     return state.widgets[instance.relationships.widget.data.id];
@@ -19,9 +17,9 @@ export default {
       const sid = assoc.relationships.sourceInstance.data.id;
       const gid = assoc.relationships.group.data.id;
       assoc.attributes.configuration.chosen.forEach(choice => {
-        if (state.sourceInstances[sid].attributes.records[gid] != undefined) {
-          acc.push(state.sourceInstances[sid].attributes.records[gid][choice]);
-        }
+        acc.push(
+          state.sourceInstances[sid]?.attributes?.records[gid]?.[choice]
+        );
       });
       return acc;
     }, []);

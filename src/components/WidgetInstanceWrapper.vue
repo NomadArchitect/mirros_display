@@ -14,6 +14,13 @@
         )
       }}
     </p>
+    <p v-else-if="loadError">
+      {{
+        t(
+          "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
+        )
+      }}
+    </p>
     <component
       v-else
       :is="widget.id"
@@ -47,6 +54,11 @@ export default {
       required: true
     }
   },
+  data: function() {
+    return {
+      loadError: false
+    };
+  },
   asyncComputed: {
     /**
      * Computes the actual pixel dimensions for the inner container, minus the title if currently shown, and adds the configured grid position.
@@ -58,7 +70,7 @@ export default {
         const el = document.getElementById(
           `widget-title-${this.widgetInstance.id}`
         );
-        if (el != null) {
+        if (el != null && el.clientHeight > 0) {
           titleHeight =
             el.clientHeight +
             parseInt(
@@ -66,6 +78,7 @@ export default {
             );
         }
       }
+      // FIXME: Adapt calculation for landscape
       return {
         heightPx:
           Math.floor(
@@ -119,7 +132,8 @@ export default {
   },
   beforeMount: function() {
     if (!this.widget) {
-      throw new Error("widget not present in Vuex store");
+      console.error("widget not present in Vuex store");
+      this.loadError = true;
     } else {
       this.$options.components[this.widget.id] = httpVueLoader(
         `${this.$root.$options.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
