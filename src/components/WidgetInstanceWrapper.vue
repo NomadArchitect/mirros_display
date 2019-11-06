@@ -14,6 +14,13 @@
         )
       }}
     </p>
+    <p v-else-if="loadError">
+      {{
+        t(
+          "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
+        )
+      }}
+    </p>
     <component
       v-else
       :is="widget.id"
@@ -46,6 +53,11 @@ export default {
       type: String,
       required: true
     }
+  },
+  data: function() {
+    return {
+      loadError: false
+    };
   },
   asyncComputed: {
     /**
@@ -119,7 +131,8 @@ export default {
   },
   beforeMount: function() {
     if (!this.widget) {
-      throw new Error("widget not present in Vuex store");
+      console.error("widget not present in Vuex store");
+      this.loadError = true;
     } else {
       this.$options.components[this.widget.id] = httpVueLoader(
         `${this.$root.$options.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
