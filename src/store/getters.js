@@ -1,3 +1,5 @@
+import { NmConnectivityState } from "@/constants";
+
 export default {
   language: state => {
     return state.settings.system_language?.attributes?.value ?? "enGb";
@@ -25,5 +27,23 @@ export default {
     }, []);
 
     return records;
+  },
+  /** 
+    FIXME: In some cases, the glancrsetup network active state is not available fast enough. As it wouldn't make sense to put mirr.OS behind a captive portal WiFi when there's no UI to accept T&C, we rely on connectivity state atm.
+  */
+  ap_active: state => {
+    return state.systemStatus.connectivity === NmConnectivityState.PORTAL;
+    /*
+    let ret;
+    state.systemStatus.networks.forEach(network => {
+      if (network.connection_id === "glancrsetup") {
+        ret = network.active;
+      }
+    });
+    return ret;
+    */
+  },
+  systemDisconnected: state => {
+    return state.systemStatus.connectivity <= NmConnectivityState.PORTAL;
   }
 };
