@@ -18,15 +18,15 @@
 
     <main
       v-else-if="
-        (!systemStatus.setup_complete && systemStatus.ap_active) ||
-          (!systemStatus.configured_at_boot && systemStatus.ap_active)
+        (!systemStatus.setup_complete && ap_active) ||
+          (!systemStatus.configured_at_boot && ap_active)
       "
     >
       <Setup />
     </main>
 
     <main
-      v-else-if="!systemStatus.setup_complete && !systemStatus.ap_active"
+      v-else-if="!systemStatus.setup_complete && !ap_active"
       class="centered-message"
     >
       <ErrorIcon class="error__icon" />
@@ -53,7 +53,7 @@
     <main
       v-else-if="
         systemStatus.configured_at_boot &&
-          (systemStatus.current_ip === null && systemStatus.ap_active)
+          (systemStatus.online === false && ap_active)
       "
       class="centered-message"
     >
@@ -87,7 +87,7 @@
         </div>
       </section>
 
-      <SystemErrorOverlay v-if="!systemStatus.online">
+      <SystemErrorOverlay v-if="systemDisconnected">
         <OfflineIcon slot="icon" />
         <template slot="title">{{ t("Your glancr is offline.") }}</template>
         <template slot="text">{{
@@ -225,7 +225,7 @@ export default {
       "networkError",
       "settings"
     ]),
-    ...mapGetters(["language"]),
+    ...mapGetters(["language", "ap_active", "systemDisconnected"]),
     backgroundcolor: function() {
       return this.settings.system_backgroundcolor;
     },
