@@ -28,22 +28,28 @@ export default {
 
     return records;
   },
-  /** 
-    FIXME: In some cases, the glancrsetup network active state is not available fast enough. As it wouldn't make sense to put mirr.OS behind a captive portal WiFi when there's no UI to accept T&C, we rely on connectivity state atm.
+
+  /**
+    FIXME: We can't rely on NetworkManager's connectivity check on Ubuntu Core yet. 1.2.2 has it disabled entirely, and 1.10 doesn't reliably report our own captive portal, but sometimes outputs LIMITED (^= 4).
   */
   ap_active: state => {
-    return state.systemStatus.connectivity === NmConnectivityState.PORTAL;
-    /*
-    let ret;
-    state.systemStatus.networks.forEach(network => {
-      if (network.connection_id === "glancrsetup") {
-        ret = network.active;
-      }
-    });
-    return ret;
-    */
+    if (state.systemStatus.primary_connection != null) {
+      return (
+        state.systemStatus.primary_connection.connection_id === "glancrsetup"
+      );
+    } else {
+      return false;
+    }
   },
-  systemDisconnected: state => {
-    return state.systemStatus.connectivity <= NmConnectivityState.PORTAL;
+  systemDisconnected: (state, getters) => {
+    if (state.systemStatus.connectivity_check_available) {
+      return state.systemStatus.connectivity <= NmConnectivityState.PORTAL;
+    } else {
+      return (
+        state.online === false &&
+        state.primaryConnection != null &&
+        getters.ap_active === false
+      );
+    }
   }
 };
