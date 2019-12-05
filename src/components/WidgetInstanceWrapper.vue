@@ -132,7 +132,6 @@ export default {
   },
   beforeMount: function() {
     if (!this.widget) {
-      console.error("widget not present in Vuex store");
       this.loadError = true;
     } else {
       this.$options.components[this.widget.id] = httpVueLoader(

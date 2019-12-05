@@ -22,8 +22,8 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = appconfig.backendUrl;
 axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
 
+// eslint-disable-next-line no-unused-vars
 Vue.config.errorHandler = function(err, vm, info) {
-  console.debug(err, vm, info);
   axios.post("/system/log_client_error", {
     error: err.message,
     stack: err.stack,

@@ -7,19 +7,18 @@ image: node:11.7.0
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 cache:
   paths:
-  - node_modules/
+    - node_modules/
 
 build-tag:
   only:
     - tags
   script:
     - yarn install
-    - yarn run build
+    - yarn run build --modern
   artifacts:
     name: "$CI_PROJECT_NAME-$CI_COMMIT_TAG"
     paths:
       - dist/
-      
 # build-commit:
 #  script:
 #    - yarn install
