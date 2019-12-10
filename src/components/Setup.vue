@@ -71,6 +71,7 @@ export default {
       immediate: true,
       handler: function(newVal) {
         // Stop the rotation once a language has been set.
+        if (newVal.system_language === undefined) return;
         if (newVal.system_language.attributes.value != "") {
           this.$translate.setLang(newVal.system_language.attributes.value);
           clearInterval(this.$options.languageRotation);
