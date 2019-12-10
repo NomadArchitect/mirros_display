@@ -35,6 +35,9 @@ Vue.config.errorHandler = function(err, vm, info) {
     parseInt(localStorage.reloads) <= 5
       ? window.location.reload()
       : vm.$store.commit("SET_RUNTIME_ERROR", vm.$parent._uid);
+  } else {
+    // eslint-disable-next-line no-console
+    console.debug(err, vm, info);
   }
 };
 

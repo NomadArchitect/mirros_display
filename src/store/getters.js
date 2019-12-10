@@ -51,5 +51,10 @@ export default {
         getters.ap_active === false
       );
     }
+  },
+  primaryConnectionIP: state => {
+    const primary = state.systemStatus.primary_connection;
+    // TODO: Use optional chaining once active with Babel
+    return primary && primary.ip4_address;
   }
 };

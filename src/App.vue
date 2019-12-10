@@ -18,26 +18,19 @@
 
     <main
       v-else-if="
-        (!systemStatus.setup_complete && ap_active) ||
-          (!systemStatus.configured_at_boot && ap_active)
+        !systemStatus.setup_complete || !systemStatus.configured_at_boot
       "
     >
       <Setup />
-    </main>
-
-    <main
-      v-else-if="!systemStatus.setup_complete && !ap_active"
-      class="centered-message"
-    >
-      <ErrorIcon class="error__icon" />
-      <h4>{{ t("Can't open setup WiFi.") }}</h4>
-      <p>
-        {{
+      <SystemErrorOverlay v-if="!ap_active">
+        <OfflineIcon slot="icon" />
+        <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
+        <template slot="text">{{
           t(
             "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
           )
-        }}
-      </p>
+        }}</template>
+      </SystemErrorOverlay>
     </main>
 
     <main v-else-if="systemStatus.connection_attempt" class="spinner">
