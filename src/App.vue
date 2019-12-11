@@ -33,7 +33,7 @@
       </SystemErrorOverlay>
     </main>
 
-    <main v-else-if="systemStatus.connection_attempt" class="spinner">
+    <main v-else-if="connecting" class="spinner">
       <AnimatedLoader />
       <p style="text-align: center">{{ t("Connecting") }}</p>
     </main>
@@ -218,7 +218,12 @@ export default {
       "networkError",
       "settings"
     ]),
-    ...mapGetters(["language", "ap_active", "systemDisconnected"]),
+    ...mapGetters([
+      "language",
+      "ap_active",
+      "systemDisconnected",
+      "connecting"
+    ]),
     backgroundcolor: function() {
       return this.settings.system_backgroundcolor;
     },

@@ -1,4 +1,4 @@
-import { NmConnectivityState } from "@/constants";
+import { NmConnectivityState, NmState } from "@/constants";
 
 export default {
   language: state => {
@@ -56,5 +56,8 @@ export default {
     const primary = state.systemStatus.primary_connection;
     // TODO: Use optional chaining once active with Babel
     return primary && primary.ip4_address;
+  },
+  connecting: state => {
+    return state.systemStatus.nm_state === NmState.CONNECTING;
   }
 };
