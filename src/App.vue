@@ -46,7 +46,8 @@
     <main
       v-else-if="
         systemStatus.configured_at_boot &&
-          (systemStatus.online === false && ap_active)
+          systemStatus.online === false &&
+          ap_active
       "
       class="centered-message"
     >
