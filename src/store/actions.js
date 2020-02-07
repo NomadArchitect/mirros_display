@@ -17,16 +17,12 @@ export default {
     }
   },
   fetchSystemStatus: async ({ commit, dispatch }) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const res = await axios.get("/system/status");
-        commit("SET_SYSTEMSTATUS", res.data.meta);
-        resolve();
-      } catch (error) {
-        dispatch("handleError", error);
-        reject();
-      }
-    });
+    try {
+      const res = await axios.get("/system/status");
+      commit("SET_SYSTEMSTATUS", res.data.meta);
+    } catch (error) {
+      dispatch("handleError", error);
+    }
   },
   fetchFullData: async ({ dispatch }) => {
     return Promise.all([
