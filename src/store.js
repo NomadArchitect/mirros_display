@@ -41,16 +41,6 @@ export default new Vuex.Store({
   })
 });
 
-/* function buildFilterString(filters) {
-  if (filters.length === 0) {
-    return "";
-  }
-
-  return filters.reduce((acc, filter, currentIndex, array) => {
-    let sep = currentIndex != 0 && currentIndex != array.length ? "&" : "";
-    return `${acc}${sep}filter[${filter[0]}]=${filter[1]}`;
-  }, "?");
-} */
 
 function generateMutationsForCoreResources() {
   const groups = [
