@@ -1,12 +1,25 @@
 import { NmConnectivityState, NmState } from "@/constants";
 
 export default {
+  activeBoardId: state => {
+    return state.settings?.system_activeboard?.attributes?.value;
+  },
+
   language: state => {
     return state.settings.system_language?.attributes?.value ?? "enGb";
   },
+
+  languageTag: (state, getters) => {
+    const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
+    return getters.language.replace(regex, match => {
+      return match.toUpperCase().padStart(match.length + 1, "-");
+    });
+  },
+
   widgetForInstance: state => instance => {
     return state.widgets[instance.relationships.widget.data.id];
   },
+
   /**
    * Returns all sub-resources that have been chosen from the associated source instance's records.
    */

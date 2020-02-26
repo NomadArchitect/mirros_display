@@ -47,3 +47,13 @@ table {
     font-size: 0.5rem;
   }
 }
+
+.centered-message {
+  position: relative;
+  margin: 0 auto;
+  top: 30vh;
+  max-width: 75%;
+  font-size: 3rem;
+  text-align: center;
+  line-height: 3.5rem;
+}
