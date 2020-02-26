@@ -6,23 +6,29 @@ import getters from "@/store/getters";
 
 Vue.use(Vuex);
 
+const types = [
+  "boards",
+  "groups",
+  "instanceAssociations",
+  "settings",
+  "sourceInstances",
+  "sources",
+  "widgetInstances",
+  "widgets"
+];
+
 export default new Vuex.Store({
   actions,
   getters,
-  state: {
+  state: Object.assign({}, ...initStateForResourceTypes(types), {
     systemStatus: {},
     networkError: false,
     runtimeError: [],
     settings: {},
     errors: [],
-    connectionError: "",
-    widgets: {},
-    sources: {},
-    widgetInstances: {},
-    sourceInstances: {},
-    instanceAssociations: {}
-  },
-  mutations: Object.assign({}, ...generateMutationsForCoreResources(), {
+    connectionError: ""
+  }),
+  mutations: Object.assign({}, ...generateMutationsForResourceTypes(types), {
     SET_NETWORK_ERROR: (state, error) => {
       state.networkError = error;
     },
@@ -41,20 +47,22 @@ export default new Vuex.Store({
   })
 });
 
-
-function generateMutationsForCoreResources() {
-  const groups = [
-    "widgets",
-    "sources",
-    "groups",
-    "widgetInstances",
-    "sourceInstances",
-    "instanceAssociations",
-    "settings"
-  ];
-  return generateMutationsForResourceTypes(groups);
+/**
+ *
+ * @param {string[]} typeList - list of normalized JSON:API resource names (e.g. dash transformed to camelCase).
+ */
+function initStateForResourceTypes(typeList) {
+  return typeList.map(type => {
+    let state = {};
+    state[type] = {};
+    return state;
+  });
 }
 
+/**
+ * Generate ADD_OR_UPDATE and DELETE mutations for all passed resource types.
+ * @param {string[]} typeList - list of normalized JSON:API resource names (e.g. dash transformed to camelCase).
+ */
 function generateMutationsForResourceTypes(typeList) {
   return typeList.map(type => {
     const caps = type.toUpperCase();
