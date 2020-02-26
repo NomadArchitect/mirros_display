@@ -6,16 +6,6 @@
         <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
       </p>
       <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
-
-      <!--
-        <p class="smaller" id="connected">
-          <span>{{t("Connected")}}</span>: <span id="connected-device"></span>
-        </p>
-      -->
-
-      <!--
-        <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top" />
-      -->
     </section>
     <hr />
 
@@ -33,10 +23,6 @@
           {{ t("in your browser.") }}
         </em>
       </p>
-
-      <!--
-        <img src="@/assets/icons/connecting.svg" width="75px" class="margin-top"/>
-      -->
     </section>
     <hr />
 

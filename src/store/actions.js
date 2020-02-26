@@ -17,34 +17,60 @@ export default {
     }
   },
   fetchSystemStatus: async ({ commit, dispatch }) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const res = await axios.get("/system/status");
-        commit("SET_SYSTEMSTATUS", res.data.meta);
-        resolve();
-      } catch (error) {
-        dispatch("handleError", error);
-        reject();
-      }
-    });
+    try {
+      const res = await axios.get("/system/status");
+      commit("SET_SYSTEMSTATUS", res.data.meta);
+    } catch (error) {
+      dispatch("handleError", error);
+    }
   },
   fetchFullData: async ({ dispatch }) => {
+    const settings = [
+      "system_language",
+      "personal_name",
+      "system_timezone",
+      "system_backgroundcolor",
+      "system_fontcolor",
+      "system_backgroundimage",
+      "system_multipleboards",
+      "system_activeboard"
+    ];
+
     return Promise.all([
-      dispatch("fetchSetting", "system_language"),
-      dispatch("fetchSetting", "personal_name"),
-      dispatch("fetchSetting", "system_timezone"),
-      dispatch("fetchSetting", "system_backgroundcolor"),
-      dispatch("fetchSetting", "system_fontcolor"),
-      dispatch("fetchSetting", "system_backgroundimage"),
-      dispatch("fetchWidgetInstances", {
-        include: [
-          "widget",
-          "sourceInstances",
-          "instanceAssociations",
-          "sourceInstances.source"
-        ]
-      })
+      ...settings.map(setting => dispatch("fetchSetting", setting)),
+      dispatch("fetchActiveBoard")
     ]);
+  },
+  fetchSettings: async ({ dispatch }) => {
+    const settings = [
+      "system_language",
+      "personal_name",
+      "system_timezone",
+      "system_backgroundcolor",
+      "system_fontcolor",
+      "system_backgroundimage",
+      "system_multipleboards",
+      "system_activeboard"
+    ];
+    return Promise.all([
+      ...settings.map(setting => dispatch("fetchSetting", setting))
+    ]);
+  },
+  fetchActiveBoard: async ({ commit, getters, dispatch }) => {
+    try {
+      const includeString = buildIncludeString([
+        "widgetInstances.widget",
+        "widgetInstances.sourceInstances",
+        "widgetInstances.instanceAssociations",
+        "widgetInstances.sourceInstances.source"
+      ]);
+      const boardId = getters.activeBoardId;
+      const response = await axios.get(`/boards/${boardId}${includeString}`);
+      const normalized = normalize(response.data, normalizerOptions);
+      commitAll(commit, normalized);
+    } catch (error) {
+      dispatch("handleError", error);
+    }
   },
   fetchWidgetInstances: async ({ commit, dispatch }, { include: includes }) => {
     const includeString = buildIncludeString(includes);
@@ -56,6 +82,9 @@ export default {
       dispatch("handleError", error);
     }
   },
+  /**
+   * @param {string} setting - slug of the setting to fetch, e.g. network_connectiontype for namespace `network` and setting connectionType.
+   */
   fetchSetting: async ({ commit, dispatch }, setting) => {
     try {
       const response = await axios.get(`/settings/${setting}`);

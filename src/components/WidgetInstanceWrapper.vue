@@ -28,7 +28,7 @@
       :currentDimensions="currentDimensions"
       :sourcesConfigured="sourcesConfigured"
       :records="records"
-      :language="languageTag"
+      :language="language | languageTag"
       :locale="language"
       :backendUrl="$root.$options.backendUrl"
       :fetchAsset="fetchAsset"
@@ -40,6 +40,7 @@
 import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
 import axios from "axios";
+import { languageTag } from "@/mixins/formatters";
 
 export default {
   name: "WidgetInstanceWrapper",
@@ -53,6 +54,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  filters: {
+    languageTag: languageTag
   },
   data: function() {
     return {
