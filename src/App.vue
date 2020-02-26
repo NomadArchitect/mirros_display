@@ -165,7 +165,7 @@ export default {
       await this.fetchSettings();
       this.$store.commit("SET_NETWORK_ERROR", false);
     } catch (error) {
-      console.warn(error);
+      // console.warn(error);
     } finally {
       this.loading = false;
       if (localStorage.language) {
