@@ -1,31 +1,20 @@
 # mirr.OS one Display App
 
+Vue.js SPA to display boards from a [mirr.OS API](https://gitlab.com/glancr/mirros_api/) installation.
+
 ## Project setup
 
-```
-yarn install # installs dependencies to node_modules
-```
-
-### Compiles and hot-reloads for development
-
-```
-yarn run serve
+```shell
+# installs dependencies to node_modules
+yarn install
 ```
 
-### Compiles and minifies for production
+```shell
+yarn serve          # Compiles and hot-reloads for development
 
-```
-yarn run build
-```
+yarn build          # Compiles and minifies for production
 
-### Lints and fixes files
+yarn lint           # Lints and fixes files
 
-```
-yarn run lint
-```
-
-### Runs unit and snapshot tests
-
-```
-yarn run test:unit
+yarn test:unit      # Runs unit and snapshot tests
 ```
