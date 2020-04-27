@@ -24,7 +24,7 @@
     <component
       v-else
       :is="widget.id"
-      :currentSettings="widgetInstance.attributes.configuration"
+      :currentSettings="widgetInstance.attributes.configuration || undefined"
       :currentDimensions="currentDimensions"
       :sourcesConfigured="sourcesConfigured"
       :records="records"
