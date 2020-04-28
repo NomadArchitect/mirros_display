@@ -24,7 +24,7 @@
     <component
       v-else
       :is="widget.id"
-      :currentSettings="widgetInstance.attributes.configuration"
+      :currentSettings="widgetInstance.attributes.configuration || undefined"
       :currentDimensions="currentDimensions"
       :sourcesConfigured="sourcesConfigured"
       :records="records"
@@ -139,14 +139,14 @@ export default {
       this.loadError = true;
     } else {
       this.$options.components[this.widget.id] = httpVueLoader(
-        `${this.$root.$options.backendUrl}/assets/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
+        `${this.$root.$options.backendUrl}/assets/${this.widget.type}/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
       );
     }
   },
   methods: {
     fetchAsset: async function(type, name) {
       return axios
-        .get(`/assets/${this.widget.id}/${type}/${name}`)
+        .get(`/assets/${this.widget.type}/${this.widget.id}/${type}/${name}`)
         .then(res => res.data);
     }
   }
