@@ -7,20 +7,24 @@
     >
       {{ widgetInstance.attributes.title || localizedTitleOrFallback }}
     </h2>
-    <p v-if="renderError">
-      {{
-        t(
-          "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
-        )
-      }}
-    </p>
-    <p v-else-if="loadError">
-      {{
-        t(
-          "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
-        )
-      }}
-    </p>
+    <template v-if="renderError">
+      <p v-show="showErrorNotifications">
+        {{
+          t(
+            "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
+          )
+        }}
+      </p>
+    </template>
+    <template v-else-if="loadError">
+      <p v-show="showErrorNotifications">
+        {{
+          t(
+            "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
+          )
+        }}
+      </p>
+    </template>
     <component
       v-else
       :is="widget.id"
@@ -44,7 +48,6 @@ import { languageTag } from "@/mixins/formatters";
 
 export default {
   name: "WidgetInstanceWrapper",
-  components: {},
   props: {
     widgetInstance: {
       type: Object,
@@ -130,7 +133,8 @@ export default {
     ...mapGetters([
       "language",
       "widgetForInstance",
-      "recordsForWidgetInstance"
+      "recordsForWidgetInstance",
+      "showErrorNotifications"
     ]),
     ...mapState(["sourceInstances", "runtimeError"])
   },

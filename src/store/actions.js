@@ -50,7 +50,8 @@ export default {
       "system_fontcolor",
       "system_backgroundimage",
       "system_multipleboards",
-      "system_activeboard"
+      "system_activeboard",
+      "system_showerrornotifications"
     ];
     return Promise.all([
       ...settings.map(setting => dispatch("fetchSetting", setting))
