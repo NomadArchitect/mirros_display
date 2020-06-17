@@ -9,6 +9,13 @@ export default {
     return state.settings.system_language?.attributes?.value ?? "enGb";
   },
 
+  showErrorNotifications: state => {
+    return (
+      state.settings.system_showerrornotifications?.attributes?.value ===
+        "on" ?? true
+    );
+  },
+
   languageTag: (state, getters) => {
     const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
     return getters.language.replace(regex, match => {

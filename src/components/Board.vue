@@ -17,7 +17,7 @@
       </div>
     </section>
 
-    <SystemErrorOverlay v-if="systemDisconnected">
+    <SystemErrorOverlay v-if="true && showErrorNotifications">
       <OfflineIcon slot="icon" />
       <template slot="title">{{ t("Your glancr is offline.") }}</template>
       <template slot="text">{{
@@ -52,7 +52,12 @@ export default {
   },
   computed: {
     ...mapState(["boards", "widgetInstances"]),
-    ...mapGetters(["activeBoardId", "systemDisconnected", "languageTag"]),
+    ...mapGetters([
+      "activeBoardId",
+      "systemDisconnected",
+      "languageTag",
+      "showErrorNotifications"
+    ]),
     activeBoard: function() {
       return this.boards[this.activeBoardId];
     },
