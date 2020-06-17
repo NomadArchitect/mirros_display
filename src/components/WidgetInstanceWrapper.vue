@@ -48,7 +48,6 @@ import { languageTag } from "@/mixins/formatters";
 
 export default {
   name: "WidgetInstanceWrapper",
-  components: {},
   props: {
     widgetInstance: {
       type: Object,
