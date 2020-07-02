@@ -135,3 +135,39 @@ https://github.com/hfg-gmuend/openmoji
   font-stretch: normal;
   unicode-range: U+4E00-9F95, U+F900-FA0B;
 }
+
+/* 
+Inter Family
+
+Copyright (c) 2016-2020 The Inter Project Authors
+https://github.com/rsms/inter
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+*/
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Inter-Regular.woff2?v=3.13") format("woff2"),
+    url("../fonts/Inter-Regular.woff?v=3.13") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Inter-Italic.woff2?v=3.13") format("woff2"),
+    url("../fonts/Inter-Italic.woff?v=3.13") format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/Inter-Bold.woff2?v=3.13") format("woff2"),
+    url("../fonts/Inter-Bold.woff?v=3.13") format("woff");
+}

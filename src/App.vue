@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ [`font-${displayFontName}`]: displayFontName }">
     <main v-if="loading" class="spinner"><AnimatedLoader /></main>
 
     <NetworkError v-else-if="networkError" />
@@ -144,6 +144,13 @@ export default {
     },
     backgroundImage: function() {
       return this.settings.system_backgroundimage;
+    },
+    /**
+     * Retrieves the name of the currently selected display font.
+     * @returns {string} The current display font name per the system setting's `options` attribute, or 'alegreya' if falsy.
+     */
+    displayFontName: function() {
+      return this.settings.system_displayfont?.attributes.value || "alegreya";
     },
     showSetup: function() {
       return (

@@ -33,7 +33,8 @@ export default {
       "system_fontcolor",
       "system_backgroundimage",
       "system_multipleboards",
-      "system_activeboard"
+      "system_activeboard",
+      "system_displayfont"
     ];
 
     return Promise.all([
@@ -51,7 +52,8 @@ export default {
       "system_backgroundimage",
       "system_multipleboards",
       "system_activeboard",
-      "system_showerrornotifications"
+      "system_showerrornotifications",
+      "system_displayfont"
     ];
     return Promise.all([
       ...settings.map(setting => dispatch("fetchSetting", setting))
