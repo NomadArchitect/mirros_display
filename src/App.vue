@@ -42,8 +42,6 @@ import Setup from "@/components/Setup";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 import Board from "@/components/Board";
 
-import appConfig from "@/app-config";
-
 export default {
   name: "app",
   components: {
@@ -114,36 +112,32 @@ export default {
         document.body.style.color = newVal.attributes.value;
       }
     },
-    backgroundImage: async function(newVal) {
-      if (newVal.attributes.value.length > 0) {
-        const bgId = this.settings.system_backgroundimage.attributes.value;
-        const data = await fetch(
-          `${appConfig.backendUrl}/uploads/${bgId}`
-        ).then(res => res.json());
-        document.body.style.backgroundImage = `url("${data.file_url}")`;
+    backgroundImage: {
+      immediate: true,
+      handler: function(newVal) {
+        document.body.style.backgroundImage = newVal
+          ? `url("${newVal}")`
+          : "none";
         document.body.style.backgroundOrigin = "center center";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = "cover";
-      } else {
-        let bodyStyles = document.body.style;
-        bodyStyles.removeProperty("background-image");
-        bodyStyles.removeProperty("background-origin");
-        bodyStyles.removeProperty("background-repeat");
-        bodyStyles.removeProperty("background-size");
       }
     }
   },
   computed: {
     ...mapState(["errors", "systemStatus", "networkError", "settings"]),
-    ...mapGetters(["language", "languageTag", "ap_active", "connecting"]),
+    ...mapGetters([
+      "language",
+      "languageTag",
+      "ap_active",
+      "connecting",
+      "backgroundImage"
+    ]),
     backgroundcolor: function() {
       return this.settings.system_backgroundcolor;
     },
     fontcolor: function() {
       return this.settings.system_fontcolor;
-    },
-    backgroundImage: function() {
-      return this.settings.system_backgroundimage;
     },
     /**
      * Retrieves the name of the currently selected display font.
