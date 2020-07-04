@@ -49,7 +49,6 @@ export default {
       "system_timezone",
       "system_backgroundcolor",
       "system_fontcolor",
-      "system_backgroundimage",
       "system_multipleboards",
       "system_activeboard",
       "system_showerrornotifications",
