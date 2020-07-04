@@ -5,6 +5,10 @@ export default {
     return state.settings?.system_activeboard?.attributes?.value;
   },
 
+  backgroundImage: (state, getters) => {
+    return state.boards[getters.activeBoardId]?.attributes.backgroundUrl;
+  },
+
   language: state => {
     return state.settings.system_language?.attributes?.value ?? "enGb";
   },
