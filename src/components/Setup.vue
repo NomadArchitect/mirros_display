@@ -42,41 +42,41 @@ export default {
   name: "Setup",
   components: {
     BrowserIcon,
-    InstructionsIcon
+    InstructionsIcon,
   },
-  data: function() {
+  data: function () {
     return {
-      languages: []
+      languages: [],
     };
   },
   computed: {
-    ...mapState(["settings"])
+    ...mapState(["settings"]),
   },
   watch: {
     settings: {
       immediate: true,
-      handler: function(newVal) {
+      handler: function (newVal) {
         // Stop the rotation once a language has been set.
         if (newVal.system_language === undefined) return;
         if (newVal.system_language.attributes.value != "") {
           this.$translate.setLang(newVal.system_language.attributes.value);
           clearInterval(this.$options.languageRotation);
         }
-      }
-    }
+      },
+    },
   },
-  mounted: function() {
+  mounted: function () {
     // Avoids mutating shared state.
     this.languages = Object.keys(
       this.settings.system_language.attributes.options
     ).slice(0);
     this.$options.languageRotation = setInterval(this.changeLocale, 7000);
   },
-  beforeDestroy: function() {
+  beforeDestroy: function () {
     clearInterval(this.$options.languageRotation);
   },
   methods: {
-    changeLocale: function() {
+    changeLocale: function () {
       // Relies on this.languages to be cloned from Vuex store state.
       this.languages.push(this.languages.shift());
       this.$translate.setLang(this.languages[0]);
@@ -84,8 +84,8 @@ export default {
         "lang",
         this.$options.filters.bcp47tag(this.languages[0])
       );
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

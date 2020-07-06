@@ -40,15 +40,15 @@ export default {
   components: {
     WidgetInstanceWrapper,
     OfflineIcon,
-    SystemErrorOverlay
+    SystemErrorOverlay,
   },
   watch: {
     activeBoardId: {
       immediate: true,
-      handler: async function() {
+      handler: async function () {
         await this.fetchActiveBoard();
-      }
-    }
+      },
+    },
   },
   computed: {
     ...mapState(["boards", "widgetInstances"]),
@@ -56,12 +56,12 @@ export default {
       "activeBoardId",
       "systemDisconnected",
       "languageTag",
-      "showErrorNotifications"
+      "showErrorNotifications",
     ]),
-    activeBoard: function() {
+    activeBoard: function () {
       return this.boards[this.activeBoardId];
     },
-    widgetInstancesForActiveBoard: function() {
+    widgetInstancesForActiveBoard: function () {
       // TODO: Maybe this can be cleaner.
       const reducer = (acc, ref) => {
         acc[ref.id] = this.widgetInstances[ref.id];
@@ -74,11 +74,11 @@ export default {
           {}
         ) ?? {}
       );
-    }
+    },
   },
   methods: {
-    ...mapActions(["fetchActiveBoard"])
-  }
+    ...mapActions(["fetchActiveBoard"]),
+  },
 };
 </script>
 

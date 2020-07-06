@@ -23,11 +23,11 @@ axios.defaults.baseURL = appconfig.backendUrl;
 axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
 
 // eslint-disable-next-line no-unused-vars
-Vue.config.errorHandler = function(err, vm, info) {
+Vue.config.errorHandler = function (err, vm, info) {
   axios.post("/system/log_client_error", {
     error: err.message,
     stack: err.stack,
-    instance: vm.$vnode.tag
+    instance: vm.$vnode.tag,
   });
   if (process.env.NODE_ENV != "development") {
     localStorage.reloads = parseInt(localStorage.reloads) + 1 || 1;
@@ -49,12 +49,12 @@ const backend =
 Vue.use(ActionCableVue, {
   debug: false,
   debugLevel: "error",
-  connectionUrl: `ws://${backend}/cable`
+  connectionUrl: `ws://${backend}/cable`,
 });
 
-Vue.filter("bcp47tag", function(language) {
+Vue.filter("bcp47tag", function (language) {
   const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
-  return language.replace(regex, match => {
+  return language.replace(regex, (match) => {
     return match.toUpperCase().padStart(match.length + 1, "-");
   });
 });
@@ -65,5 +65,5 @@ Vue.locales(locales);
 new Vue({
   backendUrl: appconfig.backendUrl,
   store: store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

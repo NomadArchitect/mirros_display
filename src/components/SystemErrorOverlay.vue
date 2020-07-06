@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: "SystemErrorOverlay"
+  name: "SystemErrorOverlay",
 };
 </script>
 <style lang="scss">

@@ -19,12 +19,12 @@
 
     <main v-else-if="connecting" class="spinner">
       <AnimatedLoader />
-      <p style="text-align: center">{{ t("Connecting") }}</p>
+      <p style="text-align: center;">{{ t("Connecting") }}</p>
     </main>
 
     <main v-else-if="systemStatus.resetting" class="spinner">
       <AnimatedLoader />
-      <p style="text-align: center">{{ t("Reset") }}</p>
+      <p style="text-align: center;">{{ t("Reset") }}</p>
     </main>
 
     <ConnectionError v-else-if="connectionError" />
@@ -50,11 +50,11 @@ export default {
     ConnectionError,
     Setup,
     SystemErrorOverlay,
-    Board
+    Board,
   },
-  data: function() {
+  data: function () {
     return {
-      loading: true
+      loading: true,
     };
   },
   channels: {
@@ -77,7 +77,7 @@ export default {
       },
       disconnected() {
         //this.$store.commit("SET_NETWORK_ERROR", true);
-      }
+      },
     },
     StatusChannel: {
       connected() {
@@ -93,36 +93,36 @@ export default {
         this.$options.timeout = window.setTimeout(() => {
           this.$store.commit("SET_NETWORK_ERROR", true);
         }, 30000);
-      }
-    }
+      },
+    },
   },
   watch: {
-    language: function(newLang) {
+    language: function (newLang) {
       localStorage.language = newLang;
       this.$translate.setLang(this.language);
       document.documentElement.setAttribute("lang", this.languageTag);
     },
-    backgroundcolor: function(newVal) {
+    backgroundcolor: function (newVal) {
       if (newVal.attributes != undefined) {
         document.body.style.backgroundColor = newVal.attributes.value;
       }
     },
-    fontcolor: function(newVal) {
+    fontcolor: function (newVal) {
       if (newVal.attributes != undefined) {
         document.body.style.color = newVal.attributes.value;
       }
     },
     backgroundImage: {
       immediate: true,
-      handler: function(newVal) {
+      handler: function (newVal) {
         document.body.style.backgroundImage = newVal
           ? `url("${newVal}")`
           : "none";
         document.body.style.backgroundOrigin = "center center";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = "cover";
-      }
-    }
+      },
+    },
   },
   computed: {
     ...mapState(["errors", "systemStatus", "networkError", "settings"]),
@@ -131,36 +131,36 @@ export default {
       "languageTag",
       "ap_active",
       "connecting",
-      "backgroundImage"
+      "backgroundImage",
     ]),
-    backgroundcolor: function() {
+    backgroundcolor: function () {
       return this.settings.system_backgroundcolor;
     },
-    fontcolor: function() {
+    fontcolor: function () {
       return this.settings.system_fontcolor;
     },
     /**
      * Retrieves the name of the currently selected display font.
      * @returns {string} The current display font name per the system setting's `options` attribute, or 'alegreya' if falsy.
      */
-    displayFontName: function() {
+    displayFontName: function () {
       return this.settings.system_displayfont?.attributes.value || "alegreya";
     },
-    showSetup: function() {
+    showSetup: function () {
       return (
         !this.systemStatus.setup_complete ||
         !this.systemStatus.configured_at_boot
       );
     },
-    connectionError: function() {
+    connectionError: function () {
       return (
         this.systemStatus.configured_at_boot &&
         this.systemStatus.online === false &&
         this.ap_active
       );
-    }
+    },
   },
-  beforeMount: async function() {
+  beforeMount: async function () {
     try {
       await this.fetchSystemStatus();
       await this.fetchSettings();
@@ -175,7 +175,7 @@ export default {
       }
     }
   },
-  mounted: function() {
+  mounted: function () {
     this.$cable.subscribe({ channel: "UpdatesChannel" });
     this.$cable.subscribe({ channel: "StatusChannel" });
 
@@ -196,17 +196,17 @@ export default {
       "handleResourceUpdate",
       "handleResourceDeletion",
       "fetchSystemStatus",
-      "fetchSettings"
+      "fetchSettings",
     ]),
-    checkRefresh: async function() {
+    checkRefresh: async function () {
       try {
         await this.$store.dispatch("fetchSystemStatus");
         this.$store.commit("SET_NETWORK_ERROR", false);
       } catch (error) {
         // caught
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

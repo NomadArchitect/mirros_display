@@ -9,9 +9,6 @@ if (!fs.existsSync("./src/app-config.js")) {
   console.log("Configuration file exists, nothing changed");
 }
 
-const version = cproc
-  .execSync("git describe --always")
-  .toString()
-  .trim();
+const version = cproc.execSync("git describe --always").toString().trim();
 console.log(`Writing current git ref ${version} to app-version.js`);
 fs.writeFileSync("./src/app-version.js", `export default "${version}";\n`);

@@ -8,7 +8,7 @@ export const NmConnectivityState = Object.freeze({
   // The host is connected to a network, but does not appear to be able to reach the full Internet.
   LIMITED: 4,
   // The host is connected to a network, and appears to be able to reach the full Internet.
-  FULL: 5
+  FULL: 5,
 });
 
 export const NmState = Object.freeze({
@@ -27,5 +27,5 @@ export const NmState = Object.freeze({
   // there is only site - wide IPv4 and / or IPv6 connectivity
   CONNECTED_SITE: 60,
   // there is global IPv4 and / or IPv6 Internet connectivity
-  CONNECTED_GLOBAL: 70
+  CONNECTED_GLOBAL: 70,
 });

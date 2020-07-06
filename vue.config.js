@@ -1,7 +1,7 @@
 module.exports = {
   runtimeCompiler: true,
   publicPath: process.env.NODE_ENV === "production" ? "/display/" : "/",
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     const svgRule = config.module.rule("svg");
 
     // clear all existing loaders.
@@ -27,9 +27,9 @@ module.exports = {
             // See https://github.com/svg/svgo for options
             { removeViewBox: false },
             { removeDimensions: true },
-            { convertColors: { currentColor: true } }
-          ]
-        }
+            { convertColors: { currentColor: true } },
+          ],
+        },
       });
-  }
+  },
 };

@@ -51,26 +51,26 @@ export default {
   props: {
     widgetInstance: {
       type: Object,
-      required: true
+      required: true,
     },
     languageTag: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   filters: {
-    languageTag: languageTag
+    languageTag: languageTag,
   },
-  data: function() {
+  data: function () {
     return {
-      loadError: false
+      loadError: false,
     };
   },
   asyncComputed: {
     /**
      * Computes the actual pixel dimensions for the inner container, minus the title if currently shown, and adds the configured grid position.
      */
-    currentDimensions: async function() {
+    currentDimensions: async function () {
       await this.$nextTick();
       let titleHeight = 0;
       if (this.widgetInstance.attributes.showtitle) {
@@ -98,21 +98,21 @@ export default {
           (window.innerWidth / 12) *
             this.widgetInstance.attributes.position.width -
           20,
-        ...this.widgetInstance.attributes.position
+        ...this.widgetInstance.attributes.position,
       };
-    }
+    },
   },
   computed: {
-    widget: function() {
+    widget: function () {
       return this.widgetForInstance(this.widgetInstance);
     },
-    sourcesConfigured: function() {
+    sourcesConfigured: function () {
       if (this.widgetInstance.relationships.group === null) return true;
       return this.widgetInstance.relationships.sourceInstances.data.length > 0
         ? true
         : false;
     },
-    records: function() {
+    records: function () {
       if (
         this.widgetInstance.relationships.instanceAssociations.data.length > 0
       ) {
@@ -121,24 +121,24 @@ export default {
         return [];
       }
     },
-    localizedTitleOrFallback: function() {
+    localizedTitleOrFallback: function () {
       return (
         this.widget.attributes.title[this.language] ||
         this.widget.attributes.title["enGb"]
       );
     },
-    renderError: function() {
+    renderError: function () {
       return this.runtimeError.includes(this._uid);
     },
     ...mapGetters([
       "language",
       "widgetForInstance",
       "recordsForWidgetInstance",
-      "showErrorNotifications"
+      "showErrorNotifications",
     ]),
-    ...mapState(["sourceInstances", "runtimeError"])
+    ...mapState(["sourceInstances", "runtimeError"]),
   },
-  beforeMount: function() {
+  beforeMount: function () {
     if (!this.widget) {
       this.loadError = true;
     } else {
@@ -148,11 +148,11 @@ export default {
     }
   },
   methods: {
-    fetchAsset: async function(type, name) {
+    fetchAsset: async function (type, name) {
       return axios
         .get(`/assets/${this.widget.type}/${this.widget.id}/${type}/${name}`)
-        .then(res => res.data);
-    }
-  }
+        .then((res) => res.data);
+    },
+  },
 };
 </script>
