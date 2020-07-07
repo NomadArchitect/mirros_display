@@ -20,8 +20,8 @@ import ErrorIcon from "@/assets/icons/error.svg";
 export default {
   name: "ConnectionError",
   components: {
-    ErrorIcon
-  }
+    ErrorIcon,
+  },
 };
 </script>
 

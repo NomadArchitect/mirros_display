@@ -14,7 +14,7 @@ const types = [
   "sourceInstances",
   "sources",
   "widgetInstances",
-  "widgets"
+  "widgets",
 ];
 
 export default new Vuex.Store({
@@ -26,7 +26,7 @@ export default new Vuex.Store({
     runtimeError: [],
     settings: {},
     errors: [],
-    connectionError: ""
+    connectionError: "",
   }),
   mutations: Object.assign({}, ...generateMutationsForResourceTypes(types), {
     SET_NETWORK_ERROR: (state, error) => {
@@ -43,8 +43,8 @@ export default new Vuex.Store({
     },
     SET_SETTING: (state, payload) => {
       state.settings = { ...state.settings, ...payload };
-    }
-  })
+    },
+  }),
 });
 
 /**
@@ -52,7 +52,7 @@ export default new Vuex.Store({
  * @param {string[]} typeList - list of normalized JSON:API resource names (e.g. dash transformed to camelCase).
  */
 function initStateForResourceTypes(typeList) {
-  return typeList.map(type => {
+  return typeList.map((type) => {
     let state = {};
     state[type] = {};
     return state;
@@ -64,7 +64,7 @@ function initStateForResourceTypes(typeList) {
  * @param {string[]} typeList - list of normalized JSON:API resource names (e.g. dash transformed to camelCase).
  */
 function generateMutationsForResourceTypes(typeList) {
-  return typeList.map(type => {
+  return typeList.map((type) => {
     const caps = type.toUpperCase();
     let mutations = {};
     mutations[`ADD_OR_UPDATE_${caps}`] = (state, payload) => {

@@ -17,7 +17,7 @@
       </div>
     </section>
 
-    <SystemErrorOverlay v-if="systemDisconnected">
+    <SystemErrorOverlay v-if="true && showErrorNotifications">
       <OfflineIcon slot="icon" />
       <template slot="title">{{ t("Your glancr is offline.") }}</template>
       <template slot="text">{{
@@ -40,23 +40,28 @@ export default {
   components: {
     WidgetInstanceWrapper,
     OfflineIcon,
-    SystemErrorOverlay
+    SystemErrorOverlay,
   },
   watch: {
     activeBoardId: {
       immediate: true,
-      handler: async function() {
+      handler: async function () {
         await this.fetchActiveBoard();
-      }
-    }
+      },
+    },
   },
   computed: {
     ...mapState(["boards", "widgetInstances"]),
-    ...mapGetters(["activeBoardId", "systemDisconnected", "languageTag"]),
-    activeBoard: function() {
+    ...mapGetters([
+      "activeBoardId",
+      "systemDisconnected",
+      "languageTag",
+      "showErrorNotifications",
+    ]),
+    activeBoard: function () {
       return this.boards[this.activeBoardId];
     },
-    widgetInstancesForActiveBoard: function() {
+    widgetInstancesForActiveBoard: function () {
       // TODO: Maybe this can be cleaner.
       const reducer = (acc, ref) => {
         acc[ref.id] = this.widgetInstances[ref.id];
@@ -69,11 +74,11 @@ export default {
           {}
         ) ?? {}
       );
-    }
+    },
   },
   methods: {
-    ...mapActions(["fetchActiveBoard"])
-  }
+    ...mapActions(["fetchActiveBoard"]),
+  },
 };
 </script>
 

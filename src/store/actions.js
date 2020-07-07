@@ -5,7 +5,7 @@ export default {
   cleanOrphanedRecordLinks: ({ state, commit }) => {
     let active = [];
     for (let si of Object.values(state.sourceInstances)) {
-      si.relationships.recordLinks.data.forEach(link => active.push(link.id));
+      si.relationships.recordLinks.data.forEach((link) => active.push(link.id));
     }
 
     for (let [key, link] of Object.entries(state.recordLinks)) {
@@ -33,12 +33,13 @@ export default {
       "system_fontcolor",
       "system_backgroundimage",
       "system_multipleboards",
-      "system_activeboard"
+      "system_activeboard",
+      "system_displayfont",
     ];
 
     return Promise.all([
-      ...settings.map(setting => dispatch("fetchSetting", setting)),
-      dispatch("fetchActiveBoard")
+      ...settings.map((setting) => dispatch("fetchSetting", setting)),
+      dispatch("fetchActiveBoard"),
     ]);
   },
   fetchSettings: async ({ dispatch }) => {
@@ -48,12 +49,13 @@ export default {
       "system_timezone",
       "system_backgroundcolor",
       "system_fontcolor",
-      "system_backgroundimage",
       "system_multipleboards",
-      "system_activeboard"
+      "system_activeboard",
+      "system_showerrornotifications",
+      "system_displayfont",
     ];
     return Promise.all([
-      ...settings.map(setting => dispatch("fetchSetting", setting))
+      ...settings.map((setting) => dispatch("fetchSetting", setting)),
     ]);
   },
   fetchActiveBoard: async ({ commit, getters, dispatch }) => {
@@ -62,7 +64,7 @@ export default {
         "widgetInstances.widget",
         "widgetInstances.sourceInstances",
         "widgetInstances.instanceAssociations",
-        "widgetInstances.sourceInstances.source"
+        "widgetInstances.sourceInstances.source",
       ]);
       const boardId = getters.activeBoardId;
       const response = await axios.get(`/boards/${boardId}${includeString}`);
@@ -121,7 +123,7 @@ export default {
         const { sourceInstances, widgets, ...other } = normalized;
         toCommit.updated = {
           sourceInstances: sourceInstances,
-          widgets: widgets
+          widgets: widgets,
         };
         toCommit.deleted = other;
         break;
@@ -130,7 +132,7 @@ export default {
         const { widgetInstances, sources, ...other } = normalized;
         toCommit.updated = {
           widgetInstances: widgetInstances,
-          sources: sources
+          sources: sources,
         };
         toCommit.deleted = other;
         break;
@@ -140,7 +142,7 @@ export default {
         const { widgetInstances, sourceInstances, ...other } = normalized;
         toCommit.updated = {
           widgetInstances: widgetInstances,
-          sourceInstances: sourceInstances
+          sourceInstances: sourceInstances,
         };
         toCommit.deleted = other;
         break;
@@ -149,7 +151,7 @@ export default {
         const { widgetInstances, sourceInstances, ...other } = normalized;
         toCommit.updated = {
           widgetInstances: widgetInstances,
-          sourceInstances: sourceInstances
+          sourceInstances: sourceInstances,
         };
         toCommit.deleted = other;
         break;
@@ -157,7 +159,7 @@ export default {
     }
     commitAll(commit, toCommit.updated);
     deleteAll(commit, toCommit.deleted);
-  }
+  },
 };
 
 /* HELPERS – UNTIL API PACKAGE IS READY, SEE https://gitlab.com/glancr/mirros_one/issues/2 */

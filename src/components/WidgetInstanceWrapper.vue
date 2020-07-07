@@ -7,20 +7,24 @@
     >
       {{ widgetInstance.attributes.title || localizedTitleOrFallback }}
     </h2>
-    <p v-if="renderError">
-      {{
-        t(
-          "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
-        )
-      }}
-    </p>
-    <p v-else-if="loadError">
-      {{
-        t(
-          "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
-        )
-      }}
-    </p>
+    <template v-if="renderError">
+      <p v-show="showErrorNotifications">
+        {{
+          t(
+            "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
+          )
+        }}
+      </p>
+    </template>
+    <template v-else-if="loadError">
+      <p v-show="showErrorNotifications">
+        {{
+          t(
+            "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
+          )
+        }}
+      </p>
+    </template>
     <component
       v-else
       :is="widget.id"
@@ -44,30 +48,29 @@ import { languageTag } from "@/mixins/formatters";
 
 export default {
   name: "WidgetInstanceWrapper",
-  components: {},
   props: {
     widgetInstance: {
       type: Object,
-      required: true
+      required: true,
     },
     languageTag: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   filters: {
-    languageTag: languageTag
+    languageTag: languageTag,
   },
-  data: function() {
+  data: function () {
     return {
-      loadError: false
+      loadError: false,
     };
   },
   asyncComputed: {
     /**
      * Computes the actual pixel dimensions for the inner container, minus the title if currently shown, and adds the configured grid position.
      */
-    currentDimensions: async function() {
+    currentDimensions: async function () {
       await this.$nextTick();
       let titleHeight = 0;
       if (this.widgetInstance.attributes.showtitle) {
@@ -95,21 +98,21 @@ export default {
           (window.innerWidth / 12) *
             this.widgetInstance.attributes.position.width -
           20,
-        ...this.widgetInstance.attributes.position
+        ...this.widgetInstance.attributes.position,
       };
-    }
+    },
   },
   computed: {
-    widget: function() {
+    widget: function () {
       return this.widgetForInstance(this.widgetInstance);
     },
-    sourcesConfigured: function() {
+    sourcesConfigured: function () {
       if (this.widgetInstance.relationships.group === null) return true;
       return this.widgetInstance.relationships.sourceInstances.data.length > 0
         ? true
         : false;
     },
-    records: function() {
+    records: function () {
       if (
         this.widgetInstance.relationships.instanceAssociations.data.length > 0
       ) {
@@ -118,23 +121,24 @@ export default {
         return [];
       }
     },
-    localizedTitleOrFallback: function() {
+    localizedTitleOrFallback: function () {
       return (
         this.widget.attributes.title[this.language] ||
         this.widget.attributes.title["enGb"]
       );
     },
-    renderError: function() {
+    renderError: function () {
       return this.runtimeError.includes(this._uid);
     },
     ...mapGetters([
       "language",
       "widgetForInstance",
-      "recordsForWidgetInstance"
+      "recordsForWidgetInstance",
+      "showErrorNotifications",
     ]),
-    ...mapState(["sourceInstances", "runtimeError"])
+    ...mapState(["sourceInstances", "runtimeError"]),
   },
-  beforeMount: function() {
+  beforeMount: function () {
     if (!this.widget) {
       this.loadError = true;
     } else {
@@ -144,11 +148,11 @@ export default {
     }
   },
   methods: {
-    fetchAsset: async function(type, name) {
+    fetchAsset: async function (type, name) {
       return axios
         .get(`/assets/${this.widget.type}/${this.widget.id}/${type}/${name}`)
-        .then(res => res.data);
-    }
-  }
+        .then((res) => res.data);
+    },
+  },
 };
 </script>

@@ -9,5 +9,5 @@ export default {
   frFr: french,
   esEs: spanish,
   plPl: polish,
-  koKr: korean
+  koKr: korean,
 };

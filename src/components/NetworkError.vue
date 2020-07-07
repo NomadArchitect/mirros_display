@@ -18,29 +18,29 @@
 export default {
   name: "NetworkError",
 
-  beforeDestroy: function() {
+  beforeDestroy: function () {
     clearInterval(this.countdownId);
   },
-  mounted: function() {
+  mounted: function () {
     this.countdownId = setInterval(this.doCountdown, 1000);
   },
-  data: function() {
+  data: function () {
     return {
       countdownId: undefined,
       countdown: 5,
-      retries: 1
+      retries: 1,
     };
   },
   methods: {
-    doCountdown: async function() {
+    doCountdown: async function () {
       if (this.countdown > 0) {
         this.countdown--;
       } else {
         this.retries++;
         this.countdown = this.retries * 5;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
