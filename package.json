@@ -4,7 +4,7 @@
   "private": false,
   "description": "Display frontend for the glancr Smart Mirror.",
   "scripts": {
-    "serve": "node setenv & vue-cli-service serve --open",
+    "serve": "node setenv & vue-cli-service serve --copy",
     "build": "node setenv & vue-cli-service build",
     "lint": "node setenv & vue-cli-service lint"
   },
