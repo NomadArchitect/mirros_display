@@ -11,16 +11,16 @@ html {
     font-family: "AlegreyaSans", "OpenMojiBlack", Helvetica, Arial, sans-serif;
     font-variant-numeric: lining-nums;
     font-feature-settings: "lnum" 1; // FIXME: WPE doesn't properly recognize font-variant-numeric, re-evaluate with later releases if we can drop this font-feature-settings declaration.
+    [lang="ko-KR"] & {
+      font-family: "AlegreyaSans", "NotoSansKR", Helvetica, Arial, sans-serif;
+    }
   }
   &.font-inter {
     font-family: "Inter", "OpenMojiBlack", Helvetica, Arial, sans-serif;
+    [lang="ko-KR"] & {
+      font-family: "Inter", "NotoSansKR", Helvetica, Arial, sans-serif;
+    }
   }
-  &[lang="ko-KR"] {
-    font-family: "AlegreyaSans", "NotoSansKR", Helvetica, Arial, sans-serif;
-  }
-  // &[lang="ja-JP"] {
-  //   font-family: "NotoSansJP", "AlegreyaSans", Helvetica, Arial, sans-serif;
-  // }
 }
 
 body {
