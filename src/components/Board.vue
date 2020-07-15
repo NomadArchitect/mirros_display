@@ -17,7 +17,7 @@
       </div>
     </section>
 
-    <SystemErrorOverlay v-if="true && showErrorNotifications">
+    <SystemErrorOverlay v-if="systemDisconnected && showErrorNotifications">
       <OfflineIcon slot="icon" />
       <template slot="title">{{ t("Your glancr is offline.") }}</template>
       <template slot="text">{{
