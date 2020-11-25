@@ -206,6 +206,23 @@ export default {
         // caught
       }
     },
+    /**
+     * Sends the current screen orientation, width and height to the via ActionCable.
+     */
+    sendCurrentDisplayLayout: function () {
+      this.$cable.perform({
+        channel: "StatusChannel",
+        action: "client_display",
+        data: {
+          orientation:
+            window.innerWidth / window.innerHeight > 1
+              ? "landscape"
+              : "portrait",
+          width: window.innerWidth,
+          height: window.innerHeight,
+        },
+      });
+    },
   },
 };
 </script>
