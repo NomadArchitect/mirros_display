@@ -67,6 +67,7 @@ export default {
   },
   mounted: function () {
     // Avoids mutating shared state.
+    // FIXME: Fallback in case backend is not reachable
     this.languages = Object.keys(
       this.settings.system_language.attributes.options
     ).slice(0);

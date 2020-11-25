@@ -205,6 +205,9 @@ export default {
       "fetchSystemStatus",
       "fetchSettings",
     ]),
+    /**
+     * Attempts to fetch the current system state, checking whether the backend is reachable.
+     */
     checkRefresh: async function () {
       try {
         await this.$store.dispatch("fetchSystemStatus");
