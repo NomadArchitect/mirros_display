@@ -235,8 +235,8 @@ export default {
 </script>
 
 <style lang="scss">
-$gridstack-columns: 12 !default;
-$gridstack-rows: 21.33333 !default;
+$gridstack-columns-portrait: 12 !default;
+$gridstack-rows-portrait: 21.33333 !default;
 $horizontal_padding: 20px !default;
 $vertical_padding: 20px !default;
 
@@ -244,25 +244,25 @@ $vertical_padding: 20px !default;
   position: relative;
   margin: 5px;
   > .grid-stack-item {
-    min-width: 100% / $gridstack-columns;
+    min-width: 100% / $gridstack-columns-portrait;
     position: absolute;
     padding: 0;
 
-    @for $i from 1 through $gridstack-columns {
+    @for $i from 1 through $gridstack-columns-portrait {
       &[data-gs-width="#{$i}"] {
-        width: (100% / $gridstack-columns) * $i;
+        width: (100% / $gridstack-columns-portrait) * $i;
       }
       &[data-gs-x="#{$i}"] {
-        left: (100% / $gridstack-columns) * $i;
+        left: (100% / $gridstack-columns-portrait) * $i;
       }
     }
 
-    @for $i from 1 through $gridstack-rows {
+    @for $i from 1 through $gridstack-rows-portrait {
       &[data-gs-height="#{$i}"] {
-        height: (100vh / $gridstack-rows) * $i;
+        height: (100vh / $gridstack-rows-portrait) * $i;
       }
       &[data-gs-y="#{$i}"] {
-        top: (100vh / $gridstack-rows) * $i;
+        top: (100vh / $gridstack-rows-portrait) * $i;
       }
     }
 
@@ -322,12 +322,12 @@ $vertical_padding: 20px !default;
   width: 1070px;
   margin: 0 auto;
   > .grid-stack-item {
-    @for $i from 1 through $gridstack-rows {
+    @for $i from 1 through $gridstack-rows-portrait {
       &[data-gs-height="#{$i}"] {
-        height: (100% / $gridstack-rows) * $i;
+        height: (100% / $gridstack-rows-portrait) * $i;
       }
       &[data-gs-y="#{$i}"] {
-        top: (100% / $gridstack-rows) * $i;
+        top: (100% / $gridstack-rows-portrait) * $i;
       }
     }
   }
