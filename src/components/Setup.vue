@@ -89,11 +89,15 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 article {
   padding: 3rem;
   font-size: 2rem;
   line-height: 4rem;
+  @media (orientation: landscape) {
+    padding: 1rem;
+    line-height: 2.75rem;
+  }
 }
 
 section {
@@ -104,6 +108,10 @@ hr {
   max-width: 6rem;
   margin: 6rem auto 6rem auto;
   transform: rotate(90deg);
+  @media (orientation: landscape) {
+    max-width: 2rem;
+    margin: 2rem auto 2rem auto;
+  }
 }
 
 table {
@@ -133,5 +141,8 @@ td:nth-of-type(2) {
 
 .instructions svg {
   width: 25%;
+  @media (orientation: landscape) {
+    width: 15%;
+  }
 }
 </style>
