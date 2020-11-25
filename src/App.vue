@@ -310,9 +310,9 @@ $vertical_padding: 20px !default;
 }
 
 .preview .grid-stack {
+  margin: 0 auto;
   height: 1900px;
   width: 1070px;
-  margin: 0 auto;
   > .grid-stack-item {
     @for $i from 1 through $gridstack-rows-portrait {
       &[data-gs-height="#{$i}"] {
@@ -320,6 +320,21 @@ $vertical_padding: 20px !default;
       }
       &[data-gs-y="#{$i}"] {
         top: (100% / $gridstack-rows-portrait) * $i;
+      }
+    }
+  }
+
+  @media (orientation: landscape) {
+    height: 1070px;
+    width: 1900px;
+    > .grid-stack-item {
+      @for $i from 1 through $gridstack-rows-landscape {
+        &[data-gs-height="#{$i}"] {
+          height: (100% / $gridstack-rows-landscape) * $i;
+        }
+        &[data-gs-y="#{$i}"] {
+          top: (100% / $gridstack-rows-landscape) * $i;
+        }
       }
     }
   }
