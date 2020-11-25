@@ -41,6 +41,7 @@ import ConnectionError from "@/components/ConnectionError";
 import Setup from "@/components/Setup";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 import Board from "@/components/Board";
+import OfflineIcon from "@/assets/icons/offline.svg";
 
 export default {
   name: "app",
@@ -51,6 +52,7 @@ export default {
     Setup,
     SystemErrorOverlay,
     Board,
+    OfflineIcon,
   },
   data: function () {
     return {
