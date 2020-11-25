@@ -84,6 +84,11 @@ export default {
         clearTimeout(this.$options.timeout);
         delete this.$options.timeout;
         this.$store.commit("SET_NETWORK_ERROR", false);
+        try {
+          this.sendCurrentDisplayLayout();
+        } catch (error) {
+          console.error(error);
+        }
       },
       rejected() {},
       received(data) {
@@ -205,6 +210,23 @@ export default {
       } catch (error) {
         // caught
       }
+    },
+    /**
+     * Sends the current screen orientation, width and height to the via ActionCable.
+     */
+    sendCurrentDisplayLayout: function () {
+      this.$cable.perform({
+        channel: "StatusChannel",
+        action: "client_display",
+        data: {
+          orientation:
+            window.innerWidth / window.innerHeight > 1
+              ? "landscape"
+              : "portrait",
+          width: window.innerWidth,
+          height: window.innerHeight,
+        },
+      });
     },
   },
 };
