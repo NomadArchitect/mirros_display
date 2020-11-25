@@ -237,6 +237,10 @@ export default {
 <style lang="scss">
 $gridstack-columns-portrait: 12 !default;
 $gridstack-rows-portrait: 21.33333 !default;
+
+$gridstack-columns-landscape: 21.33333 !default;
+$gridstack-rows-landscape: 12 !default;
+
 $horizontal_padding: 20px !default;
 $vertical_padding: 20px !default;
 
@@ -268,37 +272,25 @@ $vertical_padding: 20px !default;
 
     @media (orientation: landscape) {
       // Columns
-      @for $i from 1 through $gridstack-columns {
+      @for $i from 1 through $gridstack-columns-landscape {
         &[data-gs-width="#{$i}"] {
-          width: (50% / $gridstack-columns) * $i;
+          width: (100% / $gridstack-columns-landscape) * $i;
         }
       }
-      @for $i from 1 through $gridstack-columns {
+      @for $i from 1 through $gridstack-columns-landscape {
         &[data-gs-x="#{$i}"] {
-          left: (50% / $gridstack-columns) * $i;
+          left: (100% / $gridstack-columns-landscape) * $i;
         }
       }
 
       // Rows
-      @for $i from 1 through $gridstack-rows {
+      @for $i from 1 through $gridstack-rows-landscape {
         &[data-gs-height="#{$i}"] {
-          height: calc(#{100vh / round($gridstack-rows / 2) * $i} - 10px);
+          height: (100vh / $gridstack-rows-landscape) * $i;
         }
-      }
-
-      @for $i from 1 through 10 {
         &[data-gs-y="#{$i}"] {
-          top: calc(#{100vh / round($gridstack-rows / 2) * $i} - 10px);
+          top: (100vh / $gridstack-rows-landscape) * $i;
         }
-      }
-      @for $i from 11 through $gridstack-rows {
-        &[data-gs-y="#{$i}"] {
-          margin-left: 50%;
-          top: calc(#{100vh / round($gridstack-rows / 2) * ($i - 11)} - 10px);
-        }
-      }
-      &[data-gs-y="11"] {
-        top: 0;
       }
     }
 
