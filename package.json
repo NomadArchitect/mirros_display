@@ -13,7 +13,7 @@
     "axios": "^0.19.2",
     "http-vue-loader": "^1.4.2",
     "json-api-normalizer": "^0.4.11",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-async-computed": "^3.8.2",
     "vue-axios": "^2.1.5",
     "vue-svg-loader": "^0.16.0",
