@@ -9,7 +9,7 @@
     "lint": "node setenv & vue-cli-service lint"
   },
   "dependencies": {
-    "actioncable-vue": "^1.5.1",
+    "actioncable-vue": "^2.3.2",
     "axios": "^0.19.2",
     "http-vue-loader": "^1.4.2",
     "json-api-normalizer": "^1.0.0",
