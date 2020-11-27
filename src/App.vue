@@ -86,11 +86,7 @@ export default {
         clearTimeout(this.$options.timeout);
         delete this.$options.timeout;
         this.$store.commit("SET_NETWORK_ERROR", false);
-        try {
-          this.sendCurrentDisplayLayout();
-        } catch (error) {
-          console.error(error);
-        }
+        this.sendCurrentDisplayLayout();
       },
       rejected() {},
       received(data) {
