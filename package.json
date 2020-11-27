@@ -12,7 +12,7 @@
     "actioncable-vue": "^1.5.1",
     "axios": "^0.19.2",
     "http-vue-loader": "^1.4.2",
-    "json-api-normalizer": "^0.4.11",
+    "json-api-normalizer": "^1.0.0",
     "vue": "^2.6.12",
     "vue-async-computed": "^3.9.0",
     "vue-axios": "^2.1.5",

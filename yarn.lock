@@ -5290,10 +5290,10 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
-json-api-normalizer@^0.4.11:
-  version "0.4.16"
-  resolved "https://registry.yarnpkg.com/json-api-normalizer/-/json-api-normalizer-0.4.16.tgz#43fd741e346ec2d934cd00f0a9611e651a20533f"
-  integrity sha512-ZWhN23gmauEjLXdV2Gdm7PhoGy67zCyO7hIhrhrRMEqzfCYm1U4fexNZHXqyRYDeU/ougwhW12ImEz3s907cuA==
+json-api-normalizer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/json-api-normalizer/-/json-api-normalizer-1.0.0.tgz#183c53017aa8f8cfd96dbed45227bb4790bbfd04"
+  integrity sha512-usS3CbKJliWLVhARZF4sUlalLVetITDeGZghV9lpBbP25Gm8xx0GUmmMXM0aimCGb9ntva+1gvTbQ/MekcMucA==
   dependencies:
     lodash "^4.17.15"
 
