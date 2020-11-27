@@ -19,12 +19,12 @@
 
     <main v-else-if="connecting" class="spinner">
       <AnimatedLoader />
-      <p style="text-align: center;">{{ t("Connecting") }}</p>
+      <p style="text-align: center">{{ t("Connecting") }}</p>
     </main>
 
     <main v-else-if="systemStatus.resetting" class="spinner">
       <AnimatedLoader />
-      <p style="text-align: center;">{{ t("Reset") }}</p>
+      <p style="text-align: center">{{ t("Reset") }}</p>
     </main>
 
     <ConnectionError v-else-if="connectionError" />
@@ -41,6 +41,7 @@ import ConnectionError from "@/components/ConnectionError";
 import Setup from "@/components/Setup";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 import Board from "@/components/Board";
+import OfflineIcon from "@/assets/icons/offline.svg";
 
 export default {
   name: "app",
@@ -51,6 +52,7 @@ export default {
     Setup,
     SystemErrorOverlay,
     Board,
+    OfflineIcon,
   },
   data: function () {
     return {
@@ -84,6 +86,7 @@ export default {
         clearTimeout(this.$options.timeout);
         delete this.$options.timeout;
         this.$store.commit("SET_NETWORK_ERROR", false);
+        this.sendCurrentDisplayLayout();
       },
       rejected() {},
       received(data) {
@@ -198,6 +201,9 @@ export default {
       "fetchSystemStatus",
       "fetchSettings",
     ]),
+    /**
+     * Attempts to fetch the current system state, checking whether the backend is reachable.
+     */
     checkRefresh: async function () {
       try {
         await this.$store.dispatch("fetchSystemStatus");
@@ -206,13 +212,34 @@ export default {
         // caught
       }
     },
+    /**
+     * Sends the current screen orientation, width and height to the via ActionCable.
+     */
+    sendCurrentDisplayLayout: function () {
+      this.$cable.perform({
+        channel: "StatusChannel",
+        action: "client_display",
+        data: {
+          orientation:
+            window.innerWidth / window.innerHeight > 1
+              ? "landscape"
+              : "portrait",
+          width: window.innerWidth,
+          height: window.innerHeight,
+        },
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss">
-$gridstack-columns: 12 !default;
-$gridstack-rows: 21.33333 !default;
+$gridstack-columns-portrait: 12 !default;
+$gridstack-rows-portrait: 21.33333 !default;
+
+$gridstack-columns-landscape: 21.33333 !default;
+$gridstack-rows-landscape: 12 !default;
+
 $horizontal_padding: 20px !default;
 $vertical_padding: 20px !default;
 
@@ -220,61 +247,49 @@ $vertical_padding: 20px !default;
   position: relative;
   margin: 5px;
   > .grid-stack-item {
-    min-width: 100% / $gridstack-columns;
+    min-width: 100% / $gridstack-columns-portrait;
     position: absolute;
     padding: 0;
 
-    @for $i from 1 through $gridstack-columns {
+    @for $i from 1 through $gridstack-columns-portrait {
       &[data-gs-width="#{$i}"] {
-        width: (100% / $gridstack-columns) * $i;
+        width: (100% / $gridstack-columns-portrait) * $i;
       }
       &[data-gs-x="#{$i}"] {
-        left: (100% / $gridstack-columns) * $i;
+        left: (100% / $gridstack-columns-portrait) * $i;
       }
     }
 
-    @for $i from 1 through $gridstack-rows {
+    @for $i from 1 through $gridstack-rows-portrait {
       &[data-gs-height="#{$i}"] {
-        height: (100vh / $gridstack-rows) * $i;
+        height: (100vh / $gridstack-rows-portrait) * $i;
       }
       &[data-gs-y="#{$i}"] {
-        top: (100vh / $gridstack-rows) * $i;
+        top: (100vh / $gridstack-rows-portrait) * $i;
       }
     }
 
     @media (orientation: landscape) {
       // Columns
-      @for $i from 1 through $gridstack-columns {
+      @for $i from 1 through $gridstack-columns-landscape {
         &[data-gs-width="#{$i}"] {
-          width: (50% / $gridstack-columns) * $i;
+          width: (100% / $gridstack-columns-landscape) * $i;
         }
       }
-      @for $i from 1 through $gridstack-columns {
+      @for $i from 1 through $gridstack-columns-landscape {
         &[data-gs-x="#{$i}"] {
-          left: (50% / $gridstack-columns) * $i;
+          left: (100% / $gridstack-columns-landscape) * $i;
         }
       }
 
       // Rows
-      @for $i from 1 through $gridstack-rows {
+      @for $i from 1 through $gridstack-rows-landscape {
         &[data-gs-height="#{$i}"] {
-          height: calc(#{100vh / round($gridstack-rows / 2) * $i} - 10px);
+          height: (100vh / $gridstack-rows-landscape) * $i;
         }
-      }
-
-      @for $i from 1 through 10 {
         &[data-gs-y="#{$i}"] {
-          top: calc(#{100vh / round($gridstack-rows / 2) * $i} - 10px);
+          top: (100vh / $gridstack-rows-landscape) * $i;
         }
-      }
-      @for $i from 11 through $gridstack-rows {
-        &[data-gs-y="#{$i}"] {
-          margin-left: 50%;
-          top: calc(#{100vh / round($gridstack-rows / 2) * ($i - 11)} - 10px);
-        }
-      }
-      &[data-gs-y="11"] {
-        top: 0;
       }
     }
 
@@ -294,16 +309,31 @@ $vertical_padding: 20px !default;
 }
 
 .preview .grid-stack {
+  margin: 0 auto;
   height: 1900px;
   width: 1070px;
-  margin: 0 auto;
   > .grid-stack-item {
-    @for $i from 1 through $gridstack-rows {
+    @for $i from 1 through $gridstack-rows-portrait {
       &[data-gs-height="#{$i}"] {
-        height: (100% / $gridstack-rows) * $i;
+        height: (100% / $gridstack-rows-portrait) * $i;
       }
       &[data-gs-y="#{$i}"] {
-        top: (100% / $gridstack-rows) * $i;
+        top: (100% / $gridstack-rows-portrait) * $i;
+      }
+    }
+  }
+
+  @media (orientation: landscape) {
+    height: 1070px;
+    width: 1900px;
+    > .grid-stack-item {
+      @for $i from 1 through $gridstack-rows-landscape {
+        &[data-gs-height="#{$i}"] {
+          height: (100% / $gridstack-rows-landscape) * $i;
+        }
+        &[data-gs-y="#{$i}"] {
+          top: (100% / $gridstack-rows-landscape) * $i;
+        }
       }
     }
   }
