@@ -151,8 +151,9 @@ export default {
     },
     showSetup: function () {
       return (
-        !this.systemStatus.setup_complete ||
-        !this.systemStatus.configured_at_boot
+        (!this.systemStatus.setup_complete ||
+          !this.systemStatus.configured_at_boot) &&
+        !this.connecting
       );
     },
     connectionError: function () {
