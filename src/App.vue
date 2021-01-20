@@ -163,6 +163,9 @@ export default {
         this.ap_active
       );
     },
+    runsInPreviewMode: function () {
+      return window.location.hash === "#preview";
+    },
   },
   beforeMount: async function () {
     try {
