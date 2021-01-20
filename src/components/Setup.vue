@@ -57,9 +57,14 @@ export default {
     settings: {
       immediate: true,
       handler: function (newVal) {
-        // Stop the rotation once a language has been set.
         if (newVal.system_language === undefined) return;
-        if (newVal.system_language.attributes.value != "") {
+
+        const opts = this.settingOptions("system_language");
+        if (opts !== undefined) {
+          this.languages = Object.keys(opts);
+        }
+        // Stop the rotation once a language has been set.
+        if (newVal.system_language?.attributes?.value !== "") {
           this.$translate.setLang(newVal.system_language.attributes.value);
           clearInterval(this.$options.languageRotation);
         }
@@ -67,11 +72,6 @@ export default {
     },
   },
   mounted: function () {
-    // Avoids mutating shared state.
-    // FIXME: Fallback in case backend is not reachable
-    this.languages = Object.keys(
-      this.settings.system_language.attributes.options
-    ).slice(0);
     this.$options.languageRotation = setInterval(this.changeLocale, 7000);
   },
   beforeDestroy: function () {
