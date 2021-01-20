@@ -186,7 +186,7 @@ export default {
     this.$cable.subscribe({ channel: "UpdatesChannel" });
     this.$cable.subscribe({ channel: "StatusChannel" });
 
-    if (location.hash === "#preview") {
+    if (this.runsInPreviewMode) {
       const html = document.documentElement;
       html.classList.add("preview");
       if (window.innerWidth < 1080) {
