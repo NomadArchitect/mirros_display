@@ -163,6 +163,9 @@ export default {
         this.ap_active
       );
     },
+    runsInPreviewMode: function () {
+      return window.location.hash === "#preview";
+    },
   },
   beforeMount: async function () {
     try {
@@ -183,7 +186,7 @@ export default {
     this.$cable.subscribe({ channel: "UpdatesChannel" });
     this.$cable.subscribe({ channel: "StatusChannel" });
 
-    if (location.hash === "#preview") {
+    if (this.runsInPreviewMode) {
       const html = document.documentElement;
       html.classList.add("preview");
       if (window.innerWidth < 1080) {
@@ -217,6 +220,9 @@ export default {
      * Sends the current screen orientation, width and height to the via ActionCable.
      */
     sendCurrentDisplayLayout: function () {
+      // Avoid sending incorrect info when viewed in preview mode.
+      if (this.runsInPreviewMode) return;
+
       this.$cable.perform({
         channel: "StatusChannel",
         action: "client_display",
