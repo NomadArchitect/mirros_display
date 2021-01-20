@@ -220,6 +220,9 @@ export default {
      * Sends the current screen orientation, width and height to the via ActionCable.
      */
     sendCurrentDisplayLayout: function () {
+      // Avoid sending incorrect info when viewed in preview mode.
+      if (this.runsInPreviewMode) return;
+
       this.$cable.perform({
         channel: "StatusChannel",
         action: "client_display",
