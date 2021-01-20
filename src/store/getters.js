@@ -84,4 +84,13 @@ export default {
   connecting: (state) => {
     return state.systemStatus.nm_state === NmState.CONNECTING;
   },
+
+  /**
+   * Gets the options for a given setting.
+   * @param {string} setting Machine name for the setting, e.g. system_language
+   * @returns {Object|Array|undefined} The options object/array, or undefined if the setting is not present.
+   */
+  settingOptions: (state) => (setting) => {
+    return state.settings[setting]?.attributes?.options;
+  },
 };
