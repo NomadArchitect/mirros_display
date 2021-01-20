@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import BrowserIcon from "@/assets/icons/http.svg";
 import InstructionsIcon from "@/assets/icons/instructions.svg";
 
@@ -51,6 +51,7 @@ export default {
   },
   computed: {
     ...mapState(["settings"]),
+    ...mapGetters(["settingOptions"]),
   },
   watch: {
     settings: {
