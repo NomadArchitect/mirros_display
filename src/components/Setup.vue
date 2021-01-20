@@ -46,7 +46,7 @@ export default {
   },
   data: function () {
     return {
-      languages: [],
+      languages: ["enGb"],
     };
   },
   computed: {
