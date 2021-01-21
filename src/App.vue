@@ -149,6 +149,10 @@ export default {
     displayFontName() {
       return this.settings.system_displayfont?.attributes.value || "alegreya";
     },
+    /**
+     * Determines if the setup screen should be shown.
+     * @returns {boolean}
+     */
     showSetup() {
       return (
         (!this.systemStatus.setup_complete ||
@@ -156,6 +160,10 @@ export default {
         !this.connecting
       );
     },
+    /**
+     * Determines if there is a connection error to the backend.
+     * @returns {boolean} if there is a connection error.
+     */
     connectionError() {
       return (
         this.systemStatus.configured_at_boot &&
@@ -163,6 +171,10 @@ export default {
         this.ap_active
       );
     },
+    /**
+     * Check whether the app is running in preview mode.
+     * @returns {boolean} Whether the app is in preview mode.
+     */
     runsInPreviewMode() {
       return window.location.hash === "#preview";
     },
