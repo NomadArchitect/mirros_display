@@ -218,17 +218,6 @@ export default {
       "fetchSettings",
     ]),
     /**
-     * Attempts to fetch the current system state, checking whether the backend is reachable.
-     */
-    checkRefresh: async function () {
-      try {
-        await this.$store.dispatch("fetchSystemStatus");
-        this.$store.commit("SET_NETWORK_ERROR", false);
-      } catch (error) {
-        // caught
-      }
-    },
-    /**
      * Sends the current screen orientation, width and height to the via ActionCable.
      */
     sendCurrentDisplayLayout() {
