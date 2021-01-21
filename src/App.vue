@@ -136,34 +136,34 @@ export default {
       "connecting",
       "backgroundImage",
     ]),
-    backgroundcolor: function () {
+    backgroundcolor() {
       return this.settings.system_backgroundcolor;
     },
-    fontcolor: function () {
+    fontcolor() {
       return this.settings.system_fontcolor;
     },
     /**
      * Retrieves the name of the currently selected display font.
      * @returns {string} The current display font name per the system setting's `options` attribute, or 'alegreya' if falsy.
      */
-    displayFontName: function () {
+    displayFontName() {
       return this.settings.system_displayfont?.attributes.value || "alegreya";
     },
-    showSetup: function () {
+    showSetup() {
       return (
         (!this.systemStatus.setup_complete ||
           !this.systemStatus.configured_at_boot) &&
         !this.connecting
       );
     },
-    connectionError: function () {
+    connectionError() {
       return (
         this.systemStatus.configured_at_boot &&
         this.systemStatus.online === false &&
         this.ap_active
       );
     },
-    runsInPreviewMode: function () {
+    runsInPreviewMode() {
       return window.location.hash === "#preview";
     },
   },
@@ -182,8 +182,8 @@ export default {
       }
     }
   },
-  mounted: function () {
     this.$cable.subscribe({ channel: "UpdatesChannel" });
+  mounted() {
     this.$cable.subscribe({ channel: "StatusChannel" });
 
     if (this.runsInPreviewMode) {
@@ -219,7 +219,7 @@ export default {
     /**
      * Sends the current screen orientation, width and height to the via ActionCable.
      */
-    sendCurrentDisplayLayout: function () {
+    sendCurrentDisplayLayout() {
       // Avoid sending incorrect info when viewed in preview mode.
       if (this.runsInPreviewMode) return;
 
