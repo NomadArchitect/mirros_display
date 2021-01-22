@@ -82,20 +82,29 @@ export default {
       disconnected() {},
     },
     StatusChannel: {
-      connected() {
-        clearTimeout(this.$options.timeout);
-        delete this.$options.timeout;
-        this.$store.commit("SET_NETWORK_ERROR", false);
-        this.sendCurrentDisplayLayout();
+      async connected() {
+        try {
+          // Update status and settings info on (re)connect to ensure we have the latest.
+          // TODO: Refactor as websocket request for consistency.
+          await this.fetchSystemStatus();
+          await this.fetchSettings();
+          document.documentElement.setAttribute("lang", this.languageTag);
+
+          // Ensure we don't trigger a timeout once connected.
+          this.clearNetworkErrorTimeout();
+          this.loading = false;
+          this.sendCurrentDisplayLayout();
+          this.$store.commit("SET_NETWORK_ERROR", false);
+        } catch (error) {
+          this.$store.commit("SET_NETWORK_ERROR", true);
+        }
       },
       rejected() {},
       received(data) {
         this.$store.commit("SET_SYSTEMSTATUS", data.payload);
       },
       disconnected() {
-        this.$options.timeout = window.setTimeout(() => {
-          this.$store.commit("SET_NETWORK_ERROR", true);
-        }, 30000);
+        this.startNetworkErrorTimeout(30000);
       },
     },
   },
@@ -180,25 +189,17 @@ export default {
       return window.location.hash === "#preview";
     },
   },
-  beforeMount: async function () {
-    try {
-      await this.fetchSystemStatus();
-      await this.fetchSettings();
-      this.$store.commit("SET_NETWORK_ERROR", false);
-    } catch (error) {
-      // console.warn(error);
-    } finally {
-      this.loading = false;
-      if (localStorage.language) {
-        this.$translate.setLang(localStorage.language);
-        document.documentElement.setAttribute("lang", this.languageTag);
-      }
-    }
-  },
-    this.$cable.subscribe({ channel: "UpdatesChannel" });
-  mounted() {
+  beforeMount() {
+    // Start websocket subscription as early as possible, as these do not return promises.
     this.$cable.subscribe({ channel: "StatusChannel" });
+    this.$cable.subscribe({ channel: "UpdatesChannel" });
 
+    // Use localStorage.language to set the locale before we render anything.
+    if (localStorage.language) {
+      this.$translate.setLang(localStorage.language);
+    }
+
+    // Ensure the preview mode shows properly on any screen size.
     if (this.runsInPreviewMode) {
       const html = document.documentElement;
       html.classList.add("preview");
@@ -207,6 +208,9 @@ export default {
         html.style.transformOrigin = "top left";
       }
     }
+  },
+  mounted() {
+    // Reset the reload counter after 10s, i.e. there are no fatal errors.
     window.setTimeout(() => {
       localStorage.removeItem("reloads");
     }, 10000);
