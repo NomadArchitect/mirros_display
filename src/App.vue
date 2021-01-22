@@ -214,6 +214,14 @@ export default {
     window.setTimeout(() => {
       localStorage.removeItem("reloads");
     }, 10000);
+
+    // Ensure the app doesn't hang on loading state when the backend is unreachable.
+    window.setTimeout(() => {
+      if (this.$cable._cable.connection.disconnected) {
+        this.loading = false;
+        this.$store.commit("SET_NETWORK_ERROR", true);
+      }
+    }, 15000);
   },
   methods: {
     ...mapActions([
