@@ -28,7 +28,8 @@
     </main>
 
     <ConnectionError v-else-if="connectionError" />
-    <Board v-else />
+    <Board v-else-if="activeBoardId" />
+    <p class="centered-message" v-else>{{ t("No active board") }}</p>
   </div>
 </template>
 
@@ -59,6 +60,7 @@ export default {
       loading: true,
     };
   },
+  timeout: undefined,
   channels: {
     UpdatesChannel: {
       connected() {},
@@ -77,25 +79,32 @@ export default {
             );
         }
       },
-      disconnected() {
-        //this.$store.commit("SET_NETWORK_ERROR", true);
-      },
+      disconnected() {},
     },
     StatusChannel: {
-      connected() {
-        clearTimeout(this.$options.timeout);
-        delete this.$options.timeout;
-        this.$store.commit("SET_NETWORK_ERROR", false);
-        this.sendCurrentDisplayLayout();
+      async connected() {
+        try {
+          // Update status and settings info on (re)connect to ensure we have the latest.
+          // TODO: Refactor as websocket request for consistency.
+          await this.fetchSystemStatus();
+          await this.fetchSettings();
+          document.documentElement.setAttribute("lang", this.languageTag);
+
+          // Ensure we don't trigger a timeout once connected.
+          this.clearNetworkErrorTimeout();
+          this.loading = false;
+          this.sendCurrentDisplayLayout();
+          this.$store.commit("SET_NETWORK_ERROR", false);
+        } catch (error) {
+          this.$store.commit("SET_NETWORK_ERROR", true);
+        }
       },
       rejected() {},
       received(data) {
         this.$store.commit("SET_SYSTEMSTATUS", data.payload);
       },
       disconnected() {
-        this.$options.timeout = window.setTimeout(() => {
-          this.$store.commit("SET_NETWORK_ERROR", true);
-        }, 30000);
+        this.startNetworkErrorTimeout(30000);
       },
     },
   },
@@ -135,57 +144,62 @@ export default {
       "ap_active",
       "connecting",
       "backgroundImage",
+      "activeBoardId",
     ]),
-    backgroundcolor: function () {
+    backgroundcolor() {
       return this.settings.system_backgroundcolor;
     },
-    fontcolor: function () {
+    fontcolor() {
       return this.settings.system_fontcolor;
     },
     /**
      * Retrieves the name of the currently selected display font.
      * @returns {string} The current display font name per the system setting's `options` attribute, or 'alegreya' if falsy.
      */
-    displayFontName: function () {
+    displayFontName() {
       return this.settings.system_displayfont?.attributes.value || "alegreya";
     },
-    showSetup: function () {
+    /**
+     * Determines if the setup screen should be shown.
+     * @returns {boolean}
+     */
+    showSetup() {
       return (
         (!this.systemStatus.setup_complete ||
           !this.systemStatus.configured_at_boot) &&
         !this.connecting
       );
     },
-    connectionError: function () {
+    /**
+     * Determines if there is a connection error to the backend.
+     * @returns {boolean} if there is a connection error.
+     */
+    connectionError() {
       return (
         this.systemStatus.configured_at_boot &&
         this.systemStatus.online === false &&
         this.ap_active
       );
     },
-    runsInPreviewMode: function () {
+    /**
+     * Check whether the app is running in preview mode.
+     * @returns {boolean} Whether the app is in preview mode.
+     */
+    runsInPreviewMode() {
       return window.location.hash === "#preview";
     },
   },
-  beforeMount: async function () {
-    try {
-      await this.fetchSystemStatus();
-      await this.fetchSettings();
-      this.$store.commit("SET_NETWORK_ERROR", false);
-    } catch (error) {
-      // console.warn(error);
-    } finally {
-      this.loading = false;
-      if (localStorage.language) {
-        this.$translate.setLang(localStorage.language);
-        document.documentElement.setAttribute("lang", this.languageTag);
-      }
-    }
-  },
-  mounted: function () {
-    this.$cable.subscribe({ channel: "UpdatesChannel" });
+  beforeMount() {
+    // Start websocket subscription as early as possible, as these do not return promises.
     this.$cable.subscribe({ channel: "StatusChannel" });
+    this.$cable.subscribe({ channel: "UpdatesChannel" });
 
+    // Use localStorage.language to set the locale before we render anything.
+    if (localStorage.language) {
+      this.$translate.setLang(localStorage.language);
+    }
+
+    // Ensure the preview mode shows properly on any screen size.
     if (this.runsInPreviewMode) {
       const html = document.documentElement;
       html.classList.add("preview");
@@ -194,9 +208,20 @@ export default {
         html.style.transformOrigin = "top left";
       }
     }
+  },
+  mounted() {
+    // Reset the reload counter after 10s, i.e. there are no fatal errors.
     window.setTimeout(() => {
       localStorage.removeItem("reloads");
     }, 10000);
+
+    // Ensure the app doesn't hang on loading state when the backend is unreachable.
+    window.setTimeout(() => {
+      if (this.$cable._cable.connection.disconnected) {
+        this.loading = false;
+        this.$store.commit("SET_NETWORK_ERROR", true);
+      }
+    }, 15000);
   },
   methods: {
     ...mapActions([
@@ -206,20 +231,9 @@ export default {
       "fetchSettings",
     ]),
     /**
-     * Attempts to fetch the current system state, checking whether the backend is reachable.
-     */
-    checkRefresh: async function () {
-      try {
-        await this.$store.dispatch("fetchSystemStatus");
-        this.$store.commit("SET_NETWORK_ERROR", false);
-      } catch (error) {
-        // caught
-      }
-    },
-    /**
      * Sends the current screen orientation, width and height to the via ActionCable.
      */
-    sendCurrentDisplayLayout: function () {
+    sendCurrentDisplayLayout() {
       // Avoid sending incorrect info when viewed in preview mode.
       if (this.runsInPreviewMode) return;
 
@@ -235,6 +249,21 @@ export default {
           height: window.innerHeight,
         },
       });
+    },
+    /**
+     * Starts a timeout to activate the networkError state.
+     * @param {number} milliseconds The time in ms until state is changed.
+     */
+    startNetworkErrorTimeout(milliseconds) {
+      this.$options.timeout = window.setTimeout(() => {
+        this.$store.commit("SET_NETWORK_ERROR", true);
+      }, milliseconds);
+    },
+    /**
+     * Stops the timeout to activate the networkError state.
+     */
+    clearNetworkErrorTimeout() {
+      this.$options.timeout = window.clearTimeout(this.$options.timeout);
     },
   },
 };

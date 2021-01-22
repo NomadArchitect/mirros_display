@@ -22,7 +22,7 @@ export default {
     clearInterval(this.countdownId);
   },
   mounted: function () {
-    this.countdownId = setInterval(this.doCountdown, 1000);
+    this.countdownId = window.setInterval(this.doCountdown, 1000);
   },
   data: function () {
     return {
