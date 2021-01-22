@@ -25,18 +25,22 @@
         }}
       </p>
     </template>
+    <!-- FIXME: Remove sourcesConfigured prop in https://gitlab.com/glancr/mirros_display/-/issues/27 -->
     <component
-      v-else
+      v-else-if="sourcesConfiguredOrNotRequired"
       :is="widget.id"
+      :sourcesConfigured="sourcesConfiguredOrNotRequired"
       :currentSettings="widgetInstance.attributes.configuration || undefined"
       :currentDimensions="currentDimensions"
-      :sourcesConfigured="sourcesConfigured"
       :records="records"
       :language="language | languageTag"
       :locale="language"
       :backendUrl="$root.$options.backendUrl"
       :fetchAsset="fetchAsset"
     />
+    <p v-else>
+      {{ t("Please select at least one account in the widget settings") }}
+    </p>
   </section>
 </template>
 
@@ -106,8 +110,9 @@ export default {
     widget: function () {
       return this.widgetForInstance(this.widgetInstance);
     },
-    sourcesConfigured: function () {
-      if (this.widgetInstance.relationships.group === null) return true;
+    sourcesConfiguredOrNotRequired: function () {
+      if (this.widgetInstance.relationships.group.data === null) return true;
+
       return this.widgetInstance.relationships.sourceInstances.data.length > 0
         ? true
         : false;
