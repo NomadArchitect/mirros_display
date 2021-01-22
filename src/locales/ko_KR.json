@@ -15,5 +15,6 @@
     "Connecting to the server.": "서버에 연결 중입니다.",
     "If you keep seeing this message after a few minutes, please restart the device. If that doesn't help, please contact support.": "몇 분 후에이 메시지가 계속 나타나면 장치를 다시 시작하십시오. 문제가 해결되지 않으면 지원 팀에 문의하십시오.",
     "Attempting connection in": "연결 시도 중",
-    "Aw snap! Something went wrong. Please remove this widget and send us a bug report.": "아 스냅! 문제가 발생했습니다. 이 위젯을 제거하고 버그 보고서를 보내주십시오."
+    "Aw snap! Something went wrong. Please remove this widget and send us a bug report.": "아 스냅! 문제가 발생했습니다. 이 위젯을 제거하고 버그 보고서를 보내주십시오.",
+    "Please select at least one account in the widget settings": "위젯 설정에서 하나 이상의 계정을 선택하십시오"
 }
