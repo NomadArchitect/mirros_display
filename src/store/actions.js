@@ -24,24 +24,6 @@ export default {
       dispatch("handleError", error);
     }
   },
-  fetchFullData: async ({ dispatch }) => {
-    const settings = [
-      "system_language",
-      "personal_name",
-      "system_timezone",
-      "system_backgroundcolor",
-      "system_fontcolor",
-      "system_backgroundimage",
-      "system_multipleboards",
-      "system_activeboard",
-      "system_displayfont",
-    ];
-
-    return Promise.all([
-      ...settings.map((setting) => dispatch("fetchSetting", setting)),
-      dispatch("fetchActiveBoard"),
-    ]);
-  },
   fetchSettings: async ({ dispatch }) => {
     const settings = [
       "system_language",
