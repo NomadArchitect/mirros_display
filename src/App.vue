@@ -59,6 +59,7 @@ export default {
       loading: true,
     };
   },
+  timeout: undefined,
   channels: {
     UpdatesChannel: {
       connected() {},
