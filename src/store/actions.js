@@ -24,8 +24,14 @@ export default {
       dispatch("handleError", error);
     }
   },
-  fetchSettings: async ({ dispatch }) => {
-    const settings = [
+  /**
+   * Fetch all settings required for the display app.
+   * @param {Object} vuex
+   * @param {Function} vuex.commit Vuex' commit function
+   * @param {Function} vuex.dispatch Vuex' dispatch function
+   */
+  fetchSettings: async ({ commit, dispatch }) => {
+    const filterString = [
       "system_language",
       "personal_name",
       "system_timezone",
@@ -35,10 +41,17 @@ export default {
       "system_activeboard",
       "system_showerrornotifications",
       "system_displayfont",
-    ];
-    return Promise.all([
-      ...settings.map((setting) => dispatch("fetchSetting", setting)),
-    ]);
+    ].join(",");
+
+    try {
+      const response = await axios.get(
+        `/settings?filter[slug]=${filterString}`
+      );
+      const normalized = normalize(response.data, normalizerOptions);
+      commit("SET_SETTING", normalized.settings);
+    } catch (error) {
+      dispatch("handleError", error);
+    }
   },
   fetchActiveBoard: async ({ commit, getters, dispatch }) => {
     try {
