@@ -77,9 +77,7 @@ export default {
             );
         }
       },
-      disconnected() {
-        //this.$store.commit("SET_NETWORK_ERROR", true);
-      },
+      disconnected() {},
     },
     StatusChannel: {
       connected() {
