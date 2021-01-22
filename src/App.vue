@@ -28,7 +28,8 @@
     </main>
 
     <ConnectionError v-else-if="connectionError" />
-    <Board v-else />
+    <Board v-else-if="activeBoardId" />
+    <p class="centered-message" v-else>{{ t("No active board") }}</p>
   </div>
 </template>
 
@@ -134,6 +135,7 @@ export default {
       "ap_active",
       "connecting",
       "backgroundImage",
+      "activeBoardId",
     ]),
     backgroundcolor() {
       return this.settings.system_backgroundcolor;
