@@ -236,6 +236,21 @@ export default {
         },
       });
     },
+    /**
+     * Starts a timeout to activate the networkError state.
+     * @param {number} milliseconds The time in ms until state is changed.
+     */
+    startNetworkErrorTimeout(milliseconds) {
+      this.$options.timeout = window.setTimeout(() => {
+        this.$store.commit("SET_NETWORK_ERROR", true);
+      }, milliseconds);
+    },
+    /**
+     * Stops the timeout to activate the networkError state.
+     */
+    clearNetworkErrorTimeout() {
+      this.$options.timeout = window.clearTimeout(this.$options.timeout);
+    },
   },
 };
 </script>
