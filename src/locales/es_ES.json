@@ -15,5 +15,6 @@
     "Connecting to the server.": "Conectando al servidor.",
     "If you keep seeing this message after a few minutes, please restart the device. If that doesn't help, please contact support.": "Si sigue viendo este mensaje después de unos minutos, reinicie el dispositivo. Si eso no ayuda, póngase en contacto con el soporte.",
     "Attempting connection in": "Intentando conexión en",
-    "Aw snap! Something went wrong. Please remove this widget and send us a bug report.": "Concho! Algo salió mal. Elimine este widget y envíenos un informe de error."
+    "Aw snap! Something went wrong. Please remove this widget and send us a bug report.": "Concho! Algo salió mal. Elimine este widget y envíenos un informe de error.",
+    "Please select at least one account in the widget settings": "Seleccione al menos una cuenta en la configuración del widget"
 }
