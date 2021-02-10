@@ -280,6 +280,34 @@ export default {
       this.$options.timeout = window.clearTimeout(this.$options.timeout);
     },
   },
+  // FIXME: Move to POEditor project once we have more strings available.
+  locales: {
+    deDe: {
+      "mirr.OS is being updated now.": "mirr.OS wird jetzt aktualisiert",
+      "This can take a few minutes, please do not turn off the device.":
+        "Das kann ein paar Minuten dauern, bitte das Gerät nicht ausschalten.",
+    },
+    frFr: {
+      "mirr.OS is being updated now.": "mirr.OS est en cours de mise à jour.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Cela peut prendre quelques minutes, veuillez ne pas éteindre l'appareil.",
+    },
+    esEs: {
+      "mirr.OS is being updated now.": "mirr.OS se está actualizando ahora.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Esto puede tardar unos minutos, no apague el dispositivo.",
+    },
+    plPl: {
+      "mirr.OS is being updated now.": "mirr.OS jest teraz aktualizowany.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Może to zająć kilka minut, nie wyłączaj urządzenia.",
+    },
+    koKr: {
+      "mirr.OS is being updated now.": "mirr.OS는 현재 업데이트 중입니다.",
+      "This can take a few minutes, please do not turn off the device.":
+        "이 작업은 몇 분 정도 소요될 수 있습니다. 장치를 끄지 마십시오.",
+    },
+  },
 };
 </script>
 
