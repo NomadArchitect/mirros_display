@@ -2,6 +2,20 @@
   <div id="app" :class="{ [`font-${displayFontName}`]: displayFontName }">
     <main v-if="loading" class="spinner"><AnimatedLoader /></main>
 
+    <main v-else-if="systemStatus.snap_refresh_status === 'pre-refresh'">
+      <p class="spinner">
+        <AnimatedLoader />
+      </p>
+      <h2 class="centered-message">
+        {{ t("mirr.OS is being updated now.") }}
+      </h2>
+      <p class="centered-message">
+        {{
+          t("This can take a few minutes, please do not turn off the device.")
+        }}
+      </p>
+    </main>
+
     <NetworkError v-else-if="networkError" />
 
     <main v-else-if="showSetup">
@@ -18,13 +32,13 @@
     </main>
 
     <main v-else-if="connecting" class="spinner">
-      <AnimatedLoader />
       <p style="text-align: center">{{ t("Connecting") }}</p>
+      <AnimatedLoader />
     </main>
 
     <main v-else-if="systemStatus.resetting" class="spinner">
-      <AnimatedLoader />
       <p style="text-align: center">{{ t("Reset") }}</p>
+      <AnimatedLoader />
     </main>
 
     <ConnectionError v-else-if="connectionError" />
@@ -264,6 +278,34 @@ export default {
      */
     clearNetworkErrorTimeout() {
       this.$options.timeout = window.clearTimeout(this.$options.timeout);
+    },
+  },
+  // FIXME: Move to POEditor project once we have more strings available.
+  locales: {
+    deDe: {
+      "mirr.OS is being updated now.": "mirr.OS wird jetzt aktualisiert",
+      "This can take a few minutes, please do not turn off the device.":
+        "Das kann ein paar Minuten dauern, bitte das Gerät nicht ausschalten.",
+    },
+    frFr: {
+      "mirr.OS is being updated now.": "mirr.OS est en cours de mise à jour.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Cela peut prendre quelques minutes, veuillez ne pas éteindre l'appareil.",
+    },
+    esEs: {
+      "mirr.OS is being updated now.": "mirr.OS se está actualizando ahora.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Esto puede tardar unos minutos, no apague el dispositivo.",
+    },
+    plPl: {
+      "mirr.OS is being updated now.": "mirr.OS jest teraz aktualizowany.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Może to zająć kilka minut, nie wyłączaj urządzenia.",
+    },
+    koKr: {
+      "mirr.OS is being updated now.": "mirr.OS는 현재 업데이트 중입니다.",
+      "This can take a few minutes, please do not turn off the device.":
+        "이 작업은 몇 분 정도 소요될 수 있습니다. 장치를 끄지 마십시오.",
     },
   },
 };
