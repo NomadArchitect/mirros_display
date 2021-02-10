@@ -2,6 +2,20 @@
   <div id="app" :class="{ [`font-${displayFontName}`]: displayFontName }">
     <main v-if="loading" class="spinner"><AnimatedLoader /></main>
 
+    <main v-else-if="systemStatus.snap_refresh_status === 'pre-refresh'">
+      <p class="spinner">
+        <AnimatedLoader />
+      </p>
+      <h2 class="centered-message">
+        {{ t("mirr.OS is being updated now.") }}
+      </h2>
+      <p class="centered-message">
+        {{
+          t("This can take a few minutes, please do not turn off the device.")
+        }}
+      </p>
+    </main>
+
     <NetworkError v-else-if="networkError" />
 
     <main v-else-if="showSetup">
