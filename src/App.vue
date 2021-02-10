@@ -32,13 +32,13 @@
     </main>
 
     <main v-else-if="connecting" class="spinner">
-      <AnimatedLoader />
       <p style="text-align: center">{{ t("Connecting") }}</p>
+      <AnimatedLoader />
     </main>
 
     <main v-else-if="systemStatus.resetting" class="spinner">
-      <AnimatedLoader />
       <p style="text-align: center">{{ t("Reset") }}</p>
+      <AnimatedLoader />
     </main>
 
     <ConnectionError v-else-if="connectionError" />
