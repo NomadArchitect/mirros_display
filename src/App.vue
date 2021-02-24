@@ -382,6 +382,14 @@ $vertical_padding: 20px !default;
       z-index: 0;
       overflow-x: hidden;
       overflow-y: hidden;
+      @supports (backdrop-filter: blur(15px)) {
+        &.widget--background-blurred {
+          backdrop-filter: blur(8px);
+          border-radius: 3px;
+          margin: 0;
+          padding: $vertical_padding / 2;
+        }
+      }
     }
   }
 }
