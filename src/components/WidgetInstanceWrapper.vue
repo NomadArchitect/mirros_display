@@ -1,5 +1,9 @@
 <template>
-  <section class="grid-stack-item-content widget">
+  <section
+    class="grid-stack-item-content widget"
+    :style="customStyles"
+    :class="{ 'widget--background-blurred': attributes.styles.backgroundBlur }"
+  >
     <h2
       v-show="attributes.showtitle"
       class="widget__title"
@@ -138,13 +142,25 @@ export default {
     attributes() {
       return this.widgetInstance.attributes;
     },
+    customStyles() {
+      const styles = this.attributes.styles;
+      return {
+        color:
+          styles.fontColor !==
+          this.settings?.system_fontcolor?.attributes?.value
+            ? styles.fontColor
+            : "inherit",
+        fontSize: `${styles.fontSize ?? "100"}%`,
+        textAlign: styles.textAlign,
+      };
+    },
     ...mapGetters([
       "language",
       "widgetForInstance",
       "recordsForWidgetInstance",
       "showErrorNotifications",
     ]),
-    ...mapState(["sourceInstances", "runtimeError"]),
+    ...mapState(["sourceInstances", "runtimeError", "settings"]),
   },
   beforeMount: function () {
     if (!this.widget) {
