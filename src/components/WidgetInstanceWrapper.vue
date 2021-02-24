@@ -1,11 +1,11 @@
 <template>
   <section class="grid-stack-item-content widget">
     <h2
-      v-show="widgetInstance.attributes.showtitle"
+      v-show="attributes.showtitle"
       class="widget__title"
       :id="`widget-title-${widgetInstance.id}`"
     >
-      {{ widgetInstance.attributes.title || localizedTitleOrFallback }}
+      {{ attributes.title || localizedTitleOrFallback }}
     </h2>
     <template v-if="renderError">
       <p v-show="showErrorNotifications">
@@ -30,7 +30,7 @@
       v-else-if="sourcesConfiguredOrNotRequired"
       :is="widget.id"
       :sourcesConfigured="sourcesConfiguredOrNotRequired"
-      :currentSettings="widgetInstance.attributes.configuration || undefined"
+      :currentSettings="attributes.configuration || undefined"
       :currentDimensions="currentDimensions"
       :records="records"
       :language="language | languageTag"
@@ -134,6 +134,9 @@ export default {
     },
     renderError: function () {
       return this.runtimeError.includes(this._uid);
+    },
+    attributes() {
+      return this.widgetInstance.attributes;
     },
     ...mapGetters([
       "language",
