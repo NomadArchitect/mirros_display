@@ -372,13 +372,9 @@ $vertical_padding: 20px !default;
     }
 
     > .grid-stack-item-content {
-      margin: 0;
-      position: absolute;
-      top: $vertical_padding / 2;
-      left: $horizontal_padding / 2;
-      right: $horizontal_padding / 2;
-      bottom: $vertical_padding / 2;
+      margin: $vertical_padding / 2;
       width: auto;
+      height: inherit;
       z-index: 0;
       overflow-x: hidden;
       overflow-y: hidden;
