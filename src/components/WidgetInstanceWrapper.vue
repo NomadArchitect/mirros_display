@@ -1,11 +1,15 @@
 <template>
-  <section class="grid-stack-item-content widget">
+  <section
+    class="grid-stack-item-content widget"
+    :style="customStyles"
+    :class="{ 'widget--background-blurred': attributes.styles.backgroundBlur }"
+  >
     <h2
-      v-show="widgetInstance.attributes.showtitle"
+      v-show="attributes.showtitle"
       class="widget__title"
       :id="`widget-title-${widgetInstance.id}`"
     >
-      {{ widgetInstance.attributes.title || localizedTitleOrFallback }}
+      {{ attributes.title || localizedTitleOrFallback }}
     </h2>
     <template v-if="renderError">
       <p v-show="showErrorNotifications">
@@ -30,7 +34,7 @@
       v-else-if="sourcesConfiguredOrNotRequired"
       :is="widget.id"
       :sourcesConfigured="sourcesConfiguredOrNotRequired"
-      :currentSettings="widgetInstance.attributes.configuration || undefined"
+      :currentSettings="attributes.configuration || undefined"
       :currentDimensions="currentDimensions"
       :records="records"
       :language="language | languageTag"
@@ -135,13 +139,28 @@ export default {
     renderError: function () {
       return this.runtimeError.includes(this._uid);
     },
+    attributes() {
+      return this.widgetInstance.attributes;
+    },
+    customStyles() {
+      const styles = this.attributes.styles;
+      return {
+        color:
+          styles.fontColor !==
+          this.settings?.system_fontcolor?.attributes?.value
+            ? styles.fontColor
+            : "inherit",
+        fontSize: `${styles.fontSize ?? "100"}%`,
+        textAlign: styles.textAlign,
+      };
+    },
     ...mapGetters([
       "language",
       "widgetForInstance",
       "recordsForWidgetInstance",
       "showErrorNotifications",
     ]),
-    ...mapState(["sourceInstances", "runtimeError"]),
+    ...mapState(["sourceInstances", "runtimeError", "settings"]),
   },
   beforeMount: function () {
     if (!this.widget) {
