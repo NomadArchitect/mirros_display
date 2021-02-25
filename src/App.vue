@@ -372,16 +372,20 @@ $vertical_padding: 20px !default;
     }
 
     > .grid-stack-item-content {
-      margin: 0;
-      position: absolute;
-      top: $vertical_padding / 2;
-      left: $horizontal_padding / 2;
-      right: $horizontal_padding / 2;
-      bottom: $vertical_padding / 2;
+      margin: $vertical_padding / 2;
       width: auto;
+      height: inherit;
       z-index: 0;
       overflow-x: hidden;
       overflow-y: hidden;
+      @supports (backdrop-filter: blur(15px)) {
+        &.widget--background-blurred {
+          backdrop-filter: blur(8px);
+          margin: 0;
+          padding: $vertical_padding / 2;
+          border-radius: 0.625rem;
+        }
+      }
     }
   }
 }
