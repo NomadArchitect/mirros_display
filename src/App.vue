@@ -381,9 +381,9 @@ $vertical_padding: 20px !default;
       @supports (backdrop-filter: blur(15px)) {
         &.widget--background-blurred {
           backdrop-filter: blur(8px);
-          border-radius: 3px;
           margin: 0;
           padding: $vertical_padding / 2;
+          border-radius: 0.625rem;
         }
       }
     }
