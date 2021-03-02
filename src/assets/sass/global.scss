@@ -37,6 +37,7 @@ th {
 
 .widget__title {
   margin: 0 0 $base-font-size;
+  font-size: unquote("max(2rem, 50%)"); // Workaround for Sass' own max()
 }
 
 table {
