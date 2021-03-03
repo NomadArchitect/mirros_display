@@ -78,8 +78,8 @@ export default {
     /**
      * Computes the actual pixel dimensions for the inner container, minus the title if currently shown, and adds the configured grid position.
      */
-    currentDimensions: async function () {
-      await this.$nextTick();
+    currentDimensions: function () {
+      //await this.$nextTick();
       let titleHeight = 0;
       if (this.widgetInstance.attributes.showtitle) {
         const el = document.getElementById(
