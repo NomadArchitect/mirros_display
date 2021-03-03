@@ -1,7 +1,10 @@
 <template>
   <section
     class="grid-stack-item-content widget"
-    :style="customStyles"
+    :style="{
+      ...gridPosition,
+      ...customStyles,
+    }"
     :class="{ 'widget--background-blurred': attributes.styles.backgroundBlur }"
   >
     <h2
