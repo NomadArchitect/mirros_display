@@ -16,7 +16,7 @@ export default {
 @import "../assets/sass/variables";
 
 .error__box {
-  background-color: $white;
+  background-color: var(--white);
   position: absolute;
   bottom: 0;
   width: 95%;
