@@ -314,8 +314,7 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
+<style>
 .spinner {
   width: 10%;
   height: 10vh;
