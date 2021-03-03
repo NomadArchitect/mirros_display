@@ -12,9 +12,7 @@ export default {
   name: "SystemErrorOverlay",
 };
 </script>
-<style lang="scss">
-@import "../assets/sass/variables";
-
+<style>
 .error__box {
   background-color: var(--white);
   position: absolute;
