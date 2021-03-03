@@ -204,7 +204,6 @@ export default {
 <style>
 .widget {
   overflow: hidden;
-  box-sizing: border-box;
   padding: 0.625rem;
 }
 

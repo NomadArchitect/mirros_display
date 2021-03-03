@@ -17,7 +17,6 @@ export default {
 
 .error__box {
   background-color: $white;
-  box-sizing: border-box;
   position: absolute;
   bottom: 0;
   width: 95%;

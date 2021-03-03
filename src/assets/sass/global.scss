@@ -4,6 +4,14 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+// Credits to https://css-tricks.com/box-sizing/#universal-box-sizing-with-inheritance
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 #app {
