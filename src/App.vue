@@ -138,16 +138,6 @@ export default {
         document.body.style.color = newVal.attributes.value;
       }
     },
-    backgroundImage: {
-      immediate: true,
-      handler: function (newVal) {
-        document.body.style.backgroundImage = newVal
-          ? `url("${newVal}")`
-          : "none";
-        document.body.style.backgroundOrigin = "center center";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = "cover";
-      },
     "systemStatus.client_display": function (newVal) {
       if (newVal) {
         document.documentElement.classList.add(newVal.orientation);
@@ -161,7 +151,6 @@ export default {
       "languageTag",
       "ap_active",
       "connecting",
-      "backgroundImage",
       "activeBoardId",
     ]),
     backgroundcolor() {

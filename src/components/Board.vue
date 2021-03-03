@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="board">
     <section class="grid-stack" v-if="activeBoard">
       <div
         v-for="widgetInstance in widgetInstancesForActiveBoard"
@@ -45,6 +45,18 @@ export default {
         await this.fetchActiveBoard();
       },
     },
+    backgroundImage: {
+      immediate: true,
+      handler: async function (newVal) {
+        await this.$nextTick();
+        const board = document.getElementById("board");
+
+        board.style.backgroundImage = newVal ? `url("${newVal}")` : "none";
+        board.style.backgroundOrigin = "center center";
+        board.style.backgroundRepeat = "no-repeat";
+        board.style.backgroundSize = "cover";
+      },
+    },
   },
   computed: {
     ...mapState(["boards", "widgetInstances"]),
@@ -53,6 +65,7 @@ export default {
       "systemDisconnected",
       "languageTag",
       "showErrorNotifications",
+      "backgroundImage",
     ]),
     activeBoard: function () {
       return this.boards[this.activeBoardId];
