@@ -198,3 +198,21 @@ export default {
   },
 };
 </script>
+<style>
+.widget {
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0.625rem;
+}
+
+@supports (backdrop-filter: blur(15px)) {
+  .widget--background-blurred {
+    backdrop-filter: blur(10px);
+    border-radius: 0.625rem;
+    background: radial-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.15)
+    );
+  }
+}
+</style>
