@@ -39,6 +39,7 @@
       :sourcesConfigured="sourcesConfiguredOrNotRequired"
       :currentSettings="attributes.configuration || undefined"
       :currentDimensions="currentDimensions"
+      :currentStyles="attributes.styles"
       :records="records"
       :language="language | languageTag"
       :locale="language"
