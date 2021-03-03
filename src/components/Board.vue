@@ -1,16 +1,13 @@
 <template>
   <main id="board">
     <section class="grid-stack" v-if="activeBoard">
-      <div
+      <WidgetInstanceWrapper
         v-for="widgetInstance in widgetInstancesForActiveBoard"
         :key="widgetInstance.id"
         class="grid-stack-item"
-      >
-        <WidgetInstanceWrapper
-          :widgetInstance="widgetInstance"
-          :languageTag="languageTag"
-        />
-      </div>
+        :widgetInstance="widgetInstance"
+        :languageTag="languageTag"
+      />
     </section>
 
     <SystemErrorOverlay v-if="systemDisconnected && showErrorNotifications">
