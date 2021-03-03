@@ -148,6 +148,10 @@ export default {
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = "cover";
       },
+    "systemStatus.client_display": function (newVal) {
+      if (newVal) {
+        document.documentElement.classList.add(newVal.orientation);
+      }
     },
   },
   computed: {
@@ -322,5 +326,15 @@ export default {
 
 .smaller {
   font-size: 80%;
+}
+
+.preview {
+  height: 1920px;
+  width: 1080px;
+}
+
+.preview.landscape {
+  height: 1080px;
+  width: 1920px;
 }
 </style>
