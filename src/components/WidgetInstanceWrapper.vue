@@ -154,6 +154,24 @@ export default {
         textAlign: styles.textAlign,
       };
     },
+    /**
+     * Translates zero-indexed gridstack positioning into CSS grid declarations (starting at 1).
+     * @param {object} gsPosition
+     * @param {number} gsPosition.x horizontal position of the upper left corner
+     * @param {number} gsPosition.y vertical position of the upper left corner
+     * @param {number} gsPosition.width widget width in columns
+     * @param {number} gsPosition.height widget height in rows
+     * @returns {object} The grid-area placement for this widget
+     */
+    gridPosition() {
+      const gsPosition = this.attributes.position;
+      return {
+        "grid-column-start": gsPosition.x + 1,
+        "grid-row-start": gsPosition.y + 1,
+        "grid-column-end": `span ${gsPosition.width}`,
+        "grid-row-end": `span ${gsPosition.height}`,
+      };
+    },
     ...mapGetters([
       "language",
       "widgetForInstance",
