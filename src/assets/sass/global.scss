@@ -51,12 +51,14 @@ th {
 table {
   width: 100%;
 }
+
 @media screen and (orientation: portrait) and (max-width: 900px),
   screen and (orientation: landscape) and (max-width: 1600px) {
   html {
     font-size: 0.8rem;
   }
 }
+
 @media screen and (orientation: portrait) and (max-width: 768px),
   screen and (orientation: landscape) and (max-width: 1024px) {
   html {
