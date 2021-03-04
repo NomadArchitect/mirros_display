@@ -42,11 +42,6 @@ th {
   text-align: left;
 }
 
-.widget__title {
-  margin: 0 0 var(--base-font-size);
-  font-size: unquote("max(2rem, 50%)"); // Workaround for Sass' own max()
-}
-
 table {
   width: 100%;
 }

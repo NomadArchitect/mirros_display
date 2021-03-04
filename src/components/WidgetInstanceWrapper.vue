@@ -1,54 +1,59 @@
 <template>
   <section
-    class="grid-stack-item-content widget"
+    class="widget"
+    :class="{
+      'widget--background-blurred': attributes.styles.backgroundBlur,
+    }"
     :style="{
       ...gridPosition,
-      ...customStyles,
+      ...widgetStyles,
     }"
-    :class="{ 'widget--background-blurred': attributes.styles.backgroundBlur }"
   >
     <h2
       v-show="attributes.showtitle"
       class="widget__title"
+      :style="{ textAlign: attributes.styles.horizontalAlign }"
       :id="`widget-title-${widgetInstance.id}`"
     >
       {{ attributes.title || localizedTitleOrFallback }}
     </h2>
-    <template v-if="renderError">
-      <p v-show="showErrorNotifications">
-        {{
-          t(
-            "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
-          )
-        }}
+    <section :class="['widget__content', ...positioningClasses]">
+      <template v-if="renderError">
+        <p v-show="showErrorNotifications">
+          {{
+            t(
+              "Aw snap! Something went wrong. Please remove this widget and send us a bug report."
+            )
+          }}
+        </p>
+      </template>
+      <template v-else-if="loadError">
+        <p v-show="showErrorNotifications">
+          {{
+            t(
+              "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
+            )
+          }}
+        </p>
+      </template>
+      <!-- FIXME: Remove sourcesConfigured prop in https://gitlab.com/glancr/mirros_display/-/issues/27 -->
+      <component
+        v-else-if="sourcesConfiguredOrNotRequired"
+        :is="widget.id"
+        :sourcesConfigured="sourcesConfiguredOrNotRequired"
+        :currentSettings="attributes.configuration || undefined"
+        :currentDimensions="currentDimensions"
+        :currentStyles="attributes.styles"
+        :records="records"
+        :language="language | languageTag"
+        :locale="language"
+        :backendUrl="$root.$options.backendUrl"
+        :fetchAsset="fetchAsset"
+      />
+      <p v-else>
+        {{ t("Please select at least one account in the widget settings") }}
       </p>
-    </template>
-    <template v-else-if="loadError">
-      <p v-show="showErrorNotifications">
-        {{
-          t(
-            "An error occured while loading this widget. Please reload the display through Help > Reload Screen"
-          )
-        }}
-      </p>
-    </template>
-    <!-- FIXME: Remove sourcesConfigured prop in https://gitlab.com/glancr/mirros_display/-/issues/27 -->
-    <component
-      v-else-if="sourcesConfiguredOrNotRequired"
-      :is="widget.id"
-      :sourcesConfigured="sourcesConfiguredOrNotRequired"
-      :currentSettings="attributes.configuration || undefined"
-      :currentDimensions="currentDimensions"
-      :currentStyles="attributes.styles"
-      :records="records"
-      :language="language | languageTag"
-      :locale="language"
-      :backendUrl="$root.$options.backendUrl"
-      :fetchAsset="fetchAsset"
-    />
-    <p v-else>
-      {{ t("Please select at least one account in the widget settings") }}
-    </p>
+    </section>
   </section>
 </template>
 
@@ -146,7 +151,7 @@ export default {
     attributes() {
       return this.widgetInstance.attributes;
     },
-    customStyles() {
+    widgetStyles() {
       const styles = this.attributes.styles;
       return {
         color:
@@ -155,8 +160,13 @@ export default {
             ? styles.fontColor
             : "inherit",
         fontSize: `${styles.fontSize ?? "100"}%`,
-        textAlign: styles.textAlign,
       };
+    },
+    positioningClasses() {
+      return [
+        `horizontal-align--${this.attributes.styles.horizontalAlign}`,
+        `vertical-align--${this.attributes.styles.verticalAlign}`,
+      ];
     },
     /**
      * Translates zero-indexed gridstack positioning into CSS grid declarations (starting at 1).
@@ -205,10 +215,12 @@ export default {
 <style>
 .widget {
   overflow: hidden;
-  padding: 0.625rem;
+  display: grid;
+  grid-template-areas: "title" "content";
+  grid-auto-rows: min-content minmax(min-content, 100%);
 }
 
-@supports (backdrop-filter: blur(15px)) {
+@supports (backdrop-filter: blur(10px)) {
   .widget--background-blurred {
     backdrop-filter: blur(10px);
     border-radius: 0.625rem;
@@ -217,5 +229,54 @@ export default {
       rgba(255, 255, 255, 0.15)
     );
   }
+  .widget--background-blurred .widget__title {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.widget__title {
+  margin: 0;
+  font-size: max(2rem, 50%);
+  line-height: 1;
+  padding: 0.625rem;
+  align-self: top;
+  grid-area: title;
+}
+
+.widget__content {
+  padding: 0.625rem;
+  display: flex;
+  grid-area: content;
+}
+
+.horizontal-align--left {
+  justify-content: start;
+}
+
+.horizontal-align--right {
+  justify-content: end;
+}
+
+.horizontal-align--center {
+  justify-content: center;
+}
+.horizontal-align--justify {
+  justify-content: space-evenly;
+}
+
+.vertical-align--top {
+  align-items: start;
+}
+
+.vertical-align--center {
+  align-items: center;
+}
+
+.vertical-align--bottom {
+  align-items: end;
+}
+
+.vertical-align--stretch {
+  align-items: stretch;
 }
 </style>
