@@ -251,17 +251,21 @@ export default {
 
 .horizontal-align--left {
   justify-content: start;
+  text-align: left;
 }
 
 .horizontal-align--right {
   justify-content: end;
+  text-align: right;
 }
 
 .horizontal-align--center {
   justify-content: center;
+  text-align: center;
 }
 .horizontal-align--justify {
   justify-content: space-evenly;
+  text-align: justify;
 }
 
 .vertical-align--top {
