@@ -153,12 +153,13 @@ export default {
     },
     widgetStyles() {
       const styles = this.attributes.styles;
+      const color =
+        styles.fontColor !== this.settings?.system_fontcolor?.attributes?.value
+          ? styles.fontColor
+          : "inherit";
       return {
-        color:
-          styles.fontColor !==
-          this.settings?.system_fontcolor?.attributes?.value
-            ? styles.fontColor
-            : "inherit",
+        color: color,
+        fill: color,
         fontSize: `${styles.fontSize ?? "100"}%`,
       };
     },

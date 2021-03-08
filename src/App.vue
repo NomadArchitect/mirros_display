@@ -136,6 +136,7 @@ export default {
     fontcolor: function (newVal) {
       if (newVal.attributes != undefined) {
         document.body.style.color = newVal.attributes.value;
+        document.body.style.fill = newVal.attributes.value;
       }
     },
     "systemStatus.client_display": function (newVal) {
