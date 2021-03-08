@@ -50,7 +50,7 @@
         :backendUrl="$root.$options.backendUrl"
         :fetchAsset="fetchAsset"
       />
-      <p v-else>
+      <p v-else class="widget__no-source-configured">
         {{ t("Please select at least one account in the widget settings") }}
       </p>
     </section>
@@ -282,5 +282,12 @@ export default {
 
 .vertical-align--stretch {
   align-items: stretch;
+}
+
+.widget__no-source-configured {
+  text-align: center;
+  width: 100%;
+  font-size: 1.25rem;
+  margin: 0;
 }
 </style>
