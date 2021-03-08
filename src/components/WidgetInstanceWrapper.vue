@@ -3,6 +3,8 @@
     class="widget"
     :class="{
       'widget--background-blurred': attributes.styles.backgroundBlur,
+      'widget--larger-padding':
+        attributes.position.width >= 4 && attributes.styles.backgroundBlur,
     }"
     :style="{
       ...gridPosition,
@@ -248,6 +250,11 @@ export default {
   padding: 0.625rem;
   display: flex;
   grid-area: content;
+}
+
+.widget--larger-padding .widget__title,
+.widget--larger-padding .widget__content {
+  padding: 1.25rem;
 }
 
 .horizontal-align--left {
