@@ -4,6 +4,14 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+// Credits to https://css-tricks.com/box-sizing/#universal-box-sizing-with-inheritance
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 #app {
@@ -20,6 +28,7 @@ html {
     [lang="ko-KR"] & {
       font-family: "Inter", "NotoSansKR", Helvetica, Arial, sans-serif;
     }
+    font-size: 1.0625rem;
   }
 }
 
@@ -28,26 +37,15 @@ body {
   background-color: black;
   color: white;
   font-size: 1.25rem;
-  line-height: 1.5rem;
 }
 
-th {
-  text-align: left;
-}
-
-.widget__title {
-  margin: 0 0 $base-font-size;
-}
-
-table {
-  width: 100%;
-}
 @media screen and (orientation: portrait) and (max-width: 900px),
   screen and (orientation: landscape) and (max-width: 1600px) {
   html {
     font-size: 0.8rem;
   }
 }
+
 @media screen and (orientation: portrait) and (max-width: 768px),
   screen and (orientation: landscape) and (max-width: 1024px) {
   html {
