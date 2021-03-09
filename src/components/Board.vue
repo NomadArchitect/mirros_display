@@ -1,20 +1,13 @@
 <template>
-  <main>
+  <main id="board">
     <section class="grid-stack" v-if="activeBoard">
-      <div
+      <WidgetInstanceWrapper
         v-for="widgetInstance in widgetInstancesForActiveBoard"
         :key="widgetInstance.id"
         class="grid-stack-item"
-        :data-gs-x="widgetInstance.attributes.position.x"
-        :data-gs-y="widgetInstance.attributes.position.y"
-        :data-gs-width="widgetInstance.attributes.position.width"
-        :data-gs-height="widgetInstance.attributes.position.height"
-      >
-        <WidgetInstanceWrapper
-          :widgetInstance="widgetInstance"
-          :languageTag="languageTag"
-        />
-      </div>
+        :widgetInstance="widgetInstance"
+        :languageTag="languageTag"
+      />
     </section>
 
     <SystemErrorOverlay v-if="systemDisconnected && showErrorNotifications">
@@ -49,6 +42,18 @@ export default {
         await this.fetchActiveBoard();
       },
     },
+    backgroundImage: {
+      immediate: true,
+      handler: async function (newVal) {
+        await this.$nextTick();
+        const board = document.getElementById("board");
+
+        board.style.backgroundImage = newVal ? `url("${newVal}")` : "none";
+        board.style.backgroundOrigin = "center center";
+        board.style.backgroundRepeat = "no-repeat";
+        board.style.backgroundSize = "cover";
+      },
+    },
   },
   computed: {
     ...mapState(["boards", "widgetInstances"]),
@@ -57,6 +62,7 @@ export default {
       "systemDisconnected",
       "languageTag",
       "showErrorNotifications",
+      "backgroundImage",
     ]),
     activeBoard: function () {
       return this.boards[this.activeBoardId];
@@ -82,4 +88,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.grid-stack {
+  display: grid;
+  grid-template-columns: repeat(var(--gridstack-columns), 1fr);
+  grid-template-rows: repeat(var(--gridstack-rows), 1fr);
+  gap: var(--grid-gap);
+  height: 100vh;
+  padding: 1.042vh 0.463vw 1.042vh 0.463vw;
+}
+
+@media (orientation: landscape) {
+  .grid-stack {
+    padding: 0.463vh 1.042vw 0.463vh 1.042vw;
+  }
+}
+</style>

@@ -1,2 +1,13 @@
-$base-font-size: 16px;
-$white: #fafafa;
+:root {
+  --base-font-size: 16px;
+  --white: #fafafa;
+
+  --grid-gap: 0.625rem;
+  --gridstack-columns: 12;
+  --gridstack-rows: 21;
+
+  @media (orientation: landscape) {
+    --gridstack-columns: 21;
+    --gridstack-rows: 12;
+  }
+}
