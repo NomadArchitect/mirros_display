@@ -136,18 +136,13 @@ export default {
     fontcolor: function (newVal) {
       if (newVal.attributes != undefined) {
         document.body.style.color = newVal.attributes.value;
+        document.body.style.fill = newVal.attributes.value;
       }
     },
-    backgroundImage: {
-      immediate: true,
-      handler: function (newVal) {
-        document.body.style.backgroundImage = newVal
-          ? `url("${newVal}")`
-          : "none";
-        document.body.style.backgroundOrigin = "center center";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = "cover";
-      },
+    "systemStatus.client_display": function (newVal) {
+      if (newVal) {
+        document.documentElement.classList.add(newVal.orientation);
+      }
     },
   },
   computed: {
@@ -157,7 +152,6 @@ export default {
       "languageTag",
       "ap_active",
       "connecting",
-      "backgroundImage",
       "activeBoardId",
     ]),
     backgroundcolor() {
@@ -310,117 +304,7 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-$gridstack-columns-portrait: 12 !default;
-$gridstack-rows-portrait: 21.33333 !default;
-
-$gridstack-columns-landscape: 21.33333 !default;
-$gridstack-rows-landscape: 12 !default;
-
-$horizontal_padding: 20px !default;
-$vertical_padding: 20px !default;
-
-.grid-stack {
-  position: relative;
-  margin: 5px;
-  > .grid-stack-item {
-    min-width: 100% / $gridstack-columns-portrait;
-    position: absolute;
-    padding: 0;
-
-    @for $i from 1 through $gridstack-columns-portrait {
-      &[data-gs-width="#{$i}"] {
-        width: (100% / $gridstack-columns-portrait) * $i;
-      }
-      &[data-gs-x="#{$i}"] {
-        left: (100% / $gridstack-columns-portrait) * $i;
-      }
-    }
-
-    @for $i from 1 through $gridstack-rows-portrait {
-      &[data-gs-height="#{$i}"] {
-        height: (100vh / $gridstack-rows-portrait) * $i;
-      }
-      &[data-gs-y="#{$i}"] {
-        top: (100vh / $gridstack-rows-portrait) * $i;
-      }
-    }
-
-    @media (orientation: landscape) {
-      // Columns
-      @for $i from 1 through $gridstack-columns-landscape {
-        &[data-gs-width="#{$i}"] {
-          width: (100% / $gridstack-columns-landscape) * $i;
-        }
-      }
-      @for $i from 1 through $gridstack-columns-landscape {
-        &[data-gs-x="#{$i}"] {
-          left: (100% / $gridstack-columns-landscape) * $i;
-        }
-      }
-
-      // Rows
-      @for $i from 1 through $gridstack-rows-landscape {
-        &[data-gs-height="#{$i}"] {
-          height: (100vh / $gridstack-rows-landscape) * $i;
-        }
-        &[data-gs-y="#{$i}"] {
-          top: (100vh / $gridstack-rows-landscape) * $i;
-        }
-      }
-    }
-
-    > .grid-stack-item-content {
-      margin: $vertical_padding / 2;
-      width: auto;
-      height: inherit;
-      z-index: 0;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      @supports (backdrop-filter: blur(15px)) {
-        &.widget--background-blurred {
-          backdrop-filter: blur(8px);
-          margin: 0;
-          padding: $vertical_padding / 2;
-          border-radius: 0.625rem;
-        }
-      }
-    }
-  }
-}
-
-.preview .grid-stack {
-  margin: 0 auto;
-  height: 1900px;
-  width: 1070px;
-  > .grid-stack-item {
-    @for $i from 1 through $gridstack-rows-portrait {
-      &[data-gs-height="#{$i}"] {
-        height: (100% / $gridstack-rows-portrait) * $i;
-      }
-      &[data-gs-y="#{$i}"] {
-        top: (100% / $gridstack-rows-portrait) * $i;
-      }
-    }
-  }
-
-  @media (orientation: landscape) {
-    height: 1070px;
-    width: 1900px;
-    > .grid-stack-item {
-      @for $i from 1 through $gridstack-rows-landscape {
-        &[data-gs-height="#{$i}"] {
-          height: (100% / $gridstack-rows-landscape) * $i;
-        }
-        &[data-gs-y="#{$i}"] {
-          top: (100% / $gridstack-rows-landscape) * $i;
-        }
-      }
-    }
-  }
-}
-
+<style>
 .spinner {
   width: 10%;
   height: 10vh;
@@ -431,5 +315,15 @@ $vertical_padding: 20px !default;
 
 .smaller {
   font-size: 80%;
+}
+
+.preview {
+  height: 1920px;
+  width: 1080px;
+}
+
+.preview.landscape {
+  height: 1080px;
+  width: 1920px;
 }
 </style>
