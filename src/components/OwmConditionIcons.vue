@@ -5,7 +5,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     width="0"
     height="0"
-    class="hidden"
+    style="display: none"
   >
     <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56.7 56.7" id="01d">
       <path
