@@ -1,5 +1,6 @@
 <template>
   <main id="board">
+    <OwmConditionIcons></OwmConditionIcons>
     <section class="grid-stack" v-if="activeBoard">
       <WidgetInstanceWrapper
         v-for="widgetInstance in widgetInstancesForActiveBoard"
@@ -25,6 +26,7 @@
 <script>
 import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
+import OwmConditionIcons from "@/components/OwmConditionIcons";
 import OfflineIcon from "@/assets/icons/offline.svg";
 import { mapState, mapGetters, mapActions } from "vuex";
 
@@ -32,6 +34,7 @@ export default {
   name: "Board",
   components: {
     WidgetInstanceWrapper,
+    OwmConditionIcons,
     OfflineIcon,
     SystemErrorOverlay,
   },
