@@ -1,7 +1,16 @@
 <template>
   <main id="board">
     <OwmConditionIcons></OwmConditionIcons>
-    <section class="grid-stack" v-if="activeBoard">
+    <section
+      class="grid-stack"
+      v-if="activeBoard"
+      :style="{
+        gridTemplateColumns: `repeat(${dynamicGrid.columns}, 80px)`,
+        gridTemplateRows: `repeat(${dynamicGrid.rows}, 80px)`,
+        maxWidth: `${dynamicGrid.maxWidth}px`,
+        maxHeight: `${dynamicGrid.maxHeight}px`,
+      }"
+    >
       <WidgetInstanceWrapper
         v-for="widgetInstance in widgetInstancesForActiveBoard"
         :key="widgetInstance.id"
@@ -70,6 +79,23 @@ export default {
     activeBoard: function () {
       return this.boards[this.activeBoardId];
     },
+    dynamicGrid() {
+      // 80px cell width + 10px gutter. We add 10px to the available space to account for an imagined outer gutter.
+      const cellSize = 90;
+      const columns = Math.floor((window.innerWidth + 10) / cellSize);
+      const rows = Math.floor((window.innerHeight + 10) / cellSize);
+      const gridMaxWidth =
+        window.innerWidth - ((window.innerWidth + 10) % cellSize);
+      const gridMaxHeight =
+        window.innerHeight - ((window.innerHeight + 10) % cellSize);
+
+      return {
+        rows: rows,
+        columns: columns,
+        maxWidth: gridMaxWidth,
+        maxHeight: gridMaxHeight,
+      };
+    },
     widgetInstancesForActiveBoard: function () {
       // TODO: Maybe this can be cleaner.
       const reducer = (acc, ref) => {
@@ -92,18 +118,17 @@ export default {
 </script>
 
 <style>
+#board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 .grid-stack {
   display: grid;
+  gap: var(--grid-gap);
+  /* Default values, overridden in style attribute */
   grid-template-columns: repeat(var(--gridstack-columns), 1fr);
   grid-template-rows: repeat(var(--gridstack-rows), 1fr);
-  gap: var(--grid-gap);
-  height: 100vh;
-  padding: 1.042vh 0.463vw 1.042vh 0.463vw;
-}
-
-@media (orientation: landscape) {
-  .grid-stack {
-    padding: 0.463vh 1.042vw 0.463vh 1.042vw;
-  }
 }
 </style>
