@@ -59,7 +59,7 @@ import Board from "@/components/Board";
 import OfflineIcon from "@/assets/icons/offline.svg";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
     AnimatedLoader,
     NetworkError,
@@ -141,7 +141,19 @@ export default {
     },
     "systemStatus.client_display": function (newVal) {
       if (newVal) {
-        document.documentElement.classList.add(newVal.orientation);
+        // Ensure the preview mode shows properly on any screen size.
+        if (this.runsInPreviewMode) {
+          const displaySize = this.systemStatus.client_display;
+          const html = document.documentElement;
+          html.classList.add("preview");
+          html.style.width = `${displaySize.width}px`;
+          html.style.height = `${displaySize.height}px`;
+
+          if (window.innerWidth < displaySize.width) {
+            html.style.transform = `scale(${window.innerWidth / (displaySize.width)})`;
+            html.style.transformOrigin = "top left";
+          }
+        }
       }
     },
   },
@@ -205,16 +217,6 @@ export default {
     // Use localStorage.language to set the locale before we render anything.
     if (localStorage.language) {
       this.$translate.setLang(localStorage.language);
-    }
-
-    // Ensure the preview mode shows properly on any screen size.
-    if (this.runsInPreviewMode) {
-      const html = document.documentElement;
-      html.classList.add("preview");
-      if (window.innerWidth < 1080) {
-        html.style.transform = `scale(${window.innerWidth / 1080})`;
-        html.style.transformOrigin = "top left";
-      }
     }
   },
   mounted() {
@@ -315,15 +317,5 @@ export default {
 
 .smaller {
   font-size: 80%;
-}
-
-.preview {
-  height: 1920px;
-  width: 1080px;
-}
-
-.preview.landscape {
-  height: 1080px;
-  width: 1920px;
 }
 </style>
