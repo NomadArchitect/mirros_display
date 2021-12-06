@@ -68,7 +68,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["boards", "widgetInstances"]),
+    ...mapState(["boards", "widgetInstances", "systemStatus"]),
     ...mapGetters([
       "activeBoardId",
       "systemDisconnected",
@@ -80,14 +80,24 @@ export default {
       return this.boards[this.activeBoardId];
     },
     dynamicGrid() {
+      let displayWidth;
+      let displayHeight;
+      if (window.location.hash === "#preview") {
+        displayWidth = this.systemStatus.client_display.width;
+        displayHeight = this.systemStatus.client_display.height;
+      } else {
+        displayWidth = window.innerWidth;
+        displayHeight = window.innerHeight;
+      };
+
       // 80px cell width + 10px gutter. We add 10px to the available space to account for an imagined outer gutter.
       const cellSize = 90;
-      const columns = Math.floor((window.innerWidth + 10) / cellSize);
-      const rows = Math.floor((window.innerHeight + 10) / cellSize);
+      const columns = Math.floor((displayWidth + 10) / cellSize);
+      const rows = Math.floor((displayHeight + 10) / cellSize);
       const gridMaxWidth =
-        window.innerWidth - ((window.innerWidth + 10) % cellSize);
+        displayWidth - ((displayWidth + 10) % cellSize);
       const gridMaxHeight =
-        window.innerHeight - ((window.innerHeight + 10) % cellSize);
+        displayHeight - ((displayHeight + 10) % cellSize);
 
       return {
         rows: rows,
@@ -124,6 +134,12 @@ export default {
   justify-content: center;
   height: 100vh;
 }
+
+.preview #board {
+  height: 100%;
+  width: 100%;
+}
+
 .grid-stack {
   display: grid;
   gap: var(--grid-gap);
