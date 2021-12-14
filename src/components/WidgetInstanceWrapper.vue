@@ -89,11 +89,10 @@ export default {
     };
   },
   watch: {
-    'widgetInstance.attributes': {
+    "widgetInstance.attributes": {
       immediate: true,
-      handler: 'updateDimensions'  
-    }
-    
+      handler: "updateDimensions",
+    },
   },
   computed: {
     widget: function () {
@@ -187,7 +186,7 @@ export default {
         .then((res) => res.data);
     },
     updateDimensions() {
-      this.$nextTick(function () {      
+      this.$nextTick(function () {
         let titleHeight = 0;
         if (this.widgetInstance.attributes.showtitle) {
           const el = document.getElementById(
@@ -206,9 +205,9 @@ export default {
           heightPx: this.$refs.widget.clientHeight - titleHeight - 20,
           widthPx: this.$refs.widget.clientWidth - 20,
           ...this.widgetInstance.attributes.position,
-        }
-      })
-    }
+        };
+      });
+    },
   },
 };
 </script>

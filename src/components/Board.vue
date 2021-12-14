@@ -88,16 +88,14 @@ export default {
       } else {
         displayWidth = window.innerWidth;
         displayHeight = window.innerHeight;
-      };
+      }
 
       // 80px cell width + 10px gutter. We add 10px to the available space to account for an imagined outer gutter.
       const cellSize = 90;
       const columns = Math.floor((displayWidth + 10) / cellSize);
       const rows = Math.floor((displayHeight + 10) / cellSize);
-      const gridMaxWidth =
-        displayWidth - ((displayWidth + 10) % cellSize);
-      const gridMaxHeight =
-        displayHeight - ((displayHeight + 10) % cellSize);
+      const gridMaxWidth = displayWidth - ((displayWidth + 10) % cellSize);
+      const gridMaxHeight = displayHeight - ((displayHeight + 10) % cellSize);
 
       return {
         rows: rows,
