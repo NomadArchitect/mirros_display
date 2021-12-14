@@ -150,7 +150,9 @@ export default {
           html.style.height = `${displaySize.height}px`;
 
           if (window.innerWidth < displaySize.width) {
-            html.style.transform = `scale(${window.innerWidth / (displaySize.width)})`;
+            html.style.transform = `scale(${
+              window.innerWidth / displaySize.widthBoard
+            })`;
             html.style.transformOrigin = "top left";
           }
         }
