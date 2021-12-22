@@ -7,3 +7,13 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 /.vscode
+
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+# not using zero-installs at the moment
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

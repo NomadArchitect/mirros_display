@@ -1,7 +1,6 @@
 {
   "name": "mirros_display",
   "version": "1.0.0",
-  "private": false,
   "description": "Display frontend for the glancr Smart Mirror.",
   "scripts": {
     "serve": "vue-cli-service serve --copy",
@@ -30,5 +29,6 @@
     "eslint-plugin-vue": "^8.2.0",
     "prettier": "^2.2.0"
   },
-  "license": "All rights reserved glancr"
+  "license": "All rights reserved glancr",
+  "packageManager": "yarn@3.1.1"
 }
