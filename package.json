@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Display frontend for the glancr Smart Mirror.",
   "scripts": {
-    "serve": "vue-cli-service serve --copy",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
     "actioncable-vue": "^2.3.2",
