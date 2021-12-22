@@ -50,13 +50,13 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 
-import AnimatedLoader from "@/components/AnimatedLoader";
-import NetworkError from "@/components/NetworkError";
-import ConnectionError from "@/components/ConnectionError";
-import Setup from "@/components/Setup";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay";
-import Board from "@/components/Board";
-import OfflineIcon from "@/assets/icons/offline.svg";
+import AnimatedLoader from "./components/AnimatedLoader";
+import NetworkError from "./components/NetworkError";
+import ConnectionError from "./components/ConnectionError";
+import Setup from "./components/Setup";
+import SystemErrorOverlay from "./components/SystemErrorOverlay";
+import Board from "./components/Board";
+import OfflineIcon from "./assets/icons/offline.svg";
 
 export default {
   name: "App",

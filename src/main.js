@@ -1,6 +1,6 @@
 import Vue from "vue";
-import App from "@/App.vue";
-import store from "@/store";
+import App from "./App.vue";
+import store from "./store";
 
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -10,7 +10,7 @@ import AsyncComputed from "vue-async-computed";
 
 import ActionCableVue from "actioncable-vue";
 
-import "@/assets/sass/global.scss";
+import "./assets/sass/global.scss";
 
 Vue.config.productionTip = false;
 Vue.use(VueTranslate);
@@ -61,7 +61,7 @@ Vue.filter("bcp47tag", function (language) {
   });
 });
 
-import locales from "@/locales/global";
+import locales from "./locales/global";
 Vue.locales(locales);
 
 new Vue({
