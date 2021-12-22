@@ -21,13 +21,13 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.6.1",
-    "vite": "^2.5.4",
-    "vite-plugin-vue2": "1.9.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "eslint": "^8.5.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^8.2.0",
-    "prettier": "^2.2.0"
+    "prettier": "^2.2.0",
+    "vite": "^2.5.4",
+    "vite-plugin-vue2": "1.9.0"
   },
   "license": "All rights reserved glancr",
   "packageManager": "yarn@3.1.1"
