@@ -193,15 +193,11 @@ export default {
       );
     },
     /**
-     * Determines if there is a connection error to the backend.
+     * Check if the backend has no network connection.
      * @returns {boolean} if there is a connection error.
      */
     connectionError() {
-      return (
-        this.systemStatus.configured_at_boot &&
-        this.systemStatus.online === false &&
-        this.ap_active
-      );
+      return this.systemStatus.network.primary_connection === null;
     },
     /**
      * Check whether the app is running in preview mode.

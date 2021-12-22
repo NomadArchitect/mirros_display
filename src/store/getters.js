@@ -52,37 +52,22 @@ export default {
 
     return records;
   },
-
-  /**
-    FIXME: We can't rely on NetworkManager's connectivity check on Ubuntu Core yet. 1.2.2 has it disabled entirely, and 1.10 doesn't reliably report our own captive portal, but sometimes outputs LIMITED (^= 4).
-  */
   ap_active: (state) => {
-    if (state.systemStatus.primary_connection != null) {
-      return (
-        state.systemStatus.primary_connection.connection_id === "glancrsetup"
-      );
-    } else {
-      return false;
-    }
+    return (
+      state.systemStatus?.network?.primary_connection?.id === "glancrsetup" ??
+      false
+    );
   },
-  systemDisconnected: (state, getters) => {
-    if (state.systemStatus.connectivity_check_available) {
-      return state.systemStatus.connectivity <= NmConnectivityState.PORTAL;
-    } else {
-      return (
-        state.online === false &&
-        state.primaryConnection != null &&
-        getters.ap_active === false
-      );
-    }
+  systemDisconnected: (state) => {
+    return (
+      state.systemStatus.network.connectivity <= NmConnectivityState.PORTAL
+    );
   },
   primaryConnectionIP: (state) => {
-    const primary = state.systemStatus.primary_connection;
-    // TODO: Use optional chaining once active with Babel
-    return primary && primary.ip4_address;
+    return state.systemStatus.network.primary_connection?.ip4_address;
   },
   connecting: (state) => {
-    return state.systemStatus.nm_state === NmState.CONNECTING;
+    return state.systemStatus.network.state === NmState.CONNECTING;
   },
 
   /**
