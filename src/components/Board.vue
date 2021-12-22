@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay";
-import OwmConditionIcons from "@/components/OwmConditionIcons";
-import OfflineIcon from "@/assets/icons/offline.svg";
+import WidgetInstanceWrapper from "./WidgetInstanceWrapper.vue";
+import SystemErrorOverlay from "./SystemErrorOverlay.vue";
+import OwmConditionIcons from "./OwmConditionIcons.vue";
+import OfflineIcon from "../assets/icons/offline.svg";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {

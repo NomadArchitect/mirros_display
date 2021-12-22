@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ErrorIcon from "@/assets/icons/error.svg";
+import ErrorIcon from "../assets/icons/error.svg";
 
 export default {
   name: "ConnectionError",

@@ -65,7 +65,7 @@
 import { mapState, mapGetters } from "vuex";
 import httpVueLoader from "http-vue-loader";
 import axios from "axios";
-import { languageTag } from "@/mixins/formatters";
+import { languageTag } from "../mixins/formatters";
 
 export default {
   name: "WidgetInstanceWrapper",

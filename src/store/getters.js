@@ -1,4 +1,4 @@
-import { NmState, NmConnectivityState } from "@/enums";
+import { NmState, NmConnectivityState } from "../enums";
 
 export default {
   activeBoardId: (state) => {

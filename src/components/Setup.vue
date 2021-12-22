@@ -35,8 +35,8 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import BrowserIcon from "@/assets/icons/http.svg";
-import InstructionsIcon from "@/assets/icons/instructions.svg";
+import BrowserIcon from "../assets/icons/http.svg";
+import InstructionsIcon from "../assets/icons/instructions.svg";
 
 export default {
   name: "Setup",

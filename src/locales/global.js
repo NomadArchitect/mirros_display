@@ -1,8 +1,8 @@
-import german from "@/locales/de_DE.json";
-import french from "@/locales/fr_FR.json";
-import spanish from "@/locales/es_ES.json";
-import polish from "@/locales/pl_PL.json";
-import korean from "@/locales/ko_KR.json";
+import german from "./de_DE.json";
+import french from "./fr_FR.json";
+import spanish from "./es_ES.json";
+import polish from "./pl_PL.json";
+import korean from "./ko_KR.json";
 
 export default {
   deDe: german,
