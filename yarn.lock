@@ -815,12 +815,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.0":
-  version: 0.21.0
-  resolution: "axios@npm:0.21.0"
+"axios@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "axios@npm:0.24.0"
   dependencies:
-    follow-redirects: ^1.10.0
-  checksum: ed838dc537df4f5ff086893befaff80d16212744128cdafba7a08b675b4bd37cab3645442de3f05b7038be42936d91f0a0995e1d81addb009009897ddec29527
+    follow-redirects: ^1.14.4
+  checksum: 468cf496c08a6aadfb7e699bebdac02851e3043d4e7d282350804ea8900e30d368daa6e3cd4ab83b8ddb5a3b1e17a5a21ada13fc9cebd27b74828f47a4236316
   languageName: node
   linkType: hard
 
@@ -2350,10 +2350,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.10.0":
-  version: 1.13.0
-  resolution: "follow-redirects@npm:1.13.0"
-  checksum: 684165a78370ae21ccb9495d1e99eb3bd9a63a51f8686f3b5117d92e28435a283b39e07014bc959287314979ecd496027e4baca8854f757439b7ac0b185e5f2d
+"follow-redirects@npm:^1.14.4":
+  version: 1.14.6
+  resolution: "follow-redirects@npm:1.14.6"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 7fcdb089a733d2aa39041880790e9f772df009fcd0b243fee7e10acf0e14a8dab5208cf79eb1de35b9cc6033d4dde7f95becadfaa360c50d460b4c730b375e80
   languageName: node
   linkType: hard
 
@@ -3133,7 +3136,7 @@ __metadata:
     "@vitejs/plugin-vue": ^1.6.1
     "@vue/eslint-config-prettier": ^6.0.0
     actioncable-vue: ^2.3.2
-    axios: ^0.21.0
+    axios: ^0.24.0
     eslint: ^8.5.0
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-vue: ^8.2.0
@@ -3144,7 +3147,7 @@ __metadata:
     vite-plugin-vue2: 1.9.0
     vue: ^2.6.12
     vue-async-computed: ^3.9.0
-    vue-axios: ^3.2.0
+    vue-axios: ^3.4.0
     vue-svg-loader: ^0.16.0
     vue-translate-plugin: ^1.2.0
     vuex: ^3.6.0
@@ -4144,13 +4147,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-axios@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "vue-axios@npm:3.2.0"
+"vue-axios@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "vue-axios@npm:3.4.0"
   peerDependencies:
     axios: ">= 0.20.0"
-    vue: ">= 3.0.0"
-  checksum: ad7e2adb357ee7243a2d5701549bd0bc7fa5c8da66879577ac6105f09ee5bbebd999546c0dea70b716743e863a7d939be93e9853bac74ee0d0634b62d936c751
+    vue: ^3.0.0 || ^2.0.0
+  checksum: b8461f7fbff4780f65c0b2390a5e7bffc719ea116f8f8b32993e63a2444c524dd60da66d4a97a96af464774fe3729fbbfc1155982d58e2cc1624a41a6a9a9b75
   languageName: node
   linkType: hard
 
