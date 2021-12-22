@@ -7,8 +7,8 @@ module.exports = {
   },
 
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "warn",
+    "no-console": import.meta.env.PROD ? "error" : "off",
+    "no-debugger": import.meta.env.PROD ? "error" : "warn",
   },
 
   extends: [

@@ -34,7 +34,7 @@ Vue.config.errorHandler = function (err, vm, info) {
     stack: err.stack,
     instance: vm.$vnode.tag,
   });
-  if (process.env.NODE_ENV != "development") {
+  if (import.meta.env.PROD) {
     localStorage.reloads = parseInt(localStorage.reloads) + 1 || 1;
 
     parseInt(localStorage.reloads) <= 5
