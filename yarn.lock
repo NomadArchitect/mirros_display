@@ -3807,12 +3807,12 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
 
-axios@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
-  integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
+axios@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
   dependencies:
-    follow-redirects "^1.10.0"
+    follow-redirects "^1.14.4"
 
 babel-core@^7.0.0-bridge.0:
   version "7.0.0-bridge.0"
@@ -6688,10 +6688,10 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "^3.0.0"
 
-follow-redirects@^1.10.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
-  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
+follow-redirects@^1.14.4:
+  version "1.14.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.6.tgz#8cfb281bbc035b3c067d6cd975b0f6ade6e855cd"
+  integrity sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -12932,10 +12932,10 @@ vue-async-computed@^3.9.0:
   resolved "https://registry.yarnpkg.com/vue-async-computed/-/vue-async-computed-3.9.0.tgz#af3181c25168bfe9d86d8ffbc7033bf9e484fe84"
   integrity sha512-ac6m/9zxHHNGGKNOU1en8qNk+fAmEbJLuWL7qyQTFuH3vjv3V4urv//QHcVzCobROM6btnaDG2b+XYMncF/ETA==
 
-vue-axios@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.2.0.tgz#43843cbc9108e807007189ad80cd1ba48a0ad951"
-  integrity sha512-nBS3uVLT50Qfv7Gmhu0VDkYzTJeDWVc8TOTd4UzG/XS865+As4Updyuo4zWVqQ5ygC7JUBRkgc5merS7PpHMlw==
+vue-axios@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.4.0.tgz#059d7fcbe83f786cda24e9501317174736927b37"
+  integrity sha512-S3YTCJeEndzmtaYzyz919Z54wY1D2OftWEhioGbHED3VUSta8ti0OHjDipTPkb1StxOzQLAAO2hSUq830i14KA==
 
 vue-codemod@^0.0.5:
   version "0.0.5"
