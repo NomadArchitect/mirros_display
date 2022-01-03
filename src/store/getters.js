@@ -60,14 +60,14 @@ export default {
   },
   systemDisconnected: (state) => {
     return (
-      state.systemStatus.network.connectivity <= NmConnectivityState.PORTAL
+      state.systemStatus.network?.connectivity <= NmConnectivityState.PORTAL
     );
   },
   primaryConnectionIP: (state) => {
-    return state.systemStatus.network.primary_connection?.ip4_address;
+    return state.systemStatus.network?.primary_connection?.ip4_address;
   },
   connecting: (state) => {
-    return state.systemStatus.network.state === NmState.CONNECTING;
+    return state.systemStatus.network?.state === NmState.CONNECTING;
   },
 
   /**
