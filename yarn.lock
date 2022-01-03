@@ -5008,6 +5008,11 @@ core-js-pure@^3.10.2:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.20.2.tgz#5d263565f0e34ceeeccdc4422fae3e84ca6b8c0f"
   integrity sha512-CmWHvSKn2vNL6p6StNp1EmMIfVY/pqn3JLAjfZQ8WZGPOlGoO92EkX9/Mk81i6GxvoPXjUqEQnpM3rJ5QxxIOg==
 
+core-js@3:
+  version "3.20.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.2.tgz#46468d8601eafc8b266bd2dd6bf9dee622779581"
+  integrity sha512-nuqhq11DcOAbFBV4zCbKeGbKQsUDRqTX0oqx7AttUBuqe3h20ixsE039QHelbL6P4h+9kytVqyEtyZ6gsiwEYw==
+
 core-js@^3.6.5:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
@@ -8397,11 +8402,12 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
-json-api-normalizer@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/json-api-normalizer/-/json-api-normalizer-1.0.0.tgz#183c53017aa8f8cfd96dbed45227bb4790bbfd04"
-  integrity sha512-usS3CbKJliWLVhARZF4sUlalLVetITDeGZghV9lpBbP25Gm8xx0GUmmMXM0aimCGb9ntva+1gvTbQ/MekcMucA==
+json-api-normalizer@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/json-api-normalizer/-/json-api-normalizer-1.0.4.tgz#f597a91fc3ca4ad5ed6ed29f27e174f7c760661a"
+  integrity sha512-2ypq6W/MFdnQusuQIB19e8JOdWzADIAL2v+X4l0C08fPe3Jn1SgBEFECPaF2aRR+Z/6cAswi5ZxeiOeCredClw==
   dependencies:
+    core-js "3"
     lodash "^4.17.15"
 
 json-buffer@3.0.0:
