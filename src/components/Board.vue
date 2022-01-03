@@ -40,6 +40,7 @@ import OfflineIcon from "@/assets/icons/offline.svg";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
+  // eslint-disable-next-line
   name: "Board",
   components: {
     WidgetInstanceWrapper,

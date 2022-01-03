@@ -39,6 +39,7 @@ import BrowserIcon from "@/assets/icons/http.svg";
 import InstructionsIcon from "@/assets/icons/instructions.svg";
 
 export default {
+  // eslint-disable-next-line
   name: "Setup",
   components: {
     BrowserIcon,
