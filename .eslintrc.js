@@ -11,12 +11,12 @@ module.exports = {
   },
 
   parserOptions: {
-    parser: "babel-eslint",
+    parser: "@babel/eslint-parser",
   },
 
   extends: [
     "plugin:vue/essential",
     "@vue/prettier",
-    "@vue/prettier/recommended",
+    "@vue/eslint-config-prettier",
   ],
 };
