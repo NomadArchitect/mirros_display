@@ -99,9 +99,9 @@ export default {
   },
   mounted: function () {
     this.$options.languageRotation = setInterval(this.changeLocale, 7000);
-    QRCode.toCanvas(this.$refs.setupQRCode, "https://api.glancr.de/setup", {
+    QRCode.toDataURL(this.$refs.setupQRCode, "https://api.glancr.de/setup", {
       margin: 2,
-      width: this.$refs.setupQRCode.clientWidth,
+      width: 150,
     });
   },
   beforeDestroy: function () {
