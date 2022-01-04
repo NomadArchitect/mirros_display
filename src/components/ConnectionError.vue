@@ -11,16 +11,34 @@
         )
       }}
     </p>
+
+    <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
+      <IconOffline slot="icon" />
+      <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
+      <template slot="text">{{
+        t(
+          "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
+        )
+      }}</template>
+    </SystemErrorOverlay>
   </main>
 </template>
 
 <script>
 import IconError from "./icons/IconError.vue";
+import IconOffline from "@/components/icons/IconOffline.vue";
+import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "ConnectionError",
   components: {
     IconError,
+    IconOffline,
+    SystemErrorOverlay,
+  },
+  computed: {
+    ...mapGetters(["systemDisconnected", "ap_active"]),
   },
 };
 </script>

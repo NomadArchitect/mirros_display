@@ -1,6 +1,6 @@
 <template>
-  <article>
     <template v-if="systemDisconnected && ap_active">
+  <main>
       <section class="instructions" id="wifi">
         <p>
           <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
@@ -50,12 +50,24 @@
       <IconInstructions />
       <p>{{ t("Follow the instructions to complete the setup!") }}</p>
     </section>
-  </article>
+
+    <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
+      <IconOffline slot="icon" />
+      <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
+      <template slot="text">{{
+        t(
+          "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
+        )
+      }}</template>
+    </SystemErrorOverlay>
+  </main>
 </template>
 <script>
 import { mapGetters, mapState } from "vuex";
 import IconBrowser from "@/components/icons/IconBrowser.vue";
 import IconInstructions from "@/components/icons/IconInstructions.vue";
+import IconOffline from "@/components/icons/IconOffline.vue";
+import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
 import QRCode from "qrcode";
 
 export default {
@@ -64,6 +76,8 @@ export default {
   components: {
     IconBrowser,
     IconInstructions,
+    IconOffline,
+    SystemErrorOverlay,
   },
   data: function () {
     return {
@@ -153,7 +167,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-article {
+main {
   padding: 3rem;
   font-size: 2rem;
   line-height: 4rem;

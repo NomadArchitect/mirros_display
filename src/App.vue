@@ -18,18 +18,7 @@
 
     <NetworkError v-else-if="networkError" />
 
-    <main v-else-if="showSetup">
-      <Setup />
-      <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
-        <IconOffline slot="icon" />
-        <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
-        <template slot="text">{{
-          t(
-            "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
-          )
-        }}</template>
-      </SystemErrorOverlay>
-    </main>
+    <Setup v-else-if="showSetup" />
 
     <main v-else-if="connecting" class="spinner">
       <p style="text-align: center">{{ t("Connecting") }}</p>
@@ -54,9 +43,7 @@ import AnimatedLoader from "@/components/AnimatedLoader.vue";
 import NetworkError from "@/components/NetworkError.vue";
 import ConnectionError from "@/components/ConnectionError.vue";
 import Setup from "@/components/Setup.vue";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
 import Board from "@/components/Board.vue";
-import IconOffline from "@/components/icons/IconOffline.vue";
 
 export default {
   name: "App",
@@ -64,10 +51,8 @@ export default {
     AnimatedLoader,
     Board,
     ConnectionError,
-    IconOffline,
     NetworkError,
     Setup,
-    SystemErrorOverlay,
   },
   data: function () {
     return {
