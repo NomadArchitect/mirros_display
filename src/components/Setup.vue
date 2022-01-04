@@ -28,14 +28,15 @@
       <p v-else>
         {{ t("Your glancr is online!") }}
         <br />
-        <span class="smaller"
+        <span
           >{{ t("Scan the QR code or open") }}
           <span class="underline">api.glancr.de/setup</span>
           {{ t("in your browser") }}</span
         >
+        <br />
         <canvas ref="setupQRCode" width="150" height="150"></canvas>
         <br />
-        <span class="small">
+        <span class="medium">
           {{ t("Not working? Try") }}
           <span class="underline"
             >http://{{ primaryConnectionIP }}/settings</span
@@ -197,8 +198,8 @@ td:nth-of-type(2) {
   font-size: smaller;
 }
 
-.small {
-  font-size: small;
+.medium {
+  font-size: medium;
 }
 
 .margin-top {
