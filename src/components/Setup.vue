@@ -1,17 +1,19 @@
 <template>
   <article>
-    <section class="instructions" id="wifi">
-      <p>
-        <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
-        <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
-      </p>
-      <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
-    </section>
-    <hr />
+    <template v-if="systemDisconnected && ap_active">
+      <section class="instructions" id="wifi">
+        <p>
+          <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
+          <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
+        </p>
+        <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
+      </section>
+      <hr />
+    </template>
 
     <section class="instructions" id="browser">
-      <p>
       <IconBrowser />
+      <p v-if="ap_active">
         <span>
           {{
             t("On most devices, the setup screen should start automatically.")
@@ -23,6 +25,23 @@
           {{ t("in your browser.") }}
         </em>
       </p>
+      <p v-else>
+        {{ t("Your glancr is online!") }}
+        <br />
+        <span class="smaller"
+          >{{ t("Scan the QR code or open") }}
+          <span class="underline">api.glancr.de/setup</span>
+          {{ t("in your browser") }}</span
+        >
+        <canvas ref="setupQRCode" width="150" height="150"></canvas>
+        <br />
+        <span class="small">
+          {{ t("Not working? Try") }}
+          <span class="underline"
+            >http://{{ primaryConnectionIP }}/settings</span
+          >
+        </span>
+      </p>
     </section>
     <hr />
 
@@ -32,11 +51,11 @@
     </section>
   </article>
 </template>
-
 <script>
 import { mapGetters, mapState } from "vuex";
 import IconBrowser from "@/components/icons/IconBrowser.vue";
 import IconInstructions from "@/components/icons/IconInstructions.vue";
+import QRCode from "qrcode";
 
 export default {
   // eslint-disable-next-line
@@ -52,17 +71,24 @@ export default {
   },
   computed: {
     ...mapState(["settings"]),
-    ...mapGetters(["settingOptions"]),
+    ...mapGetters([
+      "settingOptions",
+      "systemDisconnected",
+      "ap_active",
+      "primaryConnectionIP",
+    ]),
   },
   watch: {
     settings: {
       immediate: true,
-      handler: function (newVal) {        if (newVal.system_language === undefined) return;
+      handler: function (newVal) {
+        if (newVal.system_language === undefined) return;
 
         const opts = this.settingOptions("system_language");
         if (opts !== undefined) {
           this.languages = Object.keys(opts);
-        }        // Stop the rotation once a language has been set.
+        }
+        // Stop the rotation once a language has been set.
         if (newVal.system_language?.attributes?.value !== "") {
           this.$translate.setLang(newVal.system_language.attributes.value);
           clearInterval(this.$options.languageRotation);
@@ -72,6 +98,10 @@ export default {
   },
   mounted: function () {
     this.$options.languageRotation = setInterval(this.changeLocale, 7000);
+    QRCode.toCanvas(this.$refs.setupQRCode, "https://api.glancr.de/setup", {
+      margin: 2,
+      width: this.$refs.setupQRCode.clientWidth,
+    });
   },
   beforeDestroy: function () {
     clearInterval(this.$options.languageRotation);
@@ -85,6 +115,38 @@ export default {
         "lang",
         this.$options.filters.bcp47tag(this.languages[0])
       );
+    },
+  },
+  locales: {
+    deDe: {
+      "Your glancr is online!": "Dein glancr ist online!",
+      "Scan the QR code or open": "Scanne den QR-Code oder öffne",
+      "in your browser": "in deinem Browser",
+      "Not working? Try": "Funktioniert nicht? Probiere es mit",
+    },
+    frFr: {
+      "Your glancr is online!": "Votre glancr est en ligne!",
+      "Scan the QR code or open": "Scannez le code QR ou ouvrez",
+      "in your browser": "dans votre navigateur",
+      "Not working? Try": "Ca ne fonctionne pas? Essayer",
+    },
+    esEs: {
+      "Your glancr is online!": "¡Tu glancr está en línea!",
+      "Scan the QR code or open": "Escanee el código QR o abra",
+      "in your browser": "en tu navegador",
+      "Not working? Try": "¿No funciona? Tratar",
+    },
+    plPl: {
+      "Your glancr is online!": "Twoje spojrzenie jest online!",
+      "Scan the QR code or open": "Zeskanuj kod QR lub otwórz",
+      "in your browser": "w Twojej przeglądarce",
+      "Not working? Try": "Nie działa? Próbować",
+    },
+    koKr: {
+      "Your glancr is online!": "귀하의 glancr이 온라인 상태입니다!",
+      "Scan the QR code or open": "QR 코드를 스캔하거나",
+      "in your browser": "브라우저에서",
+      "Not working? Try": "작동 안함? 노력하다",
     },
   },
 };
@@ -135,8 +197,16 @@ td:nth-of-type(2) {
   font-size: smaller;
 }
 
+.small {
+  font-size: small;
+}
+
 .margin-top {
   margin-top: 2rem;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .instructions svg {

@@ -20,7 +20,7 @@
 
     <main v-else-if="showSetup">
       <Setup />
-      <SystemErrorOverlay v-if="!ap_active">
+      <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
         <IconOffline slot="icon" />
         <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
         <template slot="text">{{
@@ -166,6 +166,7 @@ export default {
       "languageTag",
       "ap_active",
       "connecting",
+      "systemDisconnected",
       "activeBoardId",
     ]),
     backgroundcolor() {
