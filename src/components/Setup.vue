@@ -1,6 +1,6 @@
 <template>
-    <template v-if="systemDisconnected && ap_active">
   <main>
+    <template v-if="setupWithWiFi">
       <section class="instructions" id="wifi">
         <p>
           <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
@@ -13,7 +13,7 @@
 
     <section class="instructions" id="browser">
       <IconBrowser />
-      <p v-if="ap_active">
+      <p v-if="setupWithWiFi">
         <span>
           {{
             t("On most devices, the setup screen should start automatically.")
@@ -92,6 +92,9 @@ export default {
       "ap_active",
       "primaryConnectionIP",
     ]),
+    setupWithWiFi() {
+      return this.systemDisconnected && this.ap_active;
+    },
   },
   watch: {
     settings: {
@@ -110,13 +113,18 @@ export default {
         }
       },
     },
+    setupWithWiFi: {
+      immediate: true,
+      handler: async function (newVal) {
+        if (!newVal) {
+          await this.$nextTick();
+          this.generateSetupQRCode();
+        }
+      },
+    },
   },
   mounted: function () {
     this.$options.languageRotation = setInterval(this.changeLocale, 7000);
-    QRCode.toDataURL(this.$refs.setupQRCode, "https://api.glancr.de/setup", {
-      margin: 2,
-      width: 150,
-    });
   },
   beforeDestroy: function () {
     clearInterval(this.$options.languageRotation);
@@ -130,6 +138,12 @@ export default {
         "lang",
         this.$options.filters.bcp47tag(this.languages[0])
       );
+    },
+    generateSetupQRCode() {
+      QRCode.toDataURL(this.$refs.setupQRCode, "https://api.glancr.de/setup", {
+        margin: 2,
+        width: 150,
+      });
     },
   },
   locales: {
