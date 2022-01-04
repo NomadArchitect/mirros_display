@@ -50,24 +50,24 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 
-import AnimatedLoader from "@/components/AnimatedLoader";
-import NetworkError from "@/components/NetworkError";
-import ConnectionError from "@/components/ConnectionError";
-import Setup from "@/components/Setup";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay";
-import Board from "@/components/Board";
+import AnimatedLoader from "@/components/AnimatedLoader.vue";
+import NetworkError from "@/components/NetworkError.vue";
+import ConnectionError from "@/components/ConnectionError.vue";
+import Setup from "@/components/Setup.vue";
+import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
+import Board from "@/components/Board.vue";
 import IconOffline from "@/components/icons/IconOffline.vue";
 
 export default {
   name: "App",
   components: {
     AnimatedLoader,
-    NetworkError,
+    Board,
     ConnectionError,
     IconOffline,
+    NetworkError,
     Setup,
     SystemErrorOverlay,
-    Board,
   },
   data: function () {
     return {

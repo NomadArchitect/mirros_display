@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay";
-import OwmConditionIcons from "@/components/OwmConditionIcons";
+import WidgetInstanceWrapper from "./WidgetInstanceWrapper.vue";
+import SystemErrorOverlay from "./SystemErrorOverlay.vue";
+import OwmConditionIcons from "./OwmConditionIcons.vue";
 import IconOffline from "./icons/IconOffline.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 
@@ -45,10 +45,10 @@ export default {
   // eslint-disable-next-line
   name: "Board",
   components: {
-    WidgetInstanceWrapper,
     IconOffline,
     OwmConditionIcons,
     SystemErrorOverlay,
+    WidgetInstanceWrapper,
   },
   watch: {
     activeBoardId: {
