@@ -21,7 +21,9 @@
     </section>
 
     <SystemErrorOverlay v-if="systemDisconnected && showErrorNotifications">
-      <OfflineIcon slot="icon" />
+      <template slot="icon">
+        <IconOffline />
+      </template>
       <template slot="title">{{ t("Your glancr is offline.") }}</template>
       <template slot="text">{{
         t(
@@ -36,7 +38,7 @@
 import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 import OwmConditionIcons from "@/components/OwmConditionIcons";
-import OfflineIcon from "@/assets/icons/offline.svg";
+import IconOffline from "./icons/IconOffline.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
@@ -44,8 +46,8 @@ export default {
   name: "Board",
   components: {
     WidgetInstanceWrapper,
+    IconOffline,
     OwmConditionIcons,
-    OfflineIcon,
     SystemErrorOverlay,
   },
   watch: {

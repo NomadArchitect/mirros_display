@@ -1,6 +1,6 @@
 <template>
   <main class="centered-message">
-    <ErrorIcon class="error__icon" />
+    <IconError />
     <h4>
       {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
     </h4>
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import ErrorIcon from "@/assets/icons/error.svg";
+import IconError from "./icons/IconError.vue";
 
 export default {
   name: "ConnectionError",
   components: {
-    ErrorIcon,
+    IconError,
   },
 };
 </script>

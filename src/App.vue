@@ -21,7 +21,7 @@
     <main v-else-if="showSetup">
       <Setup />
       <SystemErrorOverlay v-if="!ap_active">
-        <OfflineIcon slot="icon" />
+        <IconOffline slot="icon" />
         <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
         <template slot="text">{{
           t(
@@ -56,7 +56,7 @@ import ConnectionError from "@/components/ConnectionError";
 import Setup from "@/components/Setup";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay";
 import Board from "@/components/Board";
-import OfflineIcon from "@/assets/icons/offline.svg";
+import IconOffline from "@/components/icons/IconOffline.vue";
 
 export default {
   name: "App",
@@ -64,10 +64,10 @@ export default {
     AnimatedLoader,
     NetworkError,
     ConnectionError,
+    IconOffline,
     Setup,
     SystemErrorOverlay,
     Board,
-    OfflineIcon,
   },
   data: function () {
     return {

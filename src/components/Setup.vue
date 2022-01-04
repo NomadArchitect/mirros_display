@@ -10,8 +10,8 @@
     <hr />
 
     <section class="instructions" id="browser">
-      <BrowserIcon />
       <p>
+      <IconBrowser />
         <span>
           {{
             t("On most devices, the setup screen should start automatically.")
@@ -27,7 +27,7 @@
     <hr />
 
     <section class="instructions" id="follow">
-      <InstructionsIcon />
+      <IconInstructions />
       <p>{{ t("Follow the instructions to complete the setup!") }}</p>
     </section>
   </article>
@@ -35,15 +35,15 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import BrowserIcon from "@/assets/icons/http.svg";
-import InstructionsIcon from "@/assets/icons/instructions.svg";
+import IconBrowser from "@/components/icons/IconBrowser.vue";
+import IconInstructions from "@/components/icons/IconInstructions.vue";
 
 export default {
   // eslint-disable-next-line
   name: "Setup",
   components: {
-    BrowserIcon,
-    InstructionsIcon,
+    IconBrowser,
+    IconInstructions,
   },
   data: function () {
     return {
@@ -57,14 +57,12 @@ export default {
   watch: {
     settings: {
       immediate: true,
-      handler: function (newVal) {
-        if (newVal.system_language === undefined) return;
+      handler: function (newVal) {        if (newVal.system_language === undefined) return;
 
         const opts = this.settingOptions("system_language");
         if (opts !== undefined) {
           this.languages = Object.keys(opts);
-        }
-        // Stop the rotation once a language has been set.
+        }        // Stop the rotation once a language has been set.
         if (newVal.system_language?.attributes?.value !== "") {
           this.$translate.setLang(newVal.system_language.attributes.value);
           clearInterval(this.$options.languageRotation);
