@@ -13,6 +13,7 @@
     "axios": "^0.24.0",
     "http-vue-loader": "^1.4.2",
     "json-api-normalizer": "^1.0.4",
+    "qrcode": "^1.5.0",
     "vue": "^2.6.14",
     "vue-async-computed": "^3.9.0",
     "vue-axios": "^3.4.0",
