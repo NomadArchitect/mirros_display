@@ -45,7 +45,7 @@ Vue.config.errorHandler = function (err, vm, info) {
 Vue.use(ActionCableVue, {
   debug: false,
   debugLevel: "error",
-  connectionUrl: `ws://${process.env.VUE_APP_BACKEND_HOSTNAME}/cable`,
+  connectionUrl: `ws://${process.env.VUE_APP_BACKEND_HOSTNAME}:${process.env.VUE_APP_BACKEND_PORT}/cable`,
 });
 
 Vue.filter("bcp47tag", function (language) {
