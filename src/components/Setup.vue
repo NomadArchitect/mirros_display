@@ -34,7 +34,7 @@
           {{ t("in your browser") }}</span
         >
         <br />
-        <canvas ref="setupQRCode" width="150" height="150"></canvas>
+        <QRCode content="https://api.glancr.de/setup" />
         <br />
         <span class="medium">
           {{ t("Not working? Try") }}
@@ -68,7 +68,7 @@ import IconBrowser from "@/components/icons/IconBrowser.vue";
 import IconInstructions from "@/components/icons/IconInstructions.vue";
 import IconOffline from "@/components/icons/IconOffline.vue";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
-import QRCode from "qrcode";
+import QRCode from "./QRCode.vue";
 
 export default {
   // eslint-disable-next-line
@@ -78,6 +78,7 @@ export default {
     IconInstructions,
     IconOffline,
     SystemErrorOverlay,
+    QRCode
   },
   data: function () {
     return {
@@ -113,15 +114,6 @@ export default {
         }
       },
     },
-    setupWithWiFi: {
-      immediate: true,
-      handler: async function (newVal) {
-        if (!newVal) {
-          await this.$nextTick();
-          this.generateSetupQRCode();
-        }
-      },
-    },
   },
   mounted: function () {
     this.$options.languageRotation = setInterval(this.changeLocale, 7000);
@@ -138,13 +130,7 @@ export default {
         "lang",
         this.$options.filters.bcp47tag(this.languages[0])
       );
-    },
-    generateSetupQRCode() {
-      QRCode.toDataURL(this.$refs.setupQRCode, "https://api.glancr.de/setup", {
-        margin: 2,
-        width: 150,
-      });
-    },
+    }
   },
   locales: {
     deDe: {
