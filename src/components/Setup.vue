@@ -25,24 +25,23 @@
           {{ t("in your browser.") }}
         </em>
       </p>
-      <p v-else>
+      <div v-else>
         {{ t("Your glancr is online!") }}
-        <br />
-        <span
-          >{{ t("Scan the QR code or open") }}
+        <p>
+          {{ t("Scan the QR code or open") }}
           <span class="underline">api.glancr.de/setup</span>
-          {{ t("in your browser") }}</span
-        >
-        <br />
-        <QRCode content="https://api.glancr.de/setup" />
-        <br />
-        <span class="medium">
-          {{ t("Not working? Try") }}
-          <span class="underline"
-            >http://{{ primaryConnectionIP }}/settings</span
-          >
-        </span>
-      </p>
+          {{ t("in your browser") }}
+        </p>
+        <div>
+          <QRCode content="https://api.glancr.de/setup" />
+          <p class="medium">
+            {{ t("Not working? Try") }}
+            <span class="underline"
+              >http://{{ primaryConnectionIP }}/settings</span
+            >
+          </p>
+        </div>
+      </div>
     </section>
     <hr />
 
