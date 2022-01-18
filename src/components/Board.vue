@@ -1,7 +1,16 @@
 <template>
   <main id="board">
     <OwmConditionIcons></OwmConditionIcons>
-    <section class="grid-stack" v-if="activeBoard">
+    <section
+      class="grid-stack"
+      v-if="activeBoard"
+      :style="{
+        gridTemplateColumns: `repeat(${dynamicGrid.columns}, 80px)`,
+        gridTemplateRows: `repeat(${dynamicGrid.rows}, 80px)`,
+        maxWidth: `${dynamicGrid.maxWidth}px`,
+        maxHeight: `${dynamicGrid.maxHeight}px`,
+      }"
+    >
       <WidgetInstanceWrapper
         v-for="widgetInstance in widgetInstancesForActiveBoard"
         :key="widgetInstance.id"
@@ -12,7 +21,9 @@
     </section>
 
     <SystemErrorOverlay v-if="systemDisconnected && showErrorNotifications">
-      <OfflineIcon slot="icon" />
+      <template slot="icon">
+        <IconOffline />
+      </template>
       <template slot="title">{{ t("Your glancr is offline.") }}</template>
       <template slot="text">{{
         t(
@@ -24,19 +35,20 @@
 </template>
 
 <script>
-import WidgetInstanceWrapper from "@/components/WidgetInstanceWrapper";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay";
-import OwmConditionIcons from "@/components/OwmConditionIcons";
-import OfflineIcon from "@/assets/icons/offline.svg";
+import WidgetInstanceWrapper from "./WidgetInstanceWrapper.vue";
+import SystemErrorOverlay from "./SystemErrorOverlay.vue";
+import OwmConditionIcons from "./OwmConditionIcons.vue";
+import IconOffline from "./icons/IconOffline.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
+  // eslint-disable-next-line
   name: "Board",
   components: {
-    WidgetInstanceWrapper,
+    IconOffline,
     OwmConditionIcons,
-    OfflineIcon,
     SystemErrorOverlay,
+    WidgetInstanceWrapper,
   },
   watch: {
     activeBoardId: {
@@ -59,7 +71,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["boards", "widgetInstances"]),
+    ...mapState(["boards", "widgetInstances", "systemStatus"]),
     ...mapGetters([
       "activeBoardId",
       "systemDisconnected",
@@ -69,6 +81,31 @@ export default {
     ]),
     activeBoard: function () {
       return this.boards[this.activeBoardId];
+    },
+    dynamicGrid() {
+      let displayWidth;
+      let displayHeight;
+      if (window.location.hash === "#preview") {
+        displayWidth = this.systemStatus.client_display.width;
+        displayHeight = this.systemStatus.client_display.height;
+      } else {
+        displayWidth = window.innerWidth;
+        displayHeight = window.innerHeight;
+      }
+
+      // 80px cell width + 10px gutter. We add 10px to the available space to account for an imagined outer gutter.
+      const cellSize = 90;
+      const columns = Math.floor((displayWidth + 10) / cellSize);
+      const rows = Math.floor((displayHeight + 10) / cellSize);
+      const gridMaxWidth = displayWidth - ((displayWidth + 10) % cellSize);
+      const gridMaxHeight = displayHeight - ((displayHeight + 10) % cellSize);
+
+      return {
+        rows: rows,
+        columns: columns,
+        maxWidth: gridMaxWidth,
+        maxHeight: gridMaxHeight,
+      };
     },
     widgetInstancesForActiveBoard: function () {
       // TODO: Maybe this can be cleaner.
@@ -92,18 +129,23 @@ export default {
 </script>
 
 <style>
-.grid-stack {
-  display: grid;
-  grid-template-columns: repeat(var(--gridstack-columns), 1fr);
-  grid-template-rows: repeat(var(--gridstack-rows), 1fr);
-  gap: var(--grid-gap);
+#board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
-  padding: 1.042vh 0.463vw 1.042vh 0.463vw;
 }
 
-@media (orientation: landscape) {
-  .grid-stack {
-    padding: 0.463vh 1.042vw 0.463vh 1.042vw;
-  }
+.preview #board {
+  height: 100%;
+  width: 100%;
+}
+
+.grid-stack {
+  display: grid;
+  gap: var(--grid-gap);
+  /* Default values, overridden in style attribute */
+  grid-template-columns: repeat(var(--gridstack-columns), 1fr);
+  grid-template-rows: repeat(var(--gridstack-rows), 1fr);
 }
 </style>

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import App from "@/App.vue";
 import store from "@/store";
-import appconfig from "@/app-config";
 
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -19,7 +18,9 @@ Vue.use(VueTranslate);
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 
-axios.defaults.baseURL = appconfig.backendUrl;
+const backendUrl = `${process.env.VUE_APP_BACKEND_PROTOCOL}://${process.env.VUE_APP_BACKEND_HOSTNAME}:${process.env.VUE_APP_BACKEND_PORT}${process.env.VUE_APP_BACKEND_PATH}`;
+
+axios.defaults.baseURL = backendUrl;
 axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
 
 // eslint-disable-next-line no-unused-vars
@@ -41,15 +42,10 @@ Vue.config.errorHandler = function (err, vm, info) {
   }
 };
 
-const backend =
-  process.env.NODE_ENV === "development"
-    ? new URL(appconfig.backendUrl).host
-    : `${window.location.host}`;
-
 Vue.use(ActionCableVue, {
   debug: false,
   debugLevel: "error",
-  connectionUrl: `ws://${backend}/cable`,
+  connectionUrl: `ws://${process.env.VUE_APP_BACKEND_HOSTNAME}:${process.env.VUE_APP_BACKEND_PORT}/cable`,
 });
 
 Vue.filter("bcp47tag", function (language) {
@@ -63,7 +59,7 @@ import locales from "@/locales/global";
 Vue.locales(locales);
 
 new Vue({
-  backendUrl: appconfig.backendUrl,
+  backendUrl: backendUrl,
   store: store,
   render: (h) => h(App),
 }).$mount("#app");

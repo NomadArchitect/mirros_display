@@ -1,17 +1,19 @@
 <template>
-  <article>
-    <section class="instructions" id="wifi">
-      <p>
-        <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
-        <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
-      </p>
-      <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
-    </section>
-    <hr />
+  <main>
+    <template v-if="setupWithWiFi">
+      <section class="instructions" id="wifi">
+        <p>
+          <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
+          <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
+        </p>
+        <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
+      </section>
+      <hr />
+    </template>
 
     <section class="instructions" id="browser">
-      <BrowserIcon />
-      <p>
+      <IconBrowser />
+      <p v-if="setupWithWiFi">
         <span>
           {{
             t("On most devices, the setup screen should start automatically.")
@@ -23,26 +25,59 @@
           {{ t("in your browser.") }}
         </em>
       </p>
+      <div v-else>
+        {{ t("Your glancr is online!") }}
+        <p>
+          {{ t("Scan the QR code or open") }}
+          <span class="underline">api.glancr.de/setup</span>
+          {{ t("in your browser") }}
+        </p>
+        <div>
+          <QRCode content="https://api.glancr.de/setup" />
+          <p class="medium">
+            {{ t("Not working? Try") }}
+            <span class="underline"
+              >http://{{ primaryConnectionIP }}/settings</span
+            >
+          </p>
+        </div>
+      </div>
     </section>
     <hr />
 
     <section class="instructions" id="follow">
-      <InstructionsIcon />
+      <IconInstructions />
       <p>{{ t("Follow the instructions to complete the setup!") }}</p>
     </section>
-  </article>
-</template>
 
+    <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
+      <IconOffline slot="icon" />
+      <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
+      <template slot="text">{{
+        t(
+          "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
+        )
+      }}</template>
+    </SystemErrorOverlay>
+  </main>
+</template>
 <script>
 import { mapGetters, mapState } from "vuex";
-import BrowserIcon from "@/assets/icons/http.svg";
-import InstructionsIcon from "@/assets/icons/instructions.svg";
+import IconBrowser from "@/components/icons/IconBrowser.vue";
+import IconInstructions from "@/components/icons/IconInstructions.vue";
+import IconOffline from "@/components/icons/IconOffline.vue";
+import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
+import QRCode from "./QRCode.vue";
 
 export default {
+  // eslint-disable-next-line
   name: "Setup",
   components: {
-    BrowserIcon,
-    InstructionsIcon,
+    IconBrowser,
+    IconInstructions,
+    IconOffline,
+    SystemErrorOverlay,
+    QRCode
   },
   data: function () {
     return {
@@ -51,7 +86,15 @@ export default {
   },
   computed: {
     ...mapState(["settings"]),
-    ...mapGetters(["settingOptions"]),
+    ...mapGetters([
+      "settingOptions",
+      "systemDisconnected",
+      "ap_active",
+      "primaryConnectionIP",
+    ]),
+    setupWithWiFi() {
+      return this.systemDisconnected && this.ap_active;
+    },
   },
   watch: {
     settings: {
@@ -86,12 +129,44 @@ export default {
         "lang",
         this.$options.filters.bcp47tag(this.languages[0])
       );
+    }
+  },
+  locales: {
+    deDe: {
+      "Your glancr is online!": "Dein glancr ist online!",
+      "Scan the QR code or open": "Scanne den QR-Code oder öffne",
+      "in your browser": "in deinem Browser",
+      "Not working? Try": "Funktioniert nicht? Probiere es mit",
+    },
+    frFr: {
+      "Your glancr is online!": "Votre glancr est en ligne!",
+      "Scan the QR code or open": "Scannez le code QR ou ouvrez",
+      "in your browser": "dans votre navigateur",
+      "Not working? Try": "Ca ne fonctionne pas? Essayer",
+    },
+    esEs: {
+      "Your glancr is online!": "¡Tu glancr está en línea!",
+      "Scan the QR code or open": "Escanee el código QR o abra",
+      "in your browser": "en tu navegador",
+      "Not working? Try": "¿No funciona? Tratar",
+    },
+    plPl: {
+      "Your glancr is online!": "Twoje spojrzenie jest online!",
+      "Scan the QR code or open": "Zeskanuj kod QR lub otwórz",
+      "in your browser": "w Twojej przeglądarce",
+      "Not working? Try": "Nie działa? Próbować",
+    },
+    koKr: {
+      "Your glancr is online!": "귀하의 glancr이 온라인 상태입니다!",
+      "Scan the QR code or open": "QR 코드를 스캔하거나",
+      "in your browser": "브라우저에서",
+      "Not working? Try": "작동 안함? 노력하다",
     },
   },
 };
 </script>
 <style scoped lang="scss">
-article {
+main {
   padding: 3rem;
   font-size: 2rem;
   line-height: 4rem;
@@ -136,8 +211,16 @@ td:nth-of-type(2) {
   font-size: smaller;
 }
 
+.medium {
+  font-size: medium;
+}
+
 .margin-top {
   margin-top: 2rem;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .instructions svg {

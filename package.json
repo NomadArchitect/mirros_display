@@ -4,35 +4,36 @@
   "private": false,
   "description": "Display frontend for the glancr Smart Mirror.",
   "scripts": {
-    "serve": "node setenv & vue-cli-service serve --copy",
-    "build": "node setenv & vue-cli-service build",
-    "lint": "node setenv & vue-cli-service lint"
+    "serve": "vue-cli-service serve --copy",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "actioncable-vue": "^2.3.2",
-    "axios": "^0.21.0",
+    "actioncable-vue": "^2.5.1",
+    "axios": "^0.24.0",
     "http-vue-loader": "^1.4.2",
-    "json-api-normalizer": "^1.0.0",
-    "vue": "^2.6.12",
+    "json-api-normalizer": "^1.0.4",
+    "qrcode": "^1.5.0",
+    "vue": "^2.6.14",
     "vue-async-computed": "^3.9.0",
-    "vue-axios": "^3.2.0",
-    "vue-svg-loader": "^0.16.0",
+    "vue-axios": "^3.4.0",
     "vue-translate-plugin": "^1.2.0",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.9",
-    "@vue/cli-plugin-eslint": "~4.5.9",
-    "@vue/cli-service": "~4.5.9",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.14.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-vue": "^7.1.0",
-    "node-sass": "^5.0.0",
+    "@babel/eslint-parser": "^7.16.5",
+    "@vue/cli": "^5.0.0-rc.1",
+    "@vue/cli-plugin-babel": "~5.0.0-rc.1",
+    "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
+    "@vue/cli-service": "~5.0.0-rc.1",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.6.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.2.0",
     "prettier": "^2.2.0",
-    "sass-loader": "^10.1.0",
-    "vue-template-compiler": "^2.6.12"
+    "sass": "^1.45.2",
+    "sass-loader": "^12.4.0",
+    "vue-template-compiler": "^2.6.14"
   },
-  "license": "All rights reserved glancr"
+  "license": "UNLICENSED"
 }

@@ -1,6 +1,8 @@
 <template>
   <section
     class="widget"
+    :id="`widget-${widgetInstance.id}`"
+    ref="widget"
     :class="{
       'widget--background-blurred': attributes.styles.backgroundBlur,
       'widget--larger-padding':
@@ -83,42 +85,13 @@ export default {
   data: function () {
     return {
       loadError: false,
+      currentDimensions: null,
     };
   },
-  asyncComputed: {
-    /**
-     * Computes the actual pixel dimensions for the inner container, minus the title if currently shown, and adds the configured grid position.
-     */
-    currentDimensions: function () {
-      //await this.$nextTick();
-      let titleHeight = 0;
-      if (this.widgetInstance.attributes.showtitle) {
-        const el = document.getElementById(
-          `widget-title-${this.widgetInstance.id}`
-        );
-        if (el != null && el.clientHeight > 0) {
-          titleHeight =
-            el.clientHeight +
-            parseInt(
-              window.getComputedStyle(el).getPropertyValue("margin-bottom")
-            );
-        }
-      }
-      // FIXME: Adapt calculation for landscape
-      return {
-        heightPx:
-          Math.floor(
-            (window.innerHeight / 21.33333) *
-              this.widgetInstance.attributes.position.height
-          ) -
-          titleHeight -
-          20,
-        widthPx:
-          (window.innerWidth / 12) *
-            this.widgetInstance.attributes.position.width -
-          20,
-        ...this.widgetInstance.attributes.position,
-      };
+  watch: {
+    "widgetInstance.attributes": {
+      immediate: true,
+      handler: "updateDimensions",
     },
   },
   computed: {
@@ -211,6 +184,29 @@ export default {
       return axios
         .get(`/assets/${this.widget.type}/${this.widget.id}/${type}/${name}`)
         .then((res) => res.data);
+    },
+    updateDimensions() {
+      this.$nextTick(function () {
+        let titleHeight = 0;
+        if (this.widgetInstance.attributes.showtitle) {
+          const el = document.getElementById(
+            `widget-title-${this.widgetInstance.id}`
+          );
+          if (el != null && el.clientHeight > 0) {
+            titleHeight =
+              el.clientHeight +
+              parseInt(
+                window.getComputedStyle(el).getPropertyValue("margin-bottom")
+              );
+          }
+        }
+
+        this.currentDimensions = {
+          heightPx: this.$refs.widget.clientHeight - titleHeight - 20,
+          widthPx: this.$refs.widget.clientWidth - 20,
+          ...this.widgetInstance.attributes.position,
+        };
+      });
     },
   },
 };

@@ -18,18 +18,7 @@
 
     <NetworkError v-else-if="networkError" />
 
-    <main v-else-if="showSetup">
-      <Setup />
-      <SystemErrorOverlay v-if="!ap_active">
-        <OfflineIcon slot="icon" />
-        <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
-        <template slot="text">{{
-          t(
-            "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
-          )
-        }}</template>
-      </SystemErrorOverlay>
-    </main>
+    <Setup v-else-if="showSetup" />
 
     <main v-else-if="connecting" class="spinner">
       <p style="text-align: center">{{ t("Connecting") }}</p>
@@ -50,24 +39,20 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 
-import AnimatedLoader from "@/components/AnimatedLoader";
-import NetworkError from "@/components/NetworkError";
-import ConnectionError from "@/components/ConnectionError";
-import Setup from "@/components/Setup";
-import SystemErrorOverlay from "@/components/SystemErrorOverlay";
-import Board from "@/components/Board";
-import OfflineIcon from "@/assets/icons/offline.svg";
+import AnimatedLoader from "@/components/AnimatedLoader.vue";
+import NetworkError from "@/components/NetworkError.vue";
+import ConnectionError from "@/components/ConnectionError.vue";
+import Setup from "@/components/Setup.vue";
+import Board from "@/components/Board.vue";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
     AnimatedLoader,
-    NetworkError,
-    ConnectionError,
-    Setup,
-    SystemErrorOverlay,
     Board,
-    OfflineIcon,
+    ConnectionError,
+    NetworkError,
+    Setup,
   },
   data: function () {
     return {
@@ -141,7 +126,21 @@ export default {
     },
     "systemStatus.client_display": function (newVal) {
       if (newVal) {
-        document.documentElement.classList.add(newVal.orientation);
+        // Ensure the preview mode shows properly on any screen size.
+        if (this.runsInPreviewMode) {
+          const displaySize = this.systemStatus.client_display;
+          const html = document.documentElement;
+          html.classList.add("preview");
+          html.style.width = `${displaySize.width}px`;
+          html.style.height = `${displaySize.height}px`;
+
+          if (window.innerWidth < displaySize.width) {
+            html.style.transform = `scale(${
+              window.innerWidth / displaySize.widthBoard
+            })`;
+            html.style.transformOrigin = "top left";
+          }
+        }
       }
     },
   },
@@ -152,6 +151,7 @@ export default {
       "languageTag",
       "ap_active",
       "connecting",
+      "systemDisconnected",
       "activeBoardId",
     ]),
     backgroundcolor() {
@@ -179,15 +179,11 @@ export default {
       );
     },
     /**
-     * Determines if there is a connection error to the backend.
+     * Check if the backend has no network connection.
      * @returns {boolean} if there is a connection error.
      */
     connectionError() {
-      return (
-        this.systemStatus.configured_at_boot &&
-        this.systemStatus.online === false &&
-        this.ap_active
-      );
+      return this.systemStatus.network.primary_connection === null;
     },
     /**
      * Check whether the app is running in preview mode.
@@ -205,16 +201,6 @@ export default {
     // Use localStorage.language to set the locale before we render anything.
     if (localStorage.language) {
       this.$translate.setLang(localStorage.language);
-    }
-
-    // Ensure the preview mode shows properly on any screen size.
-    if (this.runsInPreviewMode) {
-      const html = document.documentElement;
-      html.classList.add("preview");
-      if (window.innerWidth < 1080) {
-        html.style.transform = `scale(${window.innerWidth / 1080})`;
-        html.style.transformOrigin = "top left";
-      }
     }
   },
   mounted() {
@@ -315,15 +301,5 @@ export default {
 
 .smaller {
   font-size: 80%;
-}
-
-.preview {
-  height: 1920px;
-  width: 1080px;
-}
-
-.preview.landscape {
-  height: 1080px;
-  width: 1920px;
 }
 </style>

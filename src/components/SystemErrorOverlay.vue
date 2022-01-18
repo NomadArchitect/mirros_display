@@ -14,16 +14,17 @@ export default {
 </script>
 <style>
 .error__box {
+  align-items: center;
   background-color: var(--white);
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
   position: absolute;
   bottom: 0;
-  width: 95%;
-  padding: 1rem 2rem;
-  margin: 0 2.5%;
-  font-size: 2rem;
   color: black;
   display: flex;
-  align-items: center;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  width: 95%;
 }
 
 .error__icon {

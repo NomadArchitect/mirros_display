@@ -15,9 +15,9 @@ module.exports = {
       .resourceQuery(/external/)
       .use("file-loader")
       .loader("file-loader")
-      .options({ name: "assets/[name].[hash:8].[ext]" })
-      .end()
-      .end()
+      .options({ name: "assets/[name].[hash:8].[ext]" });
+
+    svgRule
       .oneOf("inline")
       .use("vue-svg-loader")
       .loader("vue-svg-loader")
