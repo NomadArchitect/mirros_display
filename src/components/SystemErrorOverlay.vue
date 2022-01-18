@@ -16,6 +16,8 @@ export default {
 .error__box {
   align-items: center;
   background-color: var(--white);
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
   position: absolute;
   bottom: 0;
   color: black;
