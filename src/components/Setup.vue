@@ -1,64 +1,72 @@
 <template>
   <main>
-    <template v-if="setupWithWiFi">
-      <section class="instructions" id="wifi">
-        <p>
-          <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
-          <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
-        </p>
-        <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
+    <template v-if="runningSetupTasks">
+      <section>
+        <p class="spinner"><AnimatedLoader /></p>
+        <h2 class="centered-message">{{ t("mirr.OS is being set up") }}</h2>
       </section>
-      <hr />
     </template>
 
-    <section class="instructions" id="browser">
-      <IconBrowser />
-      <p v-if="setupWithWiFi">
-        <span>
-          {{
-            t("On most devices, the setup screen should start automatically.")
-          }}
-        </span>
-        <br />
-        <em>
-          {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b>
-          {{ t("in your browser.") }}
-        </em>
-      </p>
-      <div v-else>
-        {{ t("Your glancr is online!") }}
-        <p>
-          {{ t("Scan the QR code or open") }}
-          <span class="underline">api.glancr.de/setup</span>
-          {{ t("in your browser") }}
-        </p>
-        <div>
-          <QRCode content="https://api.glancr.de/setup" />
-          <p class="medium">
-            {{ t("Not working? Try") }}
-            <span class="underline"
-              >http://{{ primaryConnectionIP }}/settings</span
-            >
+    <template v-else>
+      <template v-if="setupWithWiFi">
+        <section class="instructions">
+          <p>
+            <span>{{ t("I made a Wi-Fi for you.") }}</span> <br />
+            <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
           </p>
+          <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
+        </section>
+        <hr />
+      </template>
+      <section class="instructions">
+        <IconBrowser />
+        <p v-if="setupWithWiFi">
+          <span>
+            {{
+              t("On most devices, the setup screen should start automatically.")
+            }}
+          </span>
+          <br />
+          <em>
+            {{ t("If it doesn't, visit") }} <b>http://glancr.conf</b>
+            {{ t("in your browser.") }}
+          </em>
+        </p>
+        <div v-else>
+          {{ t("Your glancr is online!") }}
+          <p>
+            {{ t("Scan the QR code or open") }}
+            <span class="underline">api.glancr.de/setup</span>
+            {{ t("in your browser") }}
+          </p>
+          <div>
+            <QRCode content="https://api.glancr.de/setup" />
+            <p class="medium">
+              {{ t("Not working? Try") }}
+              <span class="underline"
+                >http://{{ primaryConnectionIP }}/settings</span
+              >
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-    <hr />
+      </section>
+      <hr />
 
-    <section class="instructions" id="follow">
-      <IconInstructions />
-      <p>{{ t("Follow the instructions to complete the setup!") }}</p>
-    </section>
+      <section class="instructions">
+        <IconInstructions />
+        <p>{{ t("Follow the instructions to complete the setup!") }}</p>
+      </section>
 
-    <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
-      <IconOffline slot="icon" />
-      <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
-      <template slot="text">{{
-        t(
-          "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
-        )
-      }}</template>
-    </SystemErrorOverlay>
+      <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
+        <IconOffline slot="icon" />
+        <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
+        <template slot="text">{{
+          t(
+            "Your glancr attempted to open the setup WiFi, but something went wrong. Please reboot the device and contact support if the problem persists."
+          )
+        }}</template>
+      </SystemErrorOverlay>
+    </template>
   </main>
 </template>
 <script>
@@ -68,16 +76,18 @@ import IconInstructions from "@/components/icons/IconInstructions.vue";
 import IconOffline from "@/components/icons/IconOffline.vue";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
 import QRCode from "./QRCode.vue";
+import AnimatedLoader from './AnimatedLoader.vue';
 
 export default {
   // eslint-disable-next-line
   name: "Setup",
   components: {
+    AnimatedLoader,
     IconBrowser,
     IconInstructions,
     IconOffline,
     SystemErrorOverlay,
-    QRCode
+    QRCode,
   },
   data: function () {
     return {
@@ -91,6 +101,7 @@ export default {
       "systemDisconnected",
       "ap_active",
       "primaryConnectionIP",
+      "runningSetupTasks",
     ]),
     setupWithWiFi() {
       return this.systemDisconnected && this.ap_active;
@@ -133,34 +144,34 @@ export default {
   },
   locales: {
     deDe: {
-      "Your glancr is online!": "Dein glancr ist online!",
-      "Scan the QR code or open": "Scanne den QR-Code oder öffne",
-      "in your browser": "in deinem Browser",
-      "Not working? Try": "Funktioniert nicht? Probiere es mit",
+      "mirr.OS is being set up": "mirr.OS wird eingerichtet",
+      "mirr.OS is being updated now.": "mirr.OS wird jetzt aktualisiert",
+      "This can take a few minutes, please do not turn off the device.":
+        "Das kann ein paar Minuten dauern, bitte das Gerät nicht ausschalten.",
     },
     frFr: {
-      "Your glancr is online!": "Votre glancr est en ligne!",
-      "Scan the QR code or open": "Scannez le code QR ou ouvrez",
-      "in your browser": "dans votre navigateur",
-      "Not working? Try": "Ca ne fonctionne pas? Essayer",
+      "mirr.OS is being set up": "mirr.OS est en cours de configuration",
+      "mirr.OS is being updated now.": "mirr.OS est en cours de mise à jour.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Cela peut prendre quelques minutes, veuillez ne pas éteindre l'appareil.",
     },
     esEs: {
-      "Your glancr is online!": "¡Tu glancr está en línea!",
-      "Scan the QR code or open": "Escanee el código QR o abra",
-      "in your browser": "en tu navegador",
-      "Not working? Try": "¿No funciona? Tratar",
+      "mirr.OS is being set up": "mirr.OS ahora se está configurando",
+      "mirr.OS is being updated now.": "mirr.OS se está actualizando ahora.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Esto puede tardar unos minutos, no apague el dispositivo.",
     },
     plPl: {
-      "Your glancr is online!": "Twoje spojrzenie jest online!",
-      "Scan the QR code or open": "Zeskanuj kod QR lub otwórz",
-      "in your browser": "w Twojej przeglądarce",
-      "Not working? Try": "Nie działa? Próbować",
+      "mirr.OS is being set up": "mirr.OS jest teraz konfigurowany",
+      "mirr.OS is being updated now.": "mirr.OS jest teraz aktualizowany.",
+      "This can take a few minutes, please do not turn off the device.":
+        "Może to zająć kilka minut, nie wyłączaj urządzenia.",
     },
     koKr: {
-      "Your glancr is online!": "귀하의 glancr이 온라인 상태입니다!",
-      "Scan the QR code or open": "QR 코드를 스캔하거나",
-      "in your browser": "브라우저에서",
-      "Not working? Try": "작동 안함? 노력하다",
+      "mirr.OS is being set up": "mirr.OS가 이제 설정 중입니다.",
+      "mirr.OS is being updated now.": "mirr.OS는 현재 업데이트 중입니다.",
+      "This can take a few minutes, please do not turn off the device.":
+        "이 작업은 몇 분 정도 소요될 수 있습니다. 장치를 끄지 마십시오.",
     },
   },
 };
