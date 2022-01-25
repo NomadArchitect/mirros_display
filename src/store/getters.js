@@ -71,6 +71,15 @@ export default {
   },
 
   /**
+   * Check if the backend is currently running first-time setup tasks.
+   * @param {Object} state 
+   * @returns {Boolean} True if the backend is running first-time setup tasks, false otherwise.
+   */
+  runningSetupTasks: (state) => {
+    return state.systemStatus?.running_setup_tasks ?? false;
+  },
+
+  /**
    * Gets the options for a given setting.
    * @param {string} setting Machine name for the setting, e.g. system_language
    * @returns {Object|Array|undefined} The options object/array, or undefined if the setting is not present.
