@@ -103,7 +103,7 @@ export default {
         this.$store.commit("SET_SYSTEMSTATUS", data.payload);
       },
       disconnected() {
-        this.startNetworkErrorTimeout(30000);
+        this.startNetworkErrorTimeout(45000);
       },
     },
   },
