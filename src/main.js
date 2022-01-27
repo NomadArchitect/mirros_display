@@ -18,7 +18,14 @@ Vue.use(VueTranslate);
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 
-const backendUrl = `${process.env.VUE_APP_BACKEND_PROTOCOL}://${process.env.VUE_APP_BACKEND_HOSTNAME}:${process.env.VUE_APP_BACKEND_PORT}${process.env.VUE_APP_BACKEND_PATH}`;
+
+let url = new URL(`http://${window.location.hostname}/api/`);
+url.protocol = process.env.VUE_APP_BACKEND_PROTOCOL || url.protocol;
+url.hostname = process.env.VUE_APP_BACKEND_HOSTNAME || window.location.hostname;
+url.port = process.env.VUE_APP_BACKEND_PORT || url.port;
+url.pathname = process.env.VUE_APP_BACKEND_PATH || url.pathname;
+
+const backendUrl = url.toString();
 
 axios.defaults.baseURL = backendUrl;
 axios.defaults.headers.common["Content-Type"] = "application/vnd.api+json";
@@ -45,7 +52,7 @@ Vue.config.errorHandler = function (err, vm, info) {
 Vue.use(ActionCableVue, {
   debug: false,
   debugLevel: "error",
-  connectionUrl: `ws://${process.env.VUE_APP_BACKEND_HOSTNAME}:${process.env.VUE_APP_BACKEND_PORT}/cable`,
+  connectionUrl: `ws://${url.hostname}:${url.port}/cable`,
 });
 
 Vue.filter("bcp47tag", function (language) {
