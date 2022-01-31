@@ -92,6 +92,7 @@ export default {
   data: function () {
     return {
       languages: ["enGb"],
+      rotationInterval: undefined
     };
   },
   computed: {
@@ -108,28 +109,26 @@ export default {
     },
   },
   watch: {
-    settings: {
+    "settings.system_language": {
       immediate: true,
       handler: function (newVal) {
-        if (newVal.system_language === undefined) return;
-
         const opts = this.settingOptions("system_language");
         if (opts !== undefined) {
           this.languages = Object.keys(opts);
         }
         // Stop the rotation once a language has been set.
-        if (newVal.system_language?.attributes?.value !== "") {
-          this.$translate.setLang(newVal.system_language.attributes.value);
-          clearInterval(this.$options.languageRotation);
+        if (newVal.attributes?.value !== "") {
+          this.$translate.setLang(newVal.attributes.value);
+          this.rotationInterval = window.clearInterval(this.rotationInterval);
+        } else {
+          this.rotationInterval = window.clearInterval(this.rotationInterval);
+          this.rotationInterval = window.setInterval(this.changeLocale, 7000);
         }
       },
     },
   },
-  mounted: function () {
-    this.$options.languageRotation = setInterval(this.changeLocale, 7000);
-  },
   beforeDestroy: function () {
-    clearInterval(this.$options.languageRotation);
+    window.clearInterval(this.rotationInterval);
   },
   methods: {
     changeLocale: function () {
