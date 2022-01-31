@@ -70,6 +70,8 @@
   </main>
 </template>
 <script>
+import "@/typedefs"
+
 import { mapGetters, mapState } from "vuex";
 import IconBrowser from "@/components/icons/IconBrowser.vue";
 import IconInstructions from "@/components/icons/IconInstructions.vue";
@@ -111,6 +113,10 @@ export default {
   watch: {
     "settings.system_language": {
       immediate: true,
+      /**
+       * Checks the currently configured language. If none is configured, we rotate through available languages.
+       * @param {JsonApiModel} newVal The system_language setting
+       */
       handler: function (newVal) {
         const opts = this.settingOptions("system_language");
         if (opts !== undefined) {
