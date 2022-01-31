@@ -143,34 +143,43 @@ export default {
   },
   locales: {
     deDe: {
+      "Your glancr is online!": "Dein glancr ist online!",
+      "Scan the QR code or open": "Scanne den QR-Code oder öffne",
+      "in your browser": "in deinem Browser",
+      "Not working? Try": "Funktioniert nicht? Probiere es mit",
       "mirr.OS is being set up": "mirr.OS wird eingerichtet",
-      "mirr.OS is being updated now.": "mirr.OS wird jetzt aktualisiert",
-      "This can take a few minutes, please do not turn off the device.":
-        "Das kann ein paar Minuten dauern, bitte das Gerät nicht ausschalten.",
+      
     },
     frFr: {
+      "Your glancr is online!": "Votre glancr est en ligne!",
+      "Scan the QR code or open": "Scannez le code QR ou ouvrez",
+      "in your browser": "dans votre navigateur",
+      "Not working? Try": "Ca ne fonctionne pas? Essayer",
       "mirr.OS is being set up": "mirr.OS est en cours de configuration",
-      "mirr.OS is being updated now.": "mirr.OS est en cours de mise à jour.",
-      "This can take a few minutes, please do not turn off the device.":
-        "Cela peut prendre quelques minutes, veuillez ne pas éteindre l'appareil.",
+      
     },
     esEs: {
+      "Your glancr is online!": "¡Tu glancr está en línea!",
+      "Scan the QR code or open": "Escanee el código QR o abra",
+      "in your browser": "en tu navegador",
+      "Not working? Try": "¿No funciona? Tratar",
       "mirr.OS is being set up": "mirr.OS ahora se está configurando",
-      "mirr.OS is being updated now.": "mirr.OS se está actualizando ahora.",
-      "This can take a few minutes, please do not turn off the device.":
-        "Esto puede tardar unos minutos, no apague el dispositivo.",
+      
     },
     plPl: {
+      "Your glancr is online!": "Twoje spojrzenie jest online!",
+      "Scan the QR code or open": "Zeskanuj kod QR lub otwórz",
+      "in your browser": "w Twojej przeglądarce",
+      "Not working? Try": "Nie działa? Próbować",
       "mirr.OS is being set up": "mirr.OS jest teraz konfigurowany",
-      "mirr.OS is being updated now.": "mirr.OS jest teraz aktualizowany.",
-      "This can take a few minutes, please do not turn off the device.":
-        "Może to zająć kilka minut, nie wyłączaj urządzenia.",
+      
     },
     koKr: {
-      "mirr.OS is being set up": "mirr.OS가 이제 설정 중입니다.",
-      "mirr.OS is being updated now.": "mirr.OS는 현재 업데이트 중입니다.",
-      "This can take a few minutes, please do not turn off the device.":
-        "이 작업은 몇 분 정도 소요될 수 있습니다. 장치를 끄지 마십시오.",
+      "Your glancr is online!": "귀하의 glancr이 온라인 상태입니다!",
+      "Scan the QR code or open": "QR 코드를 스캔하거나",
+      "in your browser": "브라우저에서",
+      "Not working? Try": "작동 안함? 노력하다",
+      "mirr.OS is being set up": "mirr.OS가 이제 설정 중입니다.",      
     },
   },
 };
