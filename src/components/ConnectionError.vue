@@ -42,9 +42,5 @@ export default {
   },
 };
 </script>
-
 <style>
-.error__icon {
-  width: 15rem;
-}
 </style>
