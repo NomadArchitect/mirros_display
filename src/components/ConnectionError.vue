@@ -14,7 +14,7 @@
       </p>
     </section>
 
-    <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
+    <SystemErrorOverlay v-if="!ap_active">
       <IconOffline slot="icon" />
       <template slot="title">{{ t("Can't open setup WiFi.") }}</template>
       <template slot="text">{{
@@ -40,7 +40,7 @@ export default {
     SystemErrorOverlay,
   },
   computed: {
-    ...mapGetters(["systemDisconnected", "ap_active"]),
+    ...mapGetters(["ap_active"]),
   },
 };
 </script>
