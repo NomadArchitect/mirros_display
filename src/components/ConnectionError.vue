@@ -1,16 +1,18 @@
 <template>
-  <main class="centered-message">
-    <IconError />
-    <h4>
-      {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
-    </h4>
-    <p>
-      {{
-        t(
-          "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password."
-        )
-      }}
-    </p>
+  <main class="flex-container">
+    <section class="message">
+      <IconError />
+      <h4>
+        {{ t("Something is wrong with your glancr's Wi-Fi connection.") }}
+      </h4>
+      <p>
+        {{
+          t(
+            "Please reconnect your phone or laptop with the Wi-Fi 'glancr setup' and check if you entered the correct Wi-Fi name and password."
+          )
+        }}
+      </p>
+    </section>
 
     <SystemErrorOverlay v-if="systemDisconnected && !ap_active">
       <IconOffline slot="icon" />
@@ -43,4 +45,17 @@ export default {
 };
 </script>
 <style>
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.message {
+  max-width: 75%;
+  font-size: 3rem;
+  text-align: center;
+  line-height: 3.5rem;
+}
 </style>
