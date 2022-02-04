@@ -29,6 +29,7 @@ export default {
 
 .error__icon {
   margin-right: 1rem;
+  width: 15rem;
 }
 
 .error__title {
