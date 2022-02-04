@@ -72,7 +72,7 @@ export default {
 
   /**
    * Check if the backend is currently running first-time setup tasks.
-   * @param {Object} state 
+   * @param {Object} state
    * @returns {Boolean} True if the backend is running first-time setup tasks, false otherwise.
    */
   runningSetupTasks: (state) => {
