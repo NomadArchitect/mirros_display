@@ -30,7 +30,7 @@
       <AnimatedLoader />
     </main>
 
-    <ConnectionError v-else-if="connectionError" />
+    <ConnectionError v-else-if="disconnectedAfter15Minutes" />
     <Board v-else-if="activeBoardId" />
     <p class="centered-message" v-else>{{ t("No active board") }}</p>
   </div>
@@ -57,6 +57,8 @@ export default {
   data: function () {
     return {
       loading: true,
+      disconnectedAfter15Minutes: false,
+      disconnectionTimeout: undefined,
     };
   },
   timeout: undefined,
@@ -143,6 +145,30 @@ export default {
         }
       }
     },
+    /**
+     * Handles a disconnected system state: If the system boots completely disconnected, this immediately triggers the ConnectionError screen. If the system is connected initially, but drops to disconnected later, we set a timeout to show the error screen once the backend should have opened the access point.
+     */
+    systemDisconnected: {
+      immediate: true,
+      handler: function (newVal) {
+        if (newVal === true) {
+          // Show error screen immediately if disconnected, but not in setup state, and the AP is active.
+          if (!this.showSetup && this.ap_active) {
+            this.disconnectedAfter15Minutes = true;
+            return;
+          }
+
+          // If connectivity changes after boot, this waits for the backend task to open the AP until we switch to the error screen.
+          this.disconnectionTimeout = window.setTimeout(
+            () => (this.disconnectedAfter15Minutes = true),
+            910000 // 15min until backend opens AP plus 10sec
+          );
+          // In case connectivity is restored until timeout occurs, we revert back to normal.
+        } else {
+          this.disconnectedAfter15Minutes = false;
+        }
+      },
+    },
   },
   computed: {
     ...mapState(["errors", "systemStatus", "networkError", "settings"]),
@@ -179,13 +205,6 @@ export default {
       );
     },
     /**
-     * Check if the backend has no network connection.
-     * @returns {boolean} if there is a connection error.
-     */
-    connectionError() {
-      return this.systemStatus.network.primary_connection === null;
-    },
-    /**
      * Check whether the app is running in preview mode.
      * @returns {boolean} Whether the app is in preview mode.
      */
@@ -216,6 +235,9 @@ export default {
         this.$store.commit("SET_NETWORK_ERROR", true);
       }
     }, 15000);
+  },
+  beforeDestroy() {
+    window.clearTimeout(this.disconnectionTimeout);
   },
   methods: {
     ...mapActions([
