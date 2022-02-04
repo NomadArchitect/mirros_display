@@ -70,7 +70,7 @@
   </main>
 </template>
 <script>
-import "@/typedefs"
+import "@/typedefs";
 
 import { mapGetters, mapState } from "vuex";
 import IconBrowser from "@/components/icons/IconBrowser.vue";
@@ -78,7 +78,7 @@ import IconInstructions from "@/components/icons/IconInstructions.vue";
 import IconOffline from "@/components/icons/IconOffline.vue";
 import SystemErrorOverlay from "@/components/SystemErrorOverlay.vue";
 import QRCode from "./QRCode.vue";
-import AnimatedLoader from './AnimatedLoader.vue';
+import AnimatedLoader from "./AnimatedLoader.vue";
 
 export default {
   // eslint-disable-next-line
@@ -94,7 +94,7 @@ export default {
   data: function () {
     return {
       languages: ["enGb"],
-      rotationInterval: undefined
+      rotationInterval: undefined,
     };
   },
   computed: {
@@ -145,7 +145,7 @@ export default {
         "lang",
         this.$options.filters.bcp47tag(this.languages[0])
       );
-    }
+    },
   },
   locales: {
     deDe: {
@@ -154,7 +154,6 @@ export default {
       "in your browser": "in deinem Browser",
       "Not working? Try": "Funktioniert nicht? Probiere es mit",
       "mirr.OS is being set up": "mirr.OS wird eingerichtet",
-      
     },
     frFr: {
       "Your glancr is online!": "Votre glancr est en ligne!",
@@ -162,7 +161,6 @@ export default {
       "in your browser": "dans votre navigateur",
       "Not working? Try": "Ca ne fonctionne pas? Essayer",
       "mirr.OS is being set up": "mirr.OS est en cours de configuration",
-      
     },
     esEs: {
       "Your glancr is online!": "¡Tu glancr está en línea!",
@@ -170,7 +168,6 @@ export default {
       "in your browser": "en tu navegador",
       "Not working? Try": "¿No funciona? Tratar",
       "mirr.OS is being set up": "mirr.OS ahora se está configurando",
-      
     },
     plPl: {
       "Your glancr is online!": "Twoje spojrzenie jest online!",
@@ -178,14 +175,13 @@ export default {
       "in your browser": "w Twojej przeglądarce",
       "Not working? Try": "Nie działa? Próbować",
       "mirr.OS is being set up": "mirr.OS jest teraz konfigurowany",
-      
     },
     koKr: {
       "Your glancr is online!": "귀하의 glancr이 온라인 상태입니다!",
       "Scan the QR code or open": "QR 코드를 스캔하거나",
       "in your browser": "브라우저에서",
       "Not working? Try": "작동 안함? 노력하다",
-      "mirr.OS is being set up": "mirr.OS가 이제 설정 중입니다.",      
+      "mirr.OS is being set up": "mirr.OS가 이제 설정 중입니다.",
     },
   },
 };

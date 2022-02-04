@@ -18,7 +18,6 @@ Vue.use(VueTranslate);
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 
-
 let url = new URL(`http://${window.location.hostname}/api/`);
 url.protocol = process.env.VUE_APP_BACKEND_PROTOCOL || url.protocol;
 url.hostname = process.env.VUE_APP_BACKEND_HOSTNAME || window.location.hostname;
