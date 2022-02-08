@@ -166,6 +166,9 @@ export default {
           // In case connectivity is restored until timeout occurs, we revert back to normal.
         } else {
           this.disconnectedAfter15Minutes = false;
+          this.disconnectionTimeout = window.clearTimeout(
+            this.disconnectionTimeout
+          );
         }
       },
     },
@@ -238,6 +241,7 @@ export default {
   },
   beforeDestroy() {
     window.clearTimeout(this.disconnectionTimeout);
+    this.clearNetworkErrorTimeout();
   },
   methods: {
     ...mapActions([
