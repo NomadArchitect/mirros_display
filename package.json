@@ -13,7 +13,7 @@
     "axios": "^0.24.0",
     "http-vue-loader": "^1.4.2",
     "json-api-normalizer": "^1.0.0",
-    "vue": "^2.6.12",
+    "vue": "^2.6.14",
     "vue-async-computed": "^3.9.0",
     "vue-axios": "^3.4.0",
     "vue-svg-loader": "^0.16.0",
@@ -29,7 +29,8 @@
     "prettier": "^2.2.0",
     "sass": "^1.45.1",
     "vite": "^2.5.4",
-    "vite-plugin-vue2": "1.9.0"
+    "vite-plugin-vue2": "1.9.0",
+    "vue-template-compiler": "^2.6.14"
   },
   "license": "All rights reserved glancr",
   "packageManager": "yarn@3.1.1"
