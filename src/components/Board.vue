@@ -115,10 +115,7 @@ export default {
       };
 
       return (
-        this.activeBoard.relationships.widgetInstances.data.reduce(
-          reducer,
-          {}
-        ) ?? {}
+        this.activeBoard.relationships.widgetInstances.data.reduce(reducer, {}) ?? {}
       );
     },
   },
