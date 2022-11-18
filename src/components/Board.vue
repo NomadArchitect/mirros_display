@@ -20,7 +20,7 @@
       />
     </section>
 
-    <SystemErrorOverlay v-if="systemDisconnected && showErrorNotifications">
+    <SystemErrorOverlay v-if="showConnectivityErrorMessage">
       <template slot="icon">
         <IconOffline />
       </template>
@@ -75,6 +75,8 @@ export default {
     ...mapGetters([
       "activeBoardId",
       "systemDisconnected",
+      "onlyLocalNetworkConnectivity",
+      "localNetworkModeEnabled",
       "languageTag",
       "showErrorNotifications",
       "backgroundImage",
@@ -117,6 +119,9 @@ export default {
       return (
         this.activeBoard.relationships.widgetInstances.data.reduce(reducer, {}) ?? {}
       );
+    },
+    showConnectivityErrorMessage() {
+      return this.onlyLocalNetworkConnectivity && this.showErrorNotifications && !this.localNetworkModeEnabled
     },
   },
   methods: {
