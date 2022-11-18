@@ -175,7 +175,7 @@ export default {
       this.loadError = true;
     } else {
       this.$options.components[this.widget.id] = httpVueLoader(
-        `${this.$root.$options.backendUrl}/assets/${this.widget.type}/${this.widget.id}/templates/display.vue?${this.widget.attributes.version}`
+        `${this.$root.$options.backendUrl}assets/${this.widget.type}/${this.widget.id}/templates/display.vue?version=${this.widget.attributes.version}`
       );
     }
   },
