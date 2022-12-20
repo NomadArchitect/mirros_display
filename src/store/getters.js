@@ -20,6 +20,13 @@ export default {
     );
   },
 
+  localNetworkModeEnabled: (state) => {
+    return (
+      state.settings.network_localmode?.attributes?.value ===
+        "on" ?? false
+    );
+  },
+
   languageTag: (state, getters) => {
     const regex = new RegExp(/([A-Z]{1}[a-z]{1})/g);
     return getters.language.replace(regex, (match) => {
@@ -61,6 +68,11 @@ export default {
   systemDisconnected: (state) => {
     return (
       state.systemStatus.network?.connectivity <= NmConnectivityState.PORTAL
+    );
+  },
+  onlyLocalNetworkConnectivity: (state) => {
+    return (
+      state.systemStatus.network?.connectivity === NmConnectivityState.LIMITED
     );
   },
   primaryConnectionIP: (state) => {
