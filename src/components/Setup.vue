@@ -15,6 +15,7 @@
             <span>{{ t("Connect your smartphone or laptop with me.") }}</span>
           </p>
           <p>{{ t("Wi-Fi name") }}: <b>glancr setup</b></p>
+          <QRCode content="WIFI:T:nopass;S:glancr setup;;" />
         </section>
         <hr />
       </template>
