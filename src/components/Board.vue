@@ -25,11 +25,13 @@
         <IconOffline />
       </template>
       <template slot="title">{{ t("Your glancr is offline.") }}</template>
-      <template slot="text">{{
-        t(
-          "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active."
-        )
-      }}</template>
+      <template slot="text"
+        >{{
+          t(
+            "mirr.OS is connected to your network, but cannot reach the internet. Please check your router if the internet connection is active."
+          )
+        }}
+      </template>
     </SystemErrorOverlay>
   </main>
 </template>
@@ -117,11 +119,18 @@ export default {
       };
 
       return (
-        this.activeBoard.relationships.widgetInstances.data.reduce(reducer, {}) ?? {}
+        this.activeBoard.relationships.widgetInstances.data.reduce(
+          reducer,
+          {}
+        ) ?? {}
       );
     },
     showConnectivityErrorMessage() {
-      return this.onlyLocalNetworkConnectivity && this.showErrorNotifications && !this.localNetworkModeEnabled
+      return (
+        this.onlyLocalNetworkConnectivity &&
+        this.showErrorNotifications &&
+        !this.localNetworkModeEnabled
+      );
     },
   },
   methods: {
