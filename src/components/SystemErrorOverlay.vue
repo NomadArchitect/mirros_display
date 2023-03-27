@@ -20,6 +20,7 @@ export default {
   border-top-right-radius: 0.625rem;
   position: absolute;
   bottom: 0;
+  left: 2.5%;
   color: black;
   display: flex;
   font-size: 2rem;

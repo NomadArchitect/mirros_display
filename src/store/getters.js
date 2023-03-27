@@ -22,8 +22,7 @@ export default {
 
   localNetworkModeEnabled: (state) => {
     return (
-      state.settings.network_localmode?.attributes?.value ===
-        "on" ?? false
+      state.settings.network_localmode?.attributes?.value === "on" ?? false
     );
   },
 
